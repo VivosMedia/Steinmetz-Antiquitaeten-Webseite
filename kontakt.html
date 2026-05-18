@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt – Steinmetz Antiquitäten Hamburg</title>
+  <meta name="description" content="Steinmetz Antiquitäten Hamburg – Uhlenhorster Weg 14, 22085 Hamburg. Telefon & WhatsApp: (0)172 450 23 87. Persönliche Beratung von Jon Steinmetz." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="steinmetz-kategorie.css" />
+  <style>
+    /* ─── Contact Page Specific ─────────────────────────────────────────── */
+    .contact-section {
+      padding: 90px 40px 110px;
+      background: var(--cream);
+    }
+
+    .contact-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── Left column: Visit ─────────────────────────────────────────────── */
+    .contact-visit h2,
+    .contact-reach h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+      font-weight: 500;
+      color: var(--brown);
+      line-height: 1.25;
+      margin-bottom: 32px;
+    }
+    .contact-visit h2 em,
+    .contact-reach h2 em {
+      font-style: italic;
+      color: var(--warm-grey);
+    }
+
+    .contact-address-block {
+      margin-bottom: 36px;
+    }
+    .contact-address-block p {
+      font-size: 1rem;
+      color: var(--text-body);
+      font-weight: 300;
+      line-height: 2;
+    }
+    .contact-address-block strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--brown);
+      margin-bottom: 6px;
+    }
+
+    .contact-hours {
+      margin-bottom: 36px;
+      padding: 24px 28px;
+      border-left: 2px solid var(--gold);
+      background: rgba(201, 168, 76, 0.06);
+    }
+    .contact-hours-title {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .contact-hours table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .contact-hours td {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text-body);
+      padding: 4px 0;
+      vertical-align: top;
+    }
+    .contact-hours td:first-child {
+      width: 120px;
+      color: var(--warm-grey);
+      font-weight: 400;
+    }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.4);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .map-link:hover {
+      color: var(--gold-light);
+      border-color: var(--gold-light);
+    }
+    .map-link svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* ── Right column: Reach ────────────────────────────────────────────── */
+    .contact-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 24px;
+      background: white;
+      border-top: 2px solid var(--gold);
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+    .contact-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(44, 24, 16, 0.12);
+    }
+
+    .contact-card-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-card-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .contact-card-icon.whatsapp { background: #1A3C2A; }
+    .contact-card-icon.instagram { background: #2A1A3C; }
+    .contact-card-icon.email-icon { background: #1A2A3C; }
+
+    .contact-card-text {
+      flex: 1;
+    }
+    .contact-card-label {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .contact-card-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--brown);
+      line-height: 1.3;
+    }
+    .contact-card-sub {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.75rem;
+      color: var(--warm-grey);
+      font-weight: 300;
+      margin-top: 2px;
+      display: block;
+    }
+
+    .contact-card-arrow {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.5;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .contact-card:hover .contact-card-arrow {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+
+    /* Divider between columns */
+    .contact-divider {
+      display: none;
+    }
+
+    /* ── Note box ───────────────────────────────────────────────────────── */
+    .contact-note {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 0 40px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .contact-note svg {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+      margin-top: 2px;
+    }
+    .contact-note p {
+      font-size: 0.84rem;
+      color: var(--warm-grey);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .contact-note p strong {
+      color: var(--brown);
+      font-weight: 700;
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 52px;
+      }
+      .contact-section { padding: 60px 24px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="steinmetz_landing.html" class="nav-logo">Steinmetz Antiquitäten<span>Hamburg · Antiquitäten</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="kommoden.html">Kommoden</a></li>
+      <li><a href="lampen.html">Lampen</a></li>
+      <li><a href="dekoration.html">Dekoration</a></li>
+      <li><a href="tische.html">Tische</a></li>
+      <li><a href="sitzmoebel.html">Sitzmöbel</a></li>
+      <li><a href="sekretaere.html">Sekretäre</a></li>
+      <li><a href="schraenke.html">Schränke</a></li>
+      <li><a href="angebote.html">Angebote</a></li>
+      <li><a href="kontakt.html" class="active nav-cta">Kontakt</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navToggle"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- Category hero -->
+  <section class="cat-hero" style="height: 38vh; min-height: 260px;">
+    <div class="cat-hero-bg" style="background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_6979.png'); background-position: center 40%;"></div>
+    <div class="cat-hero-overlay"></div>
+    <div class="cat-hero-content">
+      <span class="section-label">Steinmetz Antiquitäten · Hamburg</span>
+      <h1>Kontakt &amp; <em>Besuch</em></h1>
+    </div>
+  </section>
+
+  <div class="breadcrumb-bar"><div class="breadcrumb-bar-inner">
+    <a href="steinmetz_landing.html">Startseite</a><span class="breadcrumb-sep">›</span><span class="current">Kontakt</span>
+  </div></div>
+
+  <!-- Contact section -->
+  <section class="contact-section">
+    <div class="contact-inner">
+
+      <!-- LEFT: Visit us -->
+      <div class="contact-visit fade-up">
+        <span class="section-label">Besuchen Sie uns</span>
+        <h2>Unser Ausstellungsraum<br><em>in Hamburg</em></h2>
+
+        <div class="contact-address-block">
+          <strong>Steinmetz Antiquitäten</strong>
+          <p>
+            Uhlenhorster Weg 14<br>
+            22085 Hamburg<br>
+            Deutschland
+          </p>
+        </div>
+
+        <div class="contact-hours">
+          <span class="contact-hours-title">Öffnungszeiten</span>
+          <table>
+            <tr><td>Dienstag – Freitag</td><td>11:00 – 18:00 Uhr</td></tr>
+            <tr><td>Samstag</td><td>10:00 – 16:00 Uhr</td></tr>
+            <tr><td>Montag &amp; Sonntag</td><td>Geschlossen</td></tr>
+          </table>
+        </div>
+
+        <a href="https://www.google.com/maps/search/Uhlenhorster+Weg+14+22085+Hamburg" target="_blank" rel="noopener" class="map-link">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          In Google Maps öffnen
+        </a>
+      </div>
+
+      <!-- RIGHT: Contact options -->
+      <div class="contact-reach fade-up delay-1">
+        <span class="section-label">Kontaktieren Sie uns</span>
+        <h2>Persönlich &amp;<br><em>unkompliziert</em></h2>
+
+        <div class="contact-cards">
+
+          <!-- Phone -->
+          <a href="tel:+491724502387" class="contact-card">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.91 12 19.79 19.79 0 0 1 1.88 3.42 2 2 0 0 1 3.88 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+            </div>
+            <div class="contact-card-text">
+              <span class="contact-card-label">Telefon</span>
+              <span class="contact-card-value">(0)172 450 23 87</span>
+              <span class="contact-card-sub">Anruf – Di bis Sa während der Öffnungszeiten</span>
+            </div>
+            <svg class="contact-card-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+
+          <!-- WhatsApp -->
+          <a href="https://wa.me/491724502387" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-card-icon whatsapp">
+              <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div class="contact-card-text">
+              <span class="contact-card-label">WhatsApp</span>
+              <span class="contact-card-value">(0)172 450 23 87</span>
+              <span class="contact-card-sub">Nachricht schreiben – schnelle Antwort</span>
+            </div>
+            <svg class="contact-card-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:info@steinmetz-antiquitaeten.de" class="contact-card">
+            <div class="contact-card-icon email-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-card-text">
+              <span class="contact-card-label">E-Mail</span>
+              <span class="contact-card-value">info@steinmetz-antiquitaeten.de</span>
+              <span class="contact-card-sub">Anfragen, Ankauf, Bildanfragen</span>
+            </div>
+            <svg class="contact-card-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/jon_steinmetz_kunsthandel/" target="_blank" rel="noopener" class="contact-card">
+            <div class="contact-card-icon instagram">
+              <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </div>
+            <div class="contact-card-text">
+              <span class="contact-card-label">Instagram</span>
+              <span class="contact-card-value">@jon_steinmetz_kunsthandel</span>
+              <span class="contact-card-sub">Neue Stücke, Einblicke, Kuriositäten</span>
+            </div>
+            <svg class="contact-card-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+
+        </div>
+
+        <div class="contact-note" style="margin-top: 28px;">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p><strong>Ankauf:</strong> Haben Sie Antiquitäten zum Verkauf? Jon Steinmetz schaut sich Ihr Stück gerne persönlich an. Schicken Sie einfach ein paar Fotos per WhatsApp oder E-Mail.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="cta-banner-inner fade-up">
+      <span class="cta-banner-eyebrow">Wir freuen uns auf Sie</span>
+      <h2>Kommen Sie vorbei –<br><em>persönliche Beratung inklusive.</em></h2>
+      <a href="https://wa.me/491724502387" target="_blank" rel="noopener" class="btn-gold-lg">Per WhatsApp anfragen</a>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="logo-text">Steinmetz Antiquitäten</div><span class="logo-sub">Hamburg</span><p>Hamburgs feinste Antiquitäten – persönlich kuratiert, seit über 30 Jahren.</p></div>
+      <div class="footer-col">
+        <h4>Adresse</h4>
+        <address>
+          Uhlenhorster Weg 14<br>
+          22085 Hamburg<br>
+          Deutschland
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Öffnungszeiten</h4>
+        <p>Di – Fr: 11:00 – 18:00 Uhr<br>Sa: 10:00 – 16:00 Uhr<br>Mo &amp; So: Geschlossen<br><br>Tel: (0)172 450 23 87</p>
+      </div>
+      <div class="footer-col"><h4>Kategorien</h4>
+        <a href="kommoden.html">Kommoden</a><a href="lampen.html">Lampen</a><a href="dekoration.html">Dekoration</a>
+        <a href="tische.html">Tische</a><a href="sitzmoebel.html">Sitzmöbel</a><a href="sekretaere.html">Sekretäre</a>
+        <a href="schraenke.html">Schränke</a><a href="angebote.html">Angebote</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Steinmetz Antiquitäten Hamburg.</p>
+      <div class="footer-bottom-links"><a href="https://www.steinmetz-antiquitaeten.de/impressum/">Impressum</a><a href="kontakt.html">Kontakt</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    setTimeout(() => document.querySelector('.cat-hero-bg').classList.add('loaded'), 100);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

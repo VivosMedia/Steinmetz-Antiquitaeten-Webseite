@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Steinmetz Antiquitäten Hamburg – Biedermeiermöbel & Antiquitäten</title>
+  <meta name="description" content="Hamburgs feinste Antiquitäten – Biedermeiermöbel, Lampen, Kommoden & mehr. Persönlich kuratiert von Jon Steinmetz seit über 30 Jahren." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #F5F0E8;
+      --cream-dark: #EDE5D6;
+      --brown:      #2C1810;
+      --brown-deep: #1A0F08;
+      --gold:       #C9A84C;
+      --gold-light: #DFC06A;
+      --gold-pale:  #F0DFA0;
+      --warm-grey:  #8B7355;
+      --warm-grey2: #6B5240;
+      --text-body:  #3D2B1F;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background-color: var(--cream);
+      color: var(--text-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Grain Overlay ─────────────────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ─── Scroll Animations ─────────────────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up.delay-1 { transition-delay: 0.15s; }
+    .fade-up.delay-2 { transition-delay: 0.30s; }
+    .fade-up.delay-3 { transition-delay: 0.45s; }
+    .fade-up.delay-4 { transition-delay: 0.60s; }
+
+    /* ─── Ornamental Divider ────────────────────────────────────────────── */
+    .ornament {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .ornament::before,
+    .ornament::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+    .ornament svg {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      fill: var(--gold);
+      opacity: 0.8;
+    }
+    .ornament-center {
+      justify-content: center;
+    }
+    .ornament-center::before,
+    .ornament-center::after {
+      max-width: 80px;
+    }
+
+    /* ─── Section Label ─────────────────────────────────────────────────── */
+    .section-label {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    /* ─── NAVBAR ────────────────────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 22px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(26, 15, 8, 0.97);
+      padding: 14px 40px;
+      box-shadow: 0 2px 30px rgba(0,0,0,0.35);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--cream);
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+    }
+    .nav-logo span {
+      display: block;
+      font-size: 0.55rem;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.82);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown) !important;
+      background: var(--gold);
+      padding: 9px 22px;
+      transition: background 0.2s, color 0.2s !important;
+    }
+    .nav-cta:hover {
+      background: var(--gold-light) !important;
+      color: var(--brown) !important;
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--cream);
+      transition: transform 0.3s;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────────────────── */
+
+    /* AI IMAGE PROMPT: "Antique Biedermeier furniture showroom, warm morning light, elegant interior, Hamburg Germany, editorial photography style, rich wood tones, soft bokeh, 16:9" */
+
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/P1040460.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(26, 15, 8, 0.2) 0%,
+        rgba(26, 15, 8, 0.55) 50%,
+        rgba(26, 15, 8, 0.75) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      padding: 0 24px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeSlideUp 1s ease 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 500;
+      line-height: 1.18;
+      color: var(--cream);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeSlideUp 1s ease 0.55s forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-pale);
+    }
+
+    .hero-subtitle {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2.2vw, 1.18rem);
+      color: rgba(245, 240, 232, 0.82);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: fadeSlideUp 1s ease 0.8s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeSlideUp 1s ease 1.05s forwards;
+    }
+
+    .btn-primary {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brown);
+      background: var(--gold);
+      border: 2px solid var(--gold);
+      padding: 15px 34px;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      font-family: 'Lato', sans-serif;
+      font-weight: 400;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: transparent;
+      border: 1px solid rgba(245, 240, 232, 0.5);
+      padding: 15px 34px;
+      cursor: pointer;
+      transition: border-color 0.25s, color 0.25s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeSlideUp 1s ease 1.5s forwards;
+    }
+    .hero-scroll-hint span {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.5);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(201, 168, 76, 0.8), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.5; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.15); }
+    }
+
+    /* ─── TRUST STRIP ───────────────────────────────────────────────────── */
+    #trust {
+      background: var(--brown);
+      padding: 32px 40px;
+      position: relative;
+    }
+    #trust::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    #trust::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+
+    .trust-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 44px;
+      flex: 1;
+      justify-content: center;
+    }
+    .trust-item:not(:last-child) {
+      border-right: 1px solid rgba(201, 168, 76, 0.25);
+    }
+
+    .trust-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      color: var(--gold);
+    }
+
+    .trust-text strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--cream);
+      line-height: 1.3;
+    }
+    .trust-text small {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      color: rgba(201, 168, 76, 0.7);
+      text-transform: uppercase;
+    }
+
+    /* ─── ABOUT SECTION ─────────────────────────────────────────────────── */
+    #about {
+      background: var(--cream);
+      padding: 100px 40px;
+    }
+
+    .about-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image-wrap::before {
+      content: '';
+      position: absolute;
+      top: -16px;
+      left: -16px;
+      right: 16px;
+      bottom: 16px;
+      border: 1px solid var(--gold);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .about-image-wrap img {
+      width: 100%;
+      height: 520px;
+      object-fit: cover;
+      display: block;
+      filter: sepia(8%) saturate(90%);
+    }
+
+    .about-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 500;
+      color: var(--brown);
+      line-height: 1.25;
+      margin-bottom: 28px;
+    }
+    .about-text h2 em {
+      font-style: italic;
+      color: var(--warm-grey);
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text-body);
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .about-signature {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(139, 115, 85, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .about-signature-line {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--warm-grey);
+      line-height: 1.2;
+    }
+    .about-signature-sub {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+      margin-top: 4px;
+    }
+
+    /* ─── GALLERY SECTION ───────────────────────────────────────────────── */
+    #galerie {
+      background: var(--cream-dark);
+      padding: 100px 40px;
+    }
+
+    .gallery-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 60px;
+    }
+    .gallery-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      font-weight: 500;
+      color: var(--brown);
+      line-height: 1.25;
+    }
+    .gallery-header p {
+      margin-top: 16px;
+      font-size: 0.95rem;
+      color: var(--warm-grey);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      cursor: pointer;
+      display: block;
+    }
+
+    .gallery-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .gallery-card:hover .gallery-card-bg {
+      transform: scale(1.07);
+    }
+
+    .gallery-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(26, 15, 8, 0.88) 0%,
+        rgba(26, 15, 8, 0.2) 50%,
+        rgba(26, 15, 8, 0) 100%
+      );
+      transition: background 0.4s ease;
+    }
+    .gallery-card:hover .gallery-card-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(26, 15, 8, 0.92) 0%,
+        rgba(26, 15, 8, 0.55) 60%,
+        rgba(26, 15, 8, 0.3) 100%
+      );
+    }
+
+    .gallery-card-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px 22px;
+    }
+
+    .gallery-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--cream);
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .gallery-card:hover .gallery-card-name {
+      transform: translateY(-6px);
+    }
+
+    .gallery-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 8px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s;
+    }
+    .gallery-card-cta svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      transition: transform 0.25s ease;
+    }
+    .gallery-card:hover .gallery-card-cta {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .gallery-card:hover .gallery-card-cta svg {
+      transform: translateX(4px);
+    }
+
+    /* Category card placeholder colors */
+    .card-kommoden  .gallery-card-bg { background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/08/IMG_8137.png'); }
+    .card-lampen    .gallery-card-bg { background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/11/IMG_0159.jpeg'); }
+    .card-deko      .gallery-card-bg { background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/10/IMG_8996-2.jpeg'); }
+    .card-tische    .gallery-card-bg { background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/03/IMG_6228-1.jpeg'); }
+    .card-sitzm     .gallery-card-bg { background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_6847.jpeg'); }
+    .card-sekretare .gallery-card-bg { background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/01/IMG_5361-1.jpeg'); }
+    .card-schraenke .gallery-card-bg { background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/10/IMG_8755.png'); }
+    .card-angebote  .gallery-card-bg { background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/10/718A77A0-7DFD-4C93-9C13-B99A05C80160.png'); }
+
+    .card-angebote .gallery-card-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(44, 24, 16, 0.94) 0%,
+        rgba(201, 168, 76, 0.18) 60%,
+        rgba(201, 168, 76, 0.08) 100%
+      );
+    }
+    .card-angebote::after {
+      content: 'ANGEBOTE';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--brown);
+      background: var(--gold);
+      padding: 5px 10px;
+      z-index: 2;
+    }
+
+    /* ─── CTA BANNER ────────────────────────────────────────────────────── */
+    #cta-banner {
+      background: var(--brown);
+      padding: 90px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-banner-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .cta-banner-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    #cta-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 500;
+      color: var(--cream);
+      line-height: 1.28;
+      margin-bottom: 36px;
+    }
+    #cta-banner h2 em {
+      font-style: italic;
+      color: var(--gold-pale);
+    }
+
+    .btn-gold-lg {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--brown);
+      background: var(--gold);
+      border: 2px solid var(--gold);
+      padding: 17px 48px;
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.25s, color 0.25s, transform 0.2s, box-shadow 0.25s;
+    }
+    .btn-gold-lg:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(201, 168, 76, 0.3);
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────────────── */
+    #footer {
+      background: var(--brown-deep);
+      padding: 70px 40px 40px;
+      position: relative;
+    }
+    #footer::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0.5;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 52px;
+      border-bottom: 1px solid rgba(139, 115, 85, 0.2);
+    }
+
+    .footer-brand .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--cream);
+      line-height: 1.3;
+    }
+    .footer-brand .logo-sub {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 4px;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: rgba(245, 240, 232, 0.5);
+      line-height: 1.75;
+      font-weight: 300;
+      max-width: 220px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .footer-col p,
+    .footer-col address {
+      font-style: normal;
+      font-size: 0.88rem;
+      color: rgba(245, 240, 232, 0.6);
+      line-height: 1.85;
+      font-weight: 300;
+    }
+    .footer-col a {
+      color: rgba(245, 240, 232, 0.55);
+      font-size: 0.88rem;
+      font-weight: 300;
+      display: block;
+      line-height: 2;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      max-width: 1120px;
+      margin: 32px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: rgba(245, 240, 232, 0.3);
+      letter-spacing: 0.04em;
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-bottom-links a {
+      font-size: 0.75rem;
+      color: rgba(245, 240, 232, 0.35);
+      transition: color 0.2s;
+    }
+    .footer-bottom-links a:hover { color: var(--gold); }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .about-image-wrap img { height: 400px; }
+    }
+
+    @media (max-width: 768px) {
+      #navbar { padding: 18px 24px; }
+      #navbar.scrolled { padding: 12px 24px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(26, 15, 8, 0.98);
+        padding: 24px;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .nav-hamburger { display: flex; }
+
+      .trust-inner { flex-direction: column; gap: 28px; }
+      .trust-item { border-right: none !important; padding: 0; }
+
+      .about-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-image-wrap { display: none; }
+
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+      #about, #galerie, #cta-banner { padding: 72px 24px; }
+      #trust { padding: 32px 24px; }
+
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
+      #footer { padding: 52px 24px 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ NAVBAR ═══════════════════════════════════════════════════════════ -->
+  <nav id="navbar" aria-label="Hauptnavigation">
+    <div class="nav-logo">
+      Steinmetz Antiquitäten
+      <span>Hamburg · Seit den 1990er Jahren</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="kommoden.html">Kommoden</a></li>
+      <li><a href="lampen.html">Lampen</a></li>
+      <li><a href="dekoration.html">Dekoration</a></li>
+      <li><a href="tische.html">Tische</a></li>
+      <li><a href="sitzmoebel.html">Sitzmöbel</a></li>
+      <li><a href="sekretaere.html">Sekretäre</a></li>
+      <li><a href="schraenke.html">Schränke</a></li>
+      <li><a href="angebote.html">Angebote</a></li>
+      <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+    </ul>
+    <button class="nav-hamburger" id="navToggle" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ═══ HERO ═════════════════════════════════════════════════════════════ -->
+  <!-- AI IMAGE PROMPT: "Antique Biedermeier furniture showroom, warm morning light, elegant interior, Hamburg Germany, editorial photography style, rich wood tones, soft bokeh, 16:9" -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Hamburg · Seit den 1990er Jahren</p>
+      <h1 class="hero-title">
+        Hamburgs feinste Antiquitäten –<br>
+        <em>seit Jahrzehnten</em>
+      </h1>
+      <p class="hero-subtitle">
+        Biedermeiermöbel, Lampen, Kommoden &amp; mehr –<br>
+        persönlich kuratiert von Jon Steinmetz
+      </p>
+      <div class="hero-actions">
+        <a href="kontakt.html" class="btn-primary">
+          Jetzt Termin vereinbaren
+        </a>
+        <a href="#galerie" class="btn-secondary">
+          Kollektionen entdecken
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Mehr entdecken</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══ TRUST STRIP ═══════════════════════════════════════════════════════ -->
+  <section id="trust" aria-label="Vertrauenspunkte">
+    <div class="trust-inner">
+      <div class="trust-item fade-up">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <div class="trust-text">
+          <strong>Über 30 Jahre Erfahrung</strong>
+          <small>Expertise &amp; Leidenschaft</small>
+        </div>
+      </div>
+      <div class="trust-item fade-up delay-1">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <div class="trust-text">
+          <strong>Persönliche Beratung</strong>
+          <small>Individuell &amp; kompetent</small>
+        </div>
+      </div>
+      <div class="trust-item fade-up delay-2">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 11H3a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h14l4-4-4-3z"/>
+          <path d="M9 11V6a3 3 0 0 1 6 0v5"/>
+        </svg>
+        <div class="trust-text">
+          <strong>Ankauf &amp; Verkauf</strong>
+          <small>Faire Bewertung</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ════════════════════════════════════════════════════════════ -->
+  <section id="about" aria-label="Über uns">
+    <div class="about-inner">
+      <div class="about-image-wrap fade-up">
+        <img
+          src="https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/08/IMG_8137.png"
+          alt="Barock Kommode – Steinmetz Antiquitäten Hamburg"
+          loading="lazy"
+        />
+      </div>
+      <div class="about-text fade-up delay-1">
+        <span class="section-label">Über uns</span>
+        <div class="ornament ornament-center" style="justify-content: flex-start; margin-bottom: 20px;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+          </svg>
+        </div>
+        <h2>Eine Leidenschaft,<br><em>die Jahrzehnte trägt</em></h2>
+        <p>
+          Jon Steinmetz hat sich seit Jahrzehnten der Kunst verschrieben,
+          außergewöhnliche Antiquitäten aufzuspüren und ihnen ein neues Zuhause zu geben.
+          Im Herzen Hamburgs betreibt er ein Geschäft, das weniger ein Laden ist
+          als eine kuratierte Welt aus Biedermeier-Eleganz, historischem Handwerk
+          und zeitlosem Geschmack.
+        </p>
+        <p>
+          Jedes Stück hat eine Geschichte. Ob eine Kommode aus der Biedermeierzeit,
+          eine geschwungene Messinglampe oder ein handgefertigter Sekretär –
+          Jon Steinmetz wählt nur aus, was ihn selbst begeistert.
+          Diese persönliche Handschrift macht den Unterschied.
+        </p>
+        <p>
+          Bei Steinmetz Antiquitäten kaufen Sie nicht blind. Sie werden beraten,
+          begleitet und finden das Stück, das wirklich zu Ihnen passt.
+          Ankauf und Verkauf – immer fair, immer persönlich.
+        </p>
+        <div class="about-signature">
+          <div>
+            <div class="about-signature-line">Jon Steinmetz</div>
+            <div class="about-signature-sub">Inhaber · Antiquitätenhändler · Hamburg</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ GALLERY ══════════════════════════════════════════════════════════ -->
+  <section id="galerie" aria-label="Kategorien">
+    <div class="gallery-header fade-up">
+      <span class="section-label">Kollektionen</span>
+      <h2>Entdecken Sie unsere Auswahl</h2>
+      <p>Handverlesene Antiquitäten aus dem Biedermeier und darüber hinaus – jedes Stück ein Unikat.</p>
+    </div>
+
+    <div class="gallery-grid">
+
+      <!-- AI IMAGE PROMPT: "Antique Kommode Biedermeier style, studio photography, white background, warm light, professional product shot, 4:3" -->
+      <a href="kommoden.html" class="gallery-card card-kommoden fade-up">
+        <div class="gallery-card-bg"></div>
+        <div class="gallery-card-overlay"></div>
+        <div class="gallery-card-content">
+          <span class="gallery-card-name">Kommoden</span>
+          <span class="gallery-card-cta">
+            Entdecken
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- AI IMAGE PROMPT: "Antique Lampe Biedermeier style, studio photography, white background, warm light, professional product shot, 4:3" -->
+      <a href="lampen.html" class="gallery-card card-lampen fade-up delay-1">
+        <div class="gallery-card-bg"></div>
+        <div class="gallery-card-overlay"></div>
+        <div class="gallery-card-content">
+          <span class="gallery-card-name">Lampen</span>
+          <span class="gallery-card-cta">
+            Entdecken
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- AI IMAGE PROMPT: "Antique Dekoration Biedermeier style, studio photography, white background, warm light, professional product shot, 4:3" -->
+      <a href="dekoration.html" class="gallery-card card-deko fade-up delay-2">
+        <div class="gallery-card-bg"></div>
+        <div class="gallery-card-overlay"></div>
+        <div class="gallery-card-content">
+          <span class="gallery-card-name">Dekoration</span>
+          <span class="gallery-card-cta">
+            Entdecken
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- AI IMAGE PROMPT: "Antique Tisch Biedermeier style, studio photography, white background, warm light, professional product shot, 4:3" -->
+      <a href="tische.html" class="gallery-card card-tische fade-up delay-3">
+        <div class="gallery-card-bg"></div>
+        <div class="gallery-card-overlay"></div>
+        <div class="gallery-card-content">
+          <span class="gallery-card-name">Tische</span>
+          <span class="gallery-card-cta">
+            Entdecken
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- AI IMAGE PROMPT: "Antique Sitzmöbel Biedermeier style, studio photography, white background, warm light, professional product shot, 4:3" -->
+      <a href="sitzmoebel.html" class="gallery-card card-sitzm fade-up delay-1">
+        <div class="gallery-card-bg"></div>
+        <div class="gallery-card-overlay"></div>
+        <div class="gallery-card-content">
+          <span class="gallery-card-name">Sitzmöbel</span>
+          <span class="gallery-card-cta">
+            Entdecken
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- AI IMAGE PROMPT: "Antique Sekretär Biedermeier style, studio photography, white background, warm light, professional product shot, 4:3" -->
+      <a href="sekretaere.html" class="gallery-card card-sekretare fade-up delay-2">
+        <div class="gallery-card-bg"></div>
+        <div class="gallery-card-overlay"></div>
+        <div class="gallery-card-content">
+          <span class="gallery-card-name">Sekretäre</span>
+          <span class="gallery-card-cta">
+            Entdecken
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- AI IMAGE PROMPT: "Antique Schrank Biedermeier style, studio photography, white background, warm light, professional product shot, 4:3" -->
+      <a href="schraenke.html" class="gallery-card card-schraenke fade-up delay-3">
+        <div class="gallery-card-bg"></div>
+        <div class="gallery-card-overlay"></div>
+        <div class="gallery-card-content">
+          <span class="gallery-card-name">Schränke</span>
+          <span class="gallery-card-cta">
+            Entdecken
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+      <!-- AI IMAGE PROMPT: "Antique furniture sale Biedermeier style, studio photography, white background, warm light, special offer tag, professional product shot, 4:3" -->
+      <a href="angebote.html" class="gallery-card card-angebote fade-up delay-4">
+        <div class="gallery-card-bg"></div>
+        <div class="gallery-card-overlay"></div>
+        <div class="gallery-card-content">
+          <span class="gallery-card-name">Angebote</span>
+          <span class="gallery-card-cta">
+            Entdecken
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═══ CTA BANNER ════════════════════════════════════════════════════════ -->
+  <section id="cta-banner" aria-label="Kontakt Aufforderung">
+    <div class="cta-banner-inner fade-up">
+      <span class="cta-banner-eyebrow">Persönliche Beratung</span>
+      <h2>
+        Sie suchen etwas Besonderes?<br>
+        <em>Wir helfen Ihnen persönlich.</em>
+      </h2>
+      <a href="kontakt.html" class="btn-gold-lg">
+        Jetzt anfragen
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════════════════ -->
+  <footer id="footer" aria-label="Fußzeile">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo-text">Steinmetz Antiquitäten</div>
+        <span class="logo-sub">Hamburg</span>
+        <p>Hamburgs feinste Antiquitäten – persönlich kuratiert, leidenschaftlich gesammelt, seit über 30 Jahren.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Adresse</h4>
+        <address>
+          Steinmetz Antiquitäten<br>
+          [Straße und Hausnummer]<br>
+          Hamburg, Deutschland
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Öffnungszeiten</h4>
+        <p>
+          Di – Fr: 11:00 – 18:00 Uhr<br>
+          Sa: 10:00 – 16:00 Uhr<br>
+          Mo &amp; So: Geschlossen<br>
+          <br>
+          Tel: [Telefonnummer]
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="kommoden.html">Kommoden</a>
+        <a href="lampen.html">Lampen</a>
+        <a href="dekoration.html">Dekoration</a>
+        <a href="tische.html">Tische</a>
+        <a href="sitzmoebel.html">Sitzmöbel</a>
+        <a href="sekretaere.html">Sekretäre</a>
+        <a href="schraenke.html">Schränke</a>
+        <a href="angebote.html">Angebote</a>
+        <a href="kontakt.html">Kontakt</a>
+        <a href="https://www.steinmetz-antiquitaeten.de/impressum/">Impressum</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Steinmetz Antiquitäten Hamburg. Alle Rechte vorbehalten.</p>
+      <div class="footer-bottom-links">
+        <a href="https://www.steinmetz-antiquitaeten.de/impressum/">Impressum</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══ JAVASCRIPT ════════════════════════════════════════════════════════ -->
+  <script>
+    /* Navbar scroll effect */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* Mobile nav toggle */
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    /* Hero background subtle Ken Burns */
+    const heroBg = document.getElementById('heroBg');
+    setTimeout(() => heroBg.classList.add('loaded'), 100);
+
+    /* Smooth scroll for anchor links */
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          navLinks.classList.remove('open');
+        }
+      });
+    });
+
+    /* Intersection Observer – fade-up animations */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
