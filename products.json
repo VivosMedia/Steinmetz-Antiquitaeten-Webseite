@@ -1,0 +1,798 @@
+{
+  "kommoden": [
+    {
+      "id": "462ed825",
+      "img": "Gemini Generated Image Wohnzimmer.png",
+      "name": "Barock Kommode",
+      "desc": "Ca. 1760"
+    },
+    {
+      "id": "e1999a9a",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_6676.jpeg",
+      "name": "Trommelschränkchen",
+      "desc": "Ebonisiert"
+    },
+    {
+      "id": "01d6265a",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_7033.png",
+      "name": "Große Kommode um 1810",
+      "desc": "Gustavianisch"
+    },
+    {
+      "id": "5810c02e",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/09/IMG_3683.png",
+      "name": "Klassiker Birke",
+      "desc": "Norddeutsch"
+    },
+    {
+      "id": "b1291f0e",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/02/IMG_0639.jpeg",
+      "name": "Kleine Kommode",
+      "desc": "Birke, Patina"
+    },
+    {
+      "id": "da4a353d",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/11/IMG_4881-1.jpeg",
+      "name": "Rokoko Kommode ca. 1780",
+      "desc": "Schöne Patina"
+    },
+    {
+      "id": "7525c1cc",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/06/8AA98183-9ABD-4543-A08E-C679EC50F4A7.jpeg",
+      "name": "Große Kommode",
+      "desc": "Eiche geschwärzt, ca. 1810"
+    },
+    {
+      "id": "83e9a045",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/11/6BC7CAA3-79D3-4DF3-A495-4E94B2BEF03B.jpeg",
+      "name": "Kommode",
+      "desc": "Frankreich, ca. 1810"
+    },
+    {
+      "id": "0fd9857e",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/07/956E1357-4826-466E-936E-D20E5058AB08.jpeg",
+      "name": "Paar Trommelschränke",
+      "desc": "Rarität – Esche"
+    },
+    {
+      "id": "dac6d3cf",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/11/8D3F0FD2-5828-413B-9A2E-7D95C5194114.jpeg",
+      "name": "Trommelschränkchen",
+      "desc": "Ebonisiert"
+    },
+    {
+      "id": "b0751ade",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/05/30F5C1C5-A11B-467A-AC0B-87F76FE18C7D.jpeg",
+      "name": "Empire Kommode",
+      "desc": "Ebonisiert"
+    },
+    {
+      "id": "3d6dc688",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/02/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5.jpeg",
+      "name": "Empire Kommode",
+      "desc": "Mahagoni, 80 cm Breite"
+    },
+    {
+      "id": "555845b7",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2019/10/CBD721E6-D1A1-4E35-9EC6-EC365C8C9402.jpeg",
+      "name": "Kleine Kommode Mahagoni",
+      "desc": "Klassizismus, um 1800"
+    },
+    {
+      "id": "f40345da",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2019/10/893A24CD-1378-4D28-8BA6-CF6D5417CFBA.jpeg",
+      "name": "Kommode Birke Klassiker",
+      "desc": "Originalzustand!"
+    },
+    {
+      "id": "3137a3fe",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2019/10/E3F05614-8C51-477F-BCD0-31ABC137CF58.jpeg",
+      "name": "Empire Kommode Ulme",
+      "desc": "Schöne Patina"
+    },
+    {
+      "id": "97716ffa",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2019/06/5A067AB1-1FF5-412D-8D43-BBA205601B56.jpeg",
+      "name": "Klassizistische Kommode",
+      "desc": "Breite 1,20 m"
+    },
+    {
+      "id": "58def19a",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2018/05/F5E83765-F83D-430E-B4C8-E06611AF45D9.jpeg",
+      "name": "Kommode Birke",
+      "desc": "Schöne Patina"
+    },
+    {
+      "id": "5a390aa7",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2018/04/6D5DEF03-AFBC-4229-88E5-EA8C8EFAD3CA.jpeg",
+      "name": "Kommode ca. 1830 Ulme",
+      "desc": "Schöne Patina"
+    }
+  ],
+  "lampen": [
+    {
+      "id": "9e2bcf88",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/11/IMG_0159.jpeg",
+      "name": "Palmenlampe",
+      "desc": "Metall mit Goldauflage"
+    },
+    {
+      "id": "d088022f",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/03/AF953ACC-C8D3-4B13-99FE-3D72DE9B7FD5.jpeg",
+      "name": "Deckenlampe",
+      "desc": "Bernstorff Palais"
+    },
+    {
+      "id": "5349c7f8",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/07/0CDF26CA-5402-4435-891C-868E518A8AD9.png",
+      "name": "Kristallüster",
+      "desc": "Empire, 19. Jahrhundert"
+    },
+    {
+      "id": "9cff6b21",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/07/495392AF-6AEC-4D0A-8658-C3C1FC725FF2.png",
+      "name": "Rokoko Lüster",
+      "desc": "8-flammig, ca. 1920"
+    },
+    {
+      "id": "a028b8f2",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/05/A210D0D7-7224-4BA9-A534-CBD7AD8C039D.jpeg",
+      "name": "Gustavianisch",
+      "desc": "Sehr dekorativ"
+    },
+    {
+      "id": "f7d40336",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/03/EB7369D7-6789-429E-A2E2-2CB3116454D1.png",
+      "name": "Prunklüster 19. Jahrhundert",
+      "desc": "Rarität"
+    },
+    {
+      "id": "636e032a",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2019/12/81BC368F-6056-4EDB-AC07-0A198C7C6A61.jpeg",
+      "name": "Palmenlampe vergoldet",
+      "desc": "Höhe 65 cm"
+    },
+    {
+      "id": "e13a757b",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/11/IMG_56062.jpg",
+      "name": "Große Kerzenampel",
+      "desc": "Später elektrifiziert"
+    },
+    {
+      "id": "d6955692",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/09/image5.jpeg",
+      "name": "Deckenkrone 8-flammig",
+      "desc": "Rokokoform, Schweden um 1920"
+    },
+    {
+      "id": "c5704cf6",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/02/image.jpg",
+      "name": "Deckenampel",
+      "desc": "Italienisch, 1-flammig, vergoldete Montur"
+    },
+    {
+      "id": "fb404131",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/01/3653904.jpeg",
+      "name": "Paar Kerzenampeln Wien",
+      "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"
+    },
+    {
+      "id": "7e53a6d9",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/image60.jpg",
+      "name": "Deckenkrone gustavianisch",
+      "desc": "4-flammig, Schweden, 19. Jahrhundert"
+    }
+  ],
+  "dekoration": [
+    {
+      "id": "00b35ebe",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/10/IMG_8996-2.jpeg",
+      "name": "Portraits",
+      "desc": "Feine Malerei, um 1900"
+    },
+    {
+      "id": "8f2d0065",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_6955-1.jpeg",
+      "name": "Portrait",
+      "desc": "Dänemark, um 1900"
+    },
+    {
+      "id": "14f80e56",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_0370.png",
+      "name": "Portrait",
+      "desc": "1929"
+    },
+    {
+      "id": "e5b0cf62",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/06/IMG_2375.jpeg",
+      "name": "19. Jahrhundert",
+      "desc": "Reichhaltig"
+    },
+    {
+      "id": "832f5215",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/06/IMG_2607-1.jpeg",
+      "name": "Portrait",
+      "desc": "Öl auf Leinwand, signiert"
+    },
+    {
+      "id": "8d253116",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/11/DA2679BE-E83D-4324-A856-C37739AEDB12.jpeg",
+      "name": "Spiegel ca. 1880",
+      "desc": "Originalzustand"
+    },
+    {
+      "id": "da44622e",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/07/E619A5C5-3EA0-4200-8EEA-F0634307F636.jpeg",
+      "name": "Gemälde",
+      "desc": "Öl auf Leinwand"
+    },
+    {
+      "id": "42f6afe0",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/02/87F2881F-A7AD-4787-B347-BAFCB1B0271E.jpeg",
+      "name": "Deko Silber",
+      "desc": "Pudel"
+    },
+    {
+      "id": "49369698",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/11/17CF9B8F-4C53-473F-A5BC-8CB5A3A0D796.jpeg",
+      "name": "Kerzenleuchter 70er",
+      "desc": "Verchromt, 4 Stück"
+    },
+    {
+      "id": "cc6d0ab7",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/03/9309D831-CC3B-43D3-9941-234897679BF6.jpeg",
+      "name": "Stehlampe Kögl",
+      "desc": "Höhe 1,30 m"
+    },
+    {
+      "id": "fac05c2a",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2018/05/414651C8-AB73-4855-8B8C-0703E69C431C.jpeg",
+      "name": "8 Weingläser",
+      "desc": "Barockform"
+    },
+    {
+      "id": "52820c50",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2017/12/EFB34067-2723-4C9B-A27E-119B9022FE68.jpeg",
+      "name": "Kerzenleuchter",
+      "desc": "Holmegaard"
+    },
+    {
+      "id": "9d71f80c",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2017/12/81343411-0801-444D-86CF-01B96CF49850.jpeg",
+      "name": "Tablett Metall",
+      "desc": "Chinoise, Schweden, 19. Jahrhundert"
+    },
+    {
+      "id": "c50af9e3",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2017/12/F0B2D9A3-28BB-4EDD-9B63-302136A606E8.jpeg",
+      "name": "Decoratives",
+      "desc": "Schöne Dinge bereichern das Leben …"
+    },
+    {
+      "id": "5c3cc1fd",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2017/11/A7E62A30-99AB-4EAA-8A54-CDC6189ACD2D.jpeg",
+      "name": "Truhe 19. Jahrhundert",
+      "desc": "Länge 75 cm · Breite 48 cm"
+    },
+    {
+      "id": "75c57b80",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/11/IMG_5348.jpg",
+      "name": "Modellauto Prämeta",
+      "desc": "MB 300, Sammlerstücke 50er Jahre"
+    },
+    {
+      "id": "4d5a92ad",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/10/IMG_5350.jpg",
+      "name": "Backgammon Frankreich",
+      "desc": "Mahagonikoffer, sehr schön"
+    },
+    {
+      "id": "8afdad06",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/09/image7.jpeg",
+      "name": "Großer Spiegel Empire",
+      "desc": "Feine Intarsien, feuervergoldete Rosetten, neues Glas"
+    },
+    {
+      "id": "0be725f9",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/08/image.jpeg",
+      "name": "Standuhr gustavianisch",
+      "desc": "Ca. 1840, sehr schön"
+    },
+    {
+      "id": "23a21e73",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/06/image4.jpeg",
+      "name": "Dekoratives",
+      "desc": "Paar französische Kerzenleuchter"
+    },
+    {
+      "id": "9ba42d62",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/05/image8.jpeg",
+      "name": "Kleine Kaminuhr feuervergoldet",
+      "desc": "Frankreich, ca. 1820"
+    },
+    {
+      "id": "26b3eb08",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/03/image17.jpg",
+      "name": "Paar Adelsportraits dat. 1767",
+      "desc": "80 × 60 cm"
+    },
+    {
+      "id": "4fb6ecae",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/12/image20.jpg",
+      "name": "Schiffsmodell ca. 1880",
+      "desc": "4-Mastsegelschiff Helene im Glashafen"
+    },
+    {
+      "id": "1788a036",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/12/image4.jpg",
+      "name": "Ölgemälde signiert CP 1728",
+      "desc": "Sehr feine Malerei, biblische Szene, 70 × 50 cm"
+    },
+    {
+      "id": "c31ba2bf",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/image82.jpg",
+      "name": "Bronze 19. Jahrhundert",
+      "desc": "Frankreich, auf Marmorsockel"
+    },
+    {
+      "id": "767a4143",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/image72.jpg",
+      "name": "Biedermeier Spiegel Kirschholz",
+      "desc": "Kleiner Spiegel, ca. 1820, Originalzustand"
+    },
+    {
+      "id": "a0b81e0e",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/IMG_3241.jpg",
+      "name": "Modellauto Jaguar XK 120",
+      "desc": "Fahrzeug zum Aufziehen, 50er Jahre"
+    },
+    {
+      "id": "a1de72ae",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/3589814-1.jpeg",
+      "name": "Skulptur",
+      "desc": "Große, dekorative Studie, 1,31 × 0,78 m"
+    },
+    {
+      "id": "d4c444aa",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/3589814.jpeg",
+      "name": "Portrait",
+      "desc": "Original um 1900, 84 × 54 cm"
+    },
+    {
+      "id": "a2071ed4",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/image11.jpg",
+      "name": "2 Vasen 19. Jahrhundert",
+      "desc": "Empireform, Bronze, sehr dekorativ"
+    }
+  ],
+  "tische": [
+    {
+      "id": "a642ced9",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/03/IMG_6228-1.jpeg",
+      "name": "Trommeltisch",
+      "desc": "Wurzelholz und ebonisiert"
+    },
+    {
+      "id": "a3d60030",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/09/IMG_3866.jpeg",
+      "name": "Konsole ca. 1810",
+      "desc": "Frankreich"
+    },
+    {
+      "id": "24f57439",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/08/IMG_3180.jpeg",
+      "name": "Konsoltisch",
+      "desc": "Frankreich, ca. 1860"
+    },
+    {
+      "id": "5605848e",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/11/IMG_4310.jpeg",
+      "name": "Sofatisch",
+      "desc": "Wurzelholz, 30er Jahre"
+    },
+    {
+      "id": "b65320a4",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/02/FB919E23-FD34-4D6C-902C-7093A4D28E79.jpeg",
+      "name": "Nuss unrestauriert",
+      "desc": "Ca. 1830"
+    },
+    {
+      "id": "a20fa805",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/02/9DC1339E-AD62-4BC1-AF99-873F16BE9083.jpeg",
+      "name": "Konsoltisch",
+      "desc": "90 × 45 cm"
+    },
+    {
+      "id": "cc07e2c4",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/12/AC7F9C9A-637C-43A6-AD3E-2EECC6A285DF.jpeg",
+      "name": "Empire Tisch Mahagoni",
+      "desc": "Frankreich, um 1810"
+    },
+    {
+      "id": "60b97852",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/04/FBA238EB-EDD4-4790-93AA-AEDC9ABEB36A.png",
+      "name": "Konsole Birke",
+      "desc": "Schellack poliert"
+    },
+    {
+      "id": "589f30ec",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/05/E9F86362-6B61-4716-A057-3B6B1847EBE4.jpeg",
+      "name": "Kleiner Schreibtisch",
+      "desc": "Birke, norddeutsch"
+    },
+    {
+      "id": "bc5a642c",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2018/10/E3CBA059-DDF9-4383-AC4E-BC602D374385.jpeg",
+      "name": "Tischchen Baltikum",
+      "desc": "Wurzelholz"
+    },
+    {
+      "id": "eff36946",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2017/12/20C3A92D-F524-4D05-9E79-E442E38493E5.jpeg",
+      "name": "Gustavianisch",
+      "desc": "Durchmesser 1,30 m"
+    },
+    {
+      "id": "f7ff8de9",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/01/image.jpg",
+      "name": "Beistelltisch",
+      "desc": "Birke, um 1840, auf Messingrollen"
+    },
+    {
+      "id": "ae4c3254",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/image38.jpg",
+      "name": "Großer Esstisch Wurzelholz",
+      "desc": "Baltikum, Ø 1,18 m ausziehbar, Wurzelmaser, poliert"
+    }
+  ],
+  "sitzmoebel": [
+    {
+      "id": "b60a1261",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_6847.jpeg",
+      "name": "Eames Lounge Chair",
+      "desc": "Kirsch, Vitra"
+    },
+    {
+      "id": "fd187645",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/03/IMG_6031-1.jpeg",
+      "name": "4 Stühle ca. 1835",
+      "desc": "Mahagoni, Rosshaar bezogen"
+    },
+    {
+      "id": "84589d9e",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/02/IMG_5758.jpeg",
+      "name": "4 Stühle Esche ca. 1820",
+      "desc": "Herrliche Patina"
+    },
+    {
+      "id": "bfcaf5c9",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/01/IMG_5303.png",
+      "name": "Sofa – Länge 2,35 m",
+      "desc": "Klassische Polsterung"
+    },
+    {
+      "id": "e17e789c",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/08/IMG_3179.jpeg",
+      "name": "Sofa Empireform",
+      "desc": "Länge 1,75 m"
+    },
+    {
+      "id": "981e166c",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/11/IMG_4623.jpeg",
+      "name": "Clubsessel",
+      "desc": "Tolle Patina, sehr bequem"
+    },
+    {
+      "id": "ef631eca",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/06/E45CD500-2923-4A88-B4A2-BE6F83A210E6.jpeg",
+      "name": "2 Clubsessel",
+      "desc": "Chesterfield, kleine Ausführung"
+    },
+    {
+      "id": "84cb9aa1",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/02/52310D7C-70C1-476D-ADDB-24B4EAD80FFD.jpeg",
+      "name": "Eames Lounge Chair",
+      "desc": "Black Edition"
+    },
+    {
+      "id": "8cf03c90",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/02/18EEFC2E-9E8C-44E5-982D-EDFB3961C11B.jpeg",
+      "name": "Paar Armlehnstühle",
+      "desc": "Empireform, top"
+    },
+    {
+      "id": "d6c5513d",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/12/33265EB1-F1A9-4E40-955F-53D4240909E2.jpeg",
+      "name": "Armlehnstuhl Birke",
+      "desc": "Ca. 1830"
+    },
+    {
+      "id": "040164ae",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/11/6D083E37-B042-4A39-BA63-4A87FA3837DD.png",
+      "name": "Eames Lounge Chair",
+      "desc": "Black Edition"
+    },
+    {
+      "id": "4eae8790",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/04/CCE1E739-6796-42C6-9807-FE44146956E1.jpeg",
+      "name": "Paar Armlehnstühle",
+      "desc": "Birke, Empireform"
+    },
+    {
+      "id": "572c144d",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/04/AC19E6D9-E0C7-40F9-A311-BB9890A4F8A3.jpeg",
+      "name": "Ohrensessel",
+      "desc": "Kirsch"
+    },
+    {
+      "id": "86f4a44a",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/02/14BE7972-D69A-45C8-B088-0F2967444160.jpeg",
+      "name": "Bergère",
+      "desc": "Birke"
+    },
+    {
+      "id": "95299f58",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/03/0B2BAE32-ECBC-4014-99F0-6FFA9C973942.jpeg",
+      "name": "Ohrensessel",
+      "desc": "Schmale Form"
+    },
+    {
+      "id": "0e594fae",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2019/06/11EA7849-3187-40D7-8BE0-FE2B9F0A999D.jpeg",
+      "name": "Lounge Chair Eames",
+      "desc": "Ausführung Miller USA"
+    },
+    {
+      "id": "f463d297",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/09/image.jpeg",
+      "name": "Kleiner Sessel, ca. 1840",
+      "desc": "Norddeutsch, schöne Patina"
+    },
+    {
+      "id": "cc8abcb5",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/04/image5.jpg",
+      "name": "Armlehnstühle bemalt",
+      "desc": "Ebonisiert, Sitzhöhe 50 cm"
+    },
+    {
+      "id": "465355e9",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/image37.jpg",
+      "name": "Ohrensessel Kirschholz",
+      "desc": "Schmal, norddeutsch, 19. Jahrhundert"
+    }
+  ],
+  "sekretaere": [
+    {
+      "id": "6bd738dc",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/01/IMG_5361-1.jpeg",
+      "name": "Sekretär Birke ca. 1830",
+      "desc": "Herrliche Patina"
+    },
+    {
+      "id": "de74951d",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/03/IMG_0983-1.jpeg",
+      "name": "Birke ca. 1820",
+      "desc": "Klassiker baltisch"
+    },
+    {
+      "id": "d39e422a",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/11/IMG_4743.jpeg",
+      "name": "Sekretär 19. Jahrhundert",
+      "desc": "Rarität – Ahorn, Schellack poliert"
+    },
+    {
+      "id": "49bcd7f3",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/07/1B2917B6-B1BC-4967-98EA-EEE1F3D90FD9.jpeg",
+      "name": "Sekretär schmal",
+      "desc": "Ebonisiert"
+    },
+    {
+      "id": "acd661a2",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/04/95480E9C-E5E2-4E40-B18D-B205B135006A.jpeg",
+      "name": "Zylinderbureau",
+      "desc": "Um 1810, klassizistisch"
+    },
+    {
+      "id": "106da7f9",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/04/27F79BFB-7771-49EF-A1BB-56E41A8EB0BB.jpeg",
+      "name": "Birke ca. 1820",
+      "desc": "Konisch"
+    },
+    {
+      "id": "f851e35c",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/02/50E0CEAA-B961-4E99-BC63-BEAC401EF2E4.jpeg",
+      "name": "Sekretär, wohl Frankreich",
+      "desc": "Sehr dekorativ"
+    },
+    {
+      "id": "b47e59b4",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/11/B4C2CB53-B47C-41C3-8E70-23A1736A898F.jpeg",
+      "name": "Sekretär gustavianisch",
+      "desc": "Schmal, 19. Jahrhundert"
+    },
+    {
+      "id": "23d572ff",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/05/5893DA7E-47DD-423F-9F-E2A914B3FC72.jpeg",
+      "name": "Barock ca. 1760",
+      "desc": "Ostholstein"
+    },
+    {
+      "id": "223606d8",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/01/image4.jpeg",
+      "name": "Sekretär, ca. 1830",
+      "desc": "Kiefer, bernsteinfarben"
+    },
+    {
+      "id": "0f8d91d2",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/06/image6.jpg",
+      "name": "Rarität!",
+      "desc": "Norddeutsch, um 1810, schöne Patina – Br. 1,15 m, H. 2,00 m"
+    },
+    {
+      "id": "485630c5",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/02/image8.jpg",
+      "name": "Empire Sekretär Ahorn",
+      "desc": "Feines Möbel auf Spitzbeinen, schmal"
+    }
+  ],
+  "schraenke": [
+    {
+      "id": "cf74d348",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/10/IMG_8755.png",
+      "name": "Salonvitrine Ahorn",
+      "desc": "Schinkelgiebel Berlin"
+    },
+    {
+      "id": "dde91c43",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_6979.png",
+      "name": "Barockschrank um 1790",
+      "desc": "Nussbaum auf Eichenholz"
+    },
+    {
+      "id": "b09c3b37",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/05/IMG_6956-1.jpeg",
+      "name": "Massiv Kirschholz",
+      "desc": "1,90 × 1,40 × 0,45 m"
+    },
+    {
+      "id": "8625e3a7",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/03/IMG_5997-1.jpeg",
+      "name": "Dielenschrank ca. 1825",
+      "desc": "Nussbaum, schöne Patina"
+    },
+    {
+      "id": "27525bf3",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2025/02/IMG_5857.jpeg",
+      "name": "Anrichte Birke ca. 1920",
+      "desc": "Salonmöbel im Biedermeierstil"
+    },
+    {
+      "id": "4170bbb8",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/09/IMG_3848.jpeg",
+      "name": "Hamburger Dielenschrank",
+      "desc": "Ca. 1820"
+    },
+    {
+      "id": "b6ed6098",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/06/IMG_2555.png",
+      "name": "Norddeutsch um 1810 Esche",
+      "desc": "Höhe 2,00 m"
+    },
+    {
+      "id": "36dafc24",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/03/IMG_0863.png",
+      "name": "Klassiker",
+      "desc": "Rheinland, Patina"
+    },
+    {
+      "id": "335bffb6",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/03/IMG_0952-1.jpeg",
+      "name": "Kirsche süddeutsch",
+      "desc": "Klassiker"
+    },
+    {
+      "id": "4e6ba69c",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/03/IMG_1046.jpeg",
+      "name": "Eckvitrine ca. 1820",
+      "desc": "Ahorn, Klassiker"
+    },
+    {
+      "id": "411230ad",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2024/02/IMG_0633.jpeg",
+      "name": "Schrank um 1780",
+      "desc": "Patina"
+    },
+    {
+      "id": "94304263",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2023/04/A55617A4-E947-4D51-A7D3-26840E6024CA.jpeg",
+      "name": "Eckvitrine Birke",
+      "desc": "Schöne Patina"
+    },
+    {
+      "id": "2ba6bade",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/11/3F95BD10-E9F0-4BD4-8120-CD71D6D5371F.png",
+      "name": "Eckvitrine",
+      "desc": "Ebonisiert"
+    },
+    {
+      "id": "5d414800",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/06/746C8D0E-8630-467A-B506-0FBF6305EABB.jpeg",
+      "name": "Dielenschrank Berlin um 1820",
+      "desc": "Birke, selten"
+    },
+    {
+      "id": "bee5d0a7",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/09/51C75604-3FD7-4B8C-81B0-3195C8DF276B.jpeg",
+      "name": "Barock",
+      "desc": "Norddeutsch, ca. 1780"
+    },
+    {
+      "id": "d683ad31",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2021/04/477BC037-042F-4ADD-B2A1-620EA721D698.jpeg",
+      "name": "Aufsatzvitrine Top",
+      "desc": "Mahagoni"
+    },
+    {
+      "id": "c1171225",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/05/131E5F74-4DBD-491B-AC5C-1C57F1A899FE.jpeg",
+      "name": "Dielenschrank Kiefer um 1800",
+      "desc": "Norddeutschland"
+    },
+    {
+      "id": "20a1dfb5",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2020/05/0AECD7D1-CE7F-4EDD-A6FC-EF277284BA75.jpeg",
+      "name": "Eckvitrine Norddeutschland",
+      "desc": "Barock"
+    },
+    {
+      "id": "e9e0aea5",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2019/06/59E6383E-F8E9-43BC-9C50-FED7771A000D.jpeg",
+      "name": "Eiche norddeutsch um 1780",
+      "desc": "Br. 1,80 m · H. 2,35 m"
+    },
+    {
+      "id": "93b111c5",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2018/12/3D82B358-9B78-4C64-A238-9F661FB1A9E3.jpeg",
+      "name": "Eckvitrine norddeutsch ca. 1825",
+      "desc": "Fadenintarsiert, H. 2,30 m"
+    },
+    {
+      "id": "c6a891be",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2018/04/33E127C1-9EF5-42CF-A21A-FD7B8BB181B0.jpeg",
+      "name": "Vitrinenschrank Mahagoni",
+      "desc": "Norddeutsch, um 1800"
+    },
+    {
+      "id": "fa7dd98e",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2016/10/IMG_0692.jpg",
+      "name": "Eckvitrine Berlin ca. 1820",
+      "desc": "Seltener Klassiker Schinkel"
+    },
+    {
+      "id": "f73267a4",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/03/image.jpg",
+      "name": "Schränkchen ca. 1830 Birke",
+      "desc": "Bernsteinfarben, 2 Schubladen, Br. 1,10 m"
+    },
+    {
+      "id": "dbd9a151",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2015/01/IMG_5397.jpg",
+      "name": "Kabinettschrank Rokoko",
+      "desc": "Wurzelholz furniert, H. 2,30 m · Br. 1,10 m"
+    },
+    {
+      "id": "2aac8be9",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2014/11/image23.jpg",
+      "name": "Aufsatzvitrine Kirsch",
+      "desc": "Biedermeier, Leipzig ca. 1810, Kirsche mit Ebonisierung"
+    }
+  ],
+  "angebote": [
+    {
+      "id": "da23ba51",
+      "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/10/718A77A0-7DFD-4C93-9C13-B99A05C80160.png",
+      "name": "Empirespiegel ca. 1820",
+      "desc": "Vergoldet"
+    }
+  ]
+}

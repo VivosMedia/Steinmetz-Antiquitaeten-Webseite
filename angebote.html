@@ -85,14 +85,7 @@
         <p><strong>Hinweis:</strong> Unsere Angebote wechseln regelmäßig. Rufen Sie uns an oder schreiben Sie uns, um aktuelle Verfügbarkeiten und Preise zu erfragen. Alle Stücke können persönlich besichtigt werden.</p>
       </div>
 
-      <div class="product-grid">
-
-        <article class="product-card fade-up" style="position:relative;">
-          <span class="product-card-badge">Angebot</span>
-          <div class="product-card-img"><div class="product-card-img-inner" style="background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/10/718A77A0-7DFD-4C93-9C13-B99A05C80160.png')"></div></div>
-          <div class="product-card-info"><h3 class="product-card-name">Empirespiegel ca. 1820</h3><p class="product-card-desc">Vergoldet</p></div>
-        </article>
-
+      <div class="product-grid" id="productGrid">
       </div>
     </div>
   </section>
@@ -131,6 +124,48 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+  <script>
+    /* ── dynamic product loader ── */
+    (function() {
+      const CAT      = "angebote";
+      const FALLBACK = [{"id": "da23ba51", "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/10/718A77A0-7DFD-4C93-9C13-B99A05C80160.png", "name": "Empirespiegel ca. 1820", "desc": "Vergoldet"}];
+
+      function esc(s) {
+        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      function render(items) {
+        const grid    = document.getElementById('productGrid');
+        const counter = document.querySelector('.product-count');
+        if (counter) counter.textContent = items.length + ' Objekte';
+        if (!items.length) {
+          grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
+          return;
+        }
+        grid.innerHTML = items.map(function(p, i) {
+          var d = ['','delay-1','delay-2'][i % 3];
+          return '<article class="product-card fade-up' + (d?' '+d:'') + '">'
+            + '<div class="product-card-img">'
+            + '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>'
+            + '</div>'
+            + '<div class="product-card-info">'
+            + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
+            + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
+            + '</div></article>';
+        }).join('');
+        var obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+        grid.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
+      }
+
+      fetch('./products.json?' + Date.now())
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(data) { render(Array.isArray(data[CAT]) ? data[CAT] : FALLBACK); })
+        .catch(function() { render(FALLBACK); });
+    })();
   </script>
 </body>
 </html>

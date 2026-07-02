@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verwaltung · Steinmetz Antiquitäten</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:      #F5F0E8;
+      --brown:      #2C1810;
+      --brown-deep: #1A0F08;
+      --brown-mid:  #3D2B1F;
+      --brown-panel:#251510;
+      --gold:       #C9A84C;
+      --gold-light: #DFC06A;
+      --warm-grey:  #8B7355;
+      --border:     rgba(201,168,76,0.18);
+      --border-hi:  rgba(201,168,76,0.45);
+      --red-dark:   #6B0E12;
+      --red-light:  #ff9090;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--brown-deep);
+      color: var(--cream);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ─── GATE ──────────────────────────────────────────── */
+    #gate {
+      position: fixed; inset: 0;
+      background: var(--brown-deep);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1000;
+    }
+    .gate-card {
+      width: 360px;
+      border: 1px solid var(--border);
+      padding: 52px 44px 44px;
+      text-align: center;
+      background: var(--brown-panel);
+      position: relative;
+    }
+    .gate-card::before {
+      content: '';
+      position: absolute; inset: 6px;
+      border: 1px solid rgba(201,168,76,0.07);
+      pointer-events: none;
+    }
+    .gate-wordmark {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--cream);
+      letter-spacing: 0.01em;
+      margin-bottom: 4px;
+    }
+    .gate-sub {
+      font-size: 0.62rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+      margin-bottom: 38px;
+    }
+    .gate-rule {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 32px;
+    }
+    .gate-rule::before, .gate-rule::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+    .gate-rule-lozenge {
+      width: 5px; height: 5px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .gate-input {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-bottom-color: rgba(201,168,76,0.3);
+      color: var(--cream);
+      padding: 13px 16px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.25s, background 0.25s;
+      margin-bottom: 14px;
+    }
+    .gate-input:focus {
+      border-color: var(--border-hi);
+      background: rgba(255,255,255,0.06);
+    }
+    .gate-input::placeholder { color: rgba(245,240,232,0.2); letter-spacing: 0.05em; }
+    .gate-btn {
+      width: 100%;
+      background: var(--gold);
+      border: none;
+      color: var(--brown-deep);
+      padding: 13px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .gate-btn:hover { background: var(--gold-light); }
+    .gate-error {
+      margin-top: 14px;
+      color: #e07070;
+      font-size: 0.78rem;
+      min-height: 1.2em;
+    }
+
+    /* ─── ADMIN SHELL ───────────────────────────────────── */
+    #app { display: flex; flex-direction: column; height: 100vh; }
+
+    /* Header */
+    .adm-header {
+      height: 56px;
+      background: var(--brown-panel);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 28px; gap: 20px;
+      flex-shrink: 0;
+    }
+    .adm-wordmark {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--cream);
+      flex: 1;
+    }
+    .adm-wordmark small {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+      margin-left: 10px;
+      font-style: normal;
+    }
+    .hdr-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--warm-grey);
+      padding: 6px 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .hdr-btn:hover { border-color: var(--border-hi); color: var(--gold); }
+    .hdr-btn-gold {
+      background: var(--gold);
+      border: none;
+      color: var(--brown-deep);
+      padding: 7px 18px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .hdr-btn-gold:hover { background: var(--gold-light); }
+    .hdr-btn-gold:disabled { opacity: 0.35; cursor: default; }
+    .hdr-btn-dl {
+      background: transparent;
+      border: 1px solid var(--border-hi);
+      color: var(--gold);
+      padding: 6px 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .hdr-btn-dl:hover { background: rgba(201,168,76,0.1); }
+
+    /* Body layout */
+    .adm-body { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar */
+    .adm-sidebar {
+      width: 192px;
+      background: var(--brown);
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      flex-shrink: 0; overflow-y: auto;
+      padding-top: 8px;
+    }
+    .sidebar-section-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+      padding: 16px 18px 8px;
+    }
+    .cat-tab {
+      background: transparent;
+      border: none;
+      border-left: 2px solid transparent;
+      color: rgba(245,240,232,0.45);
+      text-align: left;
+      padding: 10px 18px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.83rem;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s, border-color 0.15s;
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%;
+    }
+    .cat-tab:hover { color: var(--cream); background: rgba(255,255,255,0.03); }
+    .cat-tab.active {
+      color: var(--gold);
+      border-left-color: var(--gold);
+      background: rgba(201,168,76,0.06);
+      padding-left: 16px;
+    }
+    .cat-badge {
+      background: rgba(201,168,76,0.12);
+      color: var(--gold);
+      font-size: 0.6rem;
+      padding: 2px 7px;
+      border-radius: 10px;
+      min-width: 22px;
+      text-align: center;
+    }
+    .sidebar-divider {
+      margin: 8px 18px;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar-logout {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      padding: 12px 18px;
+    }
+    .btn-logout {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--warm-grey);
+      padding: 7px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-logout:hover { border-color: var(--border-hi); color: var(--cream); }
+
+    /* Main */
+    .adm-main {
+      flex: 1; overflow-y: auto;
+      padding: 28px 32px;
+    }
+
+    /* Category header */
+    .cat-header {
+      display: flex; align-items: baseline; gap: 14px;
+      margin-bottom: 24px; padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cat-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: var(--cream);
+    }
+    .cat-count-label {
+      font-size: 0.72rem;
+      color: var(--warm-grey);
+      letter-spacing: 0.08em;
+    }
+
+    /* Add-product form */
+    .add-panel {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      padding: 20px 22px;
+      margin-bottom: 28px;
+    }
+    .add-panel-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .add-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .f-input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      color: var(--cream);
+      padding: 9px 13px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.83rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      width: 100%;
+    }
+    .f-input:focus { border-color: var(--border-hi); background: rgba(255,255,255,0.06); }
+    .f-input::placeholder { color: rgba(245,240,232,0.2); }
+    .add-actions {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .img-thumb {
+      width: 52px; height: 52px; flex-shrink: 0;
+      border: 1px dashed rgba(201,168,76,0.25);
+      background-size: cover; background-position: center;
+      background-color: rgba(255,255,255,0.03);
+      transition: border-color 0.2s;
+    }
+    .img-thumb.has-img { border-style: solid; border-color: var(--border-hi); }
+    .btn-add {
+      background: var(--gold);
+      border: none;
+      color: var(--brown-deep);
+      padding: 10px 22px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .btn-add:hover { background: var(--gold-light); }
+    .add-err { color: #e07070; font-size: 0.75rem; }
+
+    /* Product grid */
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      gap: 10px;
+    }
+    .prod-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .prod-card:hover { border-color: var(--border-hi); transform: translateY(-1px); }
+    .prod-img {
+      height: 130px;
+      background-size: cover; background-position: center;
+      background-color: rgba(255,255,255,0.03);
+    }
+    .prod-info { padding: 11px 12px; }
+    .prod-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.85rem; color: var(--cream);
+      margin-bottom: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .prod-desc {
+      font-size: 0.72rem; color: var(--warm-grey);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .del-btn {
+      position: absolute; top: 7px; right: 7px;
+      width: 26px; height: 26px;
+      background: rgba(107,14,18,0.88);
+      border: 1px solid rgba(255,100,100,0.28);
+      color: var(--red-light);
+      cursor: pointer; font-size: 13px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s, background 0.15s;
+    }
+    .prod-card:hover .del-btn { opacity: 1; }
+    .del-btn:hover { background: var(--red-dark); border-color: #ff5555; color: #fff; }
+
+    .empty-state {
+      border: 1px dashed var(--border);
+      padding: 56px 24px;
+      text-align: center;
+      color: var(--warm-grey);
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    /* Status bar */
+    .adm-statusbar {
+      height: 34px;
+      background: var(--brown-panel);
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 28px; gap: 18px;
+      flex-shrink: 0;
+    }
+    .status-indicator {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4a7;
+      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .status-indicator.warn { background: #ca8; }
+    .status-indicator.error { background: #c55; }
+    .status-msg { font-size: 0.7rem; color: var(--warm-grey); flex: 1; }
+    .status-unsaved {
+      font-size: 0.7rem;
+      color: var(--gold);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .status-unsaved.visible { opacity: 1; }
+
+    /* Modal */
+    .modal-bg {
+      position: fixed; inset: 0;
+      background: rgba(26,15,8,0.85);
+      z-index: 800;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .modal {
+      background: var(--brown-panel);
+      border: 1px solid var(--border);
+      padding: 36px 40px;
+      max-width: 500px; width: 90%;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; margin-bottom: 10px;
+    }
+    .modal-body {
+      font-size: 0.82rem; color: var(--warm-grey);
+      line-height: 1.8; margin-bottom: 20px;
+    }
+    .modal-body code {
+      font-family: monospace;
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      color: var(--gold);
+      font-size: 0.85em;
+    }
+    .modal-body a { color: var(--gold); }
+    .modal-row { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; }
+    .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 44px; right: 28px;
+      background: var(--brown-mid);
+      border: 1px solid var(--border);
+      padding: 12px 18px;
+      font-size: 0.8rem; color: var(--cream);
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 2000; max-width: 300px;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.ok  { border-left: 3px solid #4a7; }
+    .toast.err { border-left: 3px solid #c55; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ PASSWORD GATE ══════════════════════════════════════════════════ -->
+<div id="gate">
+  <div class="gate-card">
+    <div class="gate-wordmark">Steinmetz Antiquitäten</div>
+    <div class="gate-sub">Verwaltungsbereich</div>
+    <div class="gate-rule"><span class="gate-rule-lozenge"></span></div>
+    <form id="loginForm">
+      <input type="password" id="pwInput" class="gate-input"
+             placeholder="Passwort" autocomplete="current-password">
+      <button type="submit" class="gate-btn">Einloggen</button>
+      <div class="gate-error" id="loginErr"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ═══ ADMIN APP ═══════════════════════════════════════════════════════ -->
+<div id="app" style="display:none;">
+
+  <!-- Header -->
+  <header class="adm-header">
+    <div class="adm-wordmark">
+      Steinmetz Antiquitäten
+      <small>Produktverwaltung</small>
+    </div>
+    <button class="hdr-btn-dl" id="btnDownload" title="Aktualisierte products.json herunterladen">
+      ↓ Herunterladen
+    </button>
+    <button class="hdr-btn" id="btnGhSettings">GitHub-Token</button>
+    <button class="hdr-btn-gold" id="btnPublish" disabled>Veröffentlichen</button>
+  </header>
+
+  <!-- Body -->
+  <div class="adm-body">
+
+    <!-- Sidebar -->
+    <nav class="adm-sidebar">
+      <div class="sidebar-section-label">Kategorien</div>
+      <button class="cat-tab active" data-cat="kommoden">Kommoden <span class="cat-badge" id="cnt-kommoden">0</span></button>
+      <button class="cat-tab" data-cat="lampen">Lampen <span class="cat-badge" id="cnt-lampen">0</span></button>
+      <button class="cat-tab" data-cat="dekoration">Dekoration <span class="cat-badge" id="cnt-dekoration">0</span></button>
+      <button class="cat-tab" data-cat="tische">Tische <span class="cat-badge" id="cnt-tische">0</span></button>
+      <button class="cat-tab" data-cat="sitzmoebel">Sitzmöbel <span class="cat-badge" id="cnt-sitzmoebel">0</span></button>
+      <button class="cat-tab" data-cat="sekretaere">Sekretäre <span class="cat-badge" id="cnt-sekretaere">0</span></button>
+      <button class="cat-tab" data-cat="schraenke">Schränke <span class="cat-badge" id="cnt-schraenke">0</span></button>
+      <hr class="sidebar-divider">
+      <button class="cat-tab" data-cat="angebote">Angebote <span class="cat-badge" id="cnt-angebote">0</span></button>
+      <div class="sidebar-logout">
+        <button class="btn-logout" id="btnLogout">Abmelden</button>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="adm-main">
+      <div class="cat-header">
+        <h2 class="cat-heading" id="catHeading">Kommoden</h2>
+        <span class="cat-count-label" id="catCountLabel">0 Objekte</span>
+      </div>
+
+      <!-- Add form -->
+      <div class="add-panel">
+        <div class="add-panel-label">Neues Produkt hinzufügen</div>
+        <div class="add-row">
+          <input class="f-input" id="newName" placeholder="Bezeichnung">
+          <input class="f-input" id="newDesc" placeholder="Beschreibung (optional)">
+          <input class="f-input" id="newImg"  placeholder="Bild-URL (https://…)">
+        </div>
+        <div class="add-actions">
+          <div class="img-thumb" id="imgThumb"></div>
+          <button class="btn-add" id="btnAdd">+ Hinzufügen</button>
+          <span class="add-err" id="addErr"></span>
+        </div>
+      </div>
+
+      <!-- Product grid -->
+      <div class="prod-grid" id="prodGrid"></div>
+    </main>
+  </div>
+
+  <!-- Status bar -->
+  <footer class="adm-statusbar">
+    <span class="status-indicator" id="statusDot"></span>
+    <span class="status-msg" id="statusMsg">Bereit</span>
+    <span class="status-unsaved" id="unsavedBadge">● Ungespeicherte Änderungen</span>
+  </footer>
+</div>
+
+<!-- ═══ GITHUB MODAL ════════════════════════════════════════════════════ -->
+<div class="modal-bg" id="ghModal" style="display:none;">
+  <div class="modal">
+    <div class="modal-title">GitHub Personal Access Token</div>
+    <div class="modal-body">
+      Mit einem Token können Änderungen direkt auf GitHub veröffentlicht werden,
+      ohne die Seite manuell zu aktualisieren.<br><br>
+      Token erstellen unter:
+      <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a><br>
+      Berechtigung benötigt: <code>contents: write</code><br>
+      Repository: <code>VivosMedia/Steinmetz-Antiquitaeten-Webseite</code>
+    </div>
+    <div class="modal-row">
+      <input class="f-input" id="ghTokenInput" type="password"
+             placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="flex:1;">
+    </div>
+    <div class="modal-actions">
+      <button class="hdr-btn" id="btnGhCancel">Abbrechen</button>
+      <button class="hdr-btn-gold" id="btnGhSave">Token speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ─── CONFIG ────────────────────────────────────────────────────────── */
+const REPO   = 'VivosMedia/Steinmetz-Antiquitaeten-Webseite';
+const BRANCH = 'master';
+const FILE   = 'products.json';
+
+const CAT_LABELS = {
+  kommoden:'Kommoden', lampen:'Lampen', dekoration:'Dekoration',
+  tische:'Tische', sitzmoebel:'Sitzmöbel', sekretaere:'Sekretäre',
+  schraenke:'Schränke', angebote:'Angebote'
+};
+
+/* ─── STATE ─────────────────────────────────────────────────────────── */
+let products    = {};
+let currentCat  = 'kommoden';
+let isDirty     = false;
+let ghToken     = localStorage.getItem('sa_gh_token') || '';
+let ghFileSha   = null;
+
+/* ─── PASSWORD ──────────────────────────────────────────────────────── */
+async function sha256(str) {
+  const buf  = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+/* Default-Passwort: Steinmetz
+   Ändern: Neues Passwort eingeben, Hash via Browser-Console berechnen:
+     sha256('NeuesPasswort').then(console.log)
+   Dann localStorage.setItem('sa_pw_hash', '<hash>') ausführen. */
+async function getStoredHash() {
+  return localStorage.getItem('sa_pw_hash') || await sha256('Steinmetz');
+}
+
+/* ─── BOOT ──────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('sa_auth') === '1') boot();
+
+  /* Login */
+  document.getElementById('loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const entered = await sha256(document.getElementById('pwInput').value);
+    if (entered === await getStoredHash()) {
+      sessionStorage.setItem('sa_auth', '1');
+      boot();
+    } else {
+      document.getElementById('loginErr').textContent = 'Falsches Passwort.';
+      document.getElementById('pwInput').value = '';
+    }
+  });
+
+  /* Category tabs */
+  document.querySelectorAll('.cat-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCat = btn.dataset.cat;
+      renderCat();
+    });
+  });
+
+  /* Image preview */
+  document.getElementById('newImg').addEventListener('input', e => {
+    const t = document.getElementById('imgThumb');
+    if (e.target.value) {
+      t.style.backgroundImage = `url('${e.target.value}')`;
+      t.classList.add('has-img');
+    } else {
+      t.style.backgroundImage = '';
+      t.classList.remove('has-img');
+    }
+  });
+
+  document.getElementById('btnAdd').addEventListener('click', addProduct);
+  document.getElementById('btnPublish').addEventListener('click', publish);
+  document.getElementById('btnDownload').addEventListener('click', downloadJSON);
+  document.getElementById('btnLogout').addEventListener('click', () => {
+    sessionStorage.removeItem('sa_auth');
+    location.reload();
+  });
+
+  /* GitHub modal */
+  document.getElementById('btnGhSettings').addEventListener('click', () => {
+    document.getElementById('ghTokenInput').value = ghToken;
+    document.getElementById('ghModal').style.display = 'flex';
+  });
+  document.getElementById('btnGhCancel').addEventListener('click', () =>
+    document.getElementById('ghModal').style.display = 'none');
+  document.getElementById('btnGhSave').addEventListener('click', () => {
+    ghToken = document.getElementById('ghTokenInput').value.trim();
+    localStorage.setItem('sa_gh_token', ghToken);
+    document.getElementById('ghModal').style.display = 'none';
+    updatePublishBtn();
+    toast('GitHub-Token gespeichert.', 'ok');
+  });
+});
+
+/* ─── BOOT SEQUENCE ─────────────────────────────────────────────────── */
+async function boot() {
+  document.getElementById('gate').style.display = 'none';
+  document.getElementById('app').style.display  = 'flex';
+  await loadProducts();
+}
+
+/* ─── LOAD ──────────────────────────────────────────────────────────── */
+async function loadProducts() {
+  setStatus('Lade Produktdaten …', 'warn');
+
+  /* 1 — Local draft (unsaved changes from this session) */
+  const draft = localStorage.getItem('sa_draft');
+  if (draft) {
+    products = JSON.parse(draft);
+    finishLoad(true);
+    setStatus('Lokaler Entwurf geladen (noch nicht veröffentlicht).', 'warn');
+    return;
+  }
+
+  /* 2 — Fetch from server */
+  try {
+    const r = await fetch('products.json?' + Date.now());
+    if (r.ok) {
+      products = await r.json();
+      finishLoad(false);
+      setStatus('Produktdaten erfolgreich geladen.', 'ok');
+      if (ghToken) fetchGhSha();
+      return;
+    }
+  } catch (_) {}
+
+  /* 3 — Empty fallback */
+  products = Object.fromEntries(Object.keys(CAT_LABELS).map(k=>[k,[]]));
+  finishLoad(false);
+  setStatus('Keine products.json gefunden – neue Datenbank wird angelegt.', 'warn');
+}
+
+function finishLoad(dirty) {
+  isDirty = dirty;
+  Object.keys(CAT_LABELS).forEach(updateBadge);
+  renderCat();
+  updatePublishBtn();
+}
+
+/* ─── RENDER ────────────────────────────────────────────────────────── */
+function renderCat() {
+  const label = CAT_LABELS[currentCat] || currentCat;
+  const items = products[currentCat] || [];
+  document.getElementById('catHeading').textContent    = label;
+  document.getElementById('catCountLabel').textContent = `${items.length} Objekte`;
+
+  const grid = document.getElementById('prodGrid');
+  if (!items.length) {
+    grid.innerHTML = '<div class="empty-state">Keine Produkte in dieser Kategorie.<br>Fügen Sie oben ein neues Produkt hinzu.</div>';
+    return;
+  }
+  grid.innerHTML = items.map((p, i) => `
+    <div class="prod-card">
+      <div class="prod-img" style="background-image:url('${esc(p.img)}')"></div>
+      <div class="prod-info">
+        <div class="prod-name" title="${esc(p.name)}">${esc(p.name)}</div>
+        <div class="prod-desc" title="${esc(p.desc)}">${esc(p.desc)}</div>
+      </div>
+      <button class="del-btn" onclick="delProduct(${i})" title="Löschen">×</button>
+    </div>`).join('');
+}
+
+function updateBadge(cat) {
+  const el = document.getElementById(`cnt-${cat}`);
+  if (el) el.textContent = (products[cat]||[]).length;
+}
+
+/* ─── ADD / DELETE ──────────────────────────────────────────────────── */
+function addProduct() {
+  const name = document.getElementById('newName').value.trim();
+  const desc = document.getElementById('newDesc').value.trim();
+  const img  = document.getElementById('newImg').value.trim();
+  const errEl = document.getElementById('addErr');
+  errEl.textContent = '';
+
+  if (!name) { errEl.textContent = 'Bezeichnung erforderlich.'; return; }
+  if (!img)  { errEl.textContent = 'Bild-URL erforderlich.'; return; }
+
+  if (!products[currentCat]) products[currentCat] = [];
+  products[currentCat].unshift({ id: uid(), img, name, desc });
+
+  ['newName','newDesc','newImg'].forEach(id => document.getElementById(id).value = '');
+  const t = document.getElementById('imgThumb');
+  t.style.backgroundImage = ''; t.classList.remove('has-img');
+
+  updateBadge(currentCat);
+  renderCat();
+  markDirty();
+  toast(`„${name}" hinzugefügt.`, 'ok');
+}
+
+function delProduct(i) {
+  const p = (products[currentCat]||[])[i];
+  if (!p) return;
+  if (!confirm(`„${p.name}" wirklich löschen?`)) return;
+  products[currentCat].splice(i, 1);
+  updateBadge(currentCat);
+  renderCat();
+  markDirty();
+  toast(`„${p.name}" gelöscht.`, 'ok');
+}
+
+/* ─── DIRTY STATE ───────────────────────────────────────────────────── */
+function markDirty() {
+  isDirty = true;
+  localStorage.setItem('sa_draft', JSON.stringify(products));
+  document.getElementById('unsavedBadge').classList.add('visible');
+  updatePublishBtn();
+}
+
+function clearDirty() {
+  isDirty = false;
+  localStorage.removeItem('sa_draft');
+  document.getElementById('unsavedBadge').classList.remove('visible');
+  updatePublishBtn();
+}
+
+function updatePublishBtn() {
+  const btn = document.getElementById('btnPublish');
+  btn.disabled = !isDirty || !ghToken;
+  btn.title = !ghToken ? 'GitHub-Token benötigt (Schaltfläche oben)' : '';
+}
+
+/* ─── DOWNLOAD ──────────────────────────────────────────────────────── */
+function downloadJSON() {
+  const blob = new Blob([JSON.stringify(products, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'products.json';
+  a.click();
+  toast('products.json heruntergeladen. Datei ersetzen und git push ausführen.', 'ok');
+}
+
+/* ─── PUBLISH VIA GITHUB API ────────────────────────────────────────── */
+async function fetchGhSha() {
+  if (!ghToken) return;
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}?ref=${BRANCH}`, {
+      headers: { 'Authorization': `Bearer ${ghToken}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if (r.ok) ghFileSha = (await r.json()).sha;
+  } catch (_) {}
+}
+
+async function publish() {
+  if (!ghToken) { document.getElementById('ghModal').style.display = 'flex'; return; }
+
+  const btn = document.getElementById('btnPublish');
+  btn.disabled = true;
+  btn.textContent = 'Wird veröffentlicht …';
+  setStatus('Veröffentliche auf GitHub …', 'warn');
+
+  try {
+    if (!ghFileSha) await fetchGhSha();
+    const json = JSON.stringify(products, null, 2);
+    const body = {
+      message: 'Produkte aktualisiert via Admin-Panel',
+      content: b64encode(json),
+      branch:  BRANCH,
+    };
+    if (ghFileSha) body.sha = ghFileSha;
+
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${ghToken}`,
+        'Content-Type':  'application/json',
+        'Accept':        'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (r.ok) {
+      ghFileSha = (await r.json()).content.sha;
+      clearDirty();
+      setStatus('Erfolgreich veröffentlicht! GitHub Pages aktualisiert sich in ~1 Minute.', 'ok');
+      toast('Erfolgreich veröffentlicht!', 'ok');
+    } else {
+      const e = await r.json();
+      throw new Error(e.message || `HTTP ${r.status}`);
+    }
+  } catch (e) {
+    setStatus(`Fehler: ${e.message}`, 'error');
+    toast(`Fehler: ${e.message}`, 'err');
+  } finally {
+    btn.textContent = 'Veröffentlichen';
+    updatePublishBtn();
+  }
+}
+
+/* ─── UTILS ─────────────────────────────────────────────────────────── */
+function uid() { return Math.random().toString(36).slice(2, 10); }
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function b64encode(str) { return btoa(unescape(encodeURIComponent(str))); }
+
+function setStatus(msg, type) {
+  document.getElementById('statusMsg').textContent = msg;
+  const dot = document.getElementById('statusDot');
+  dot.className = 'status-indicator' + (type==='warn'?' warn':type==='error'?' error':'');
+}
+
+let _toastTimer;
+function toast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className   = `toast ${type} show`;
+  clearTimeout(_toastTimer);
+  _toastTimer = setTimeout(() => el.classList.remove('show'), 3800);
+}
+</script>
+</body>
+</html>
