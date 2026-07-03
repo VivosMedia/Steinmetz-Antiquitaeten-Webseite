@@ -352,6 +352,32 @@ body::after {
   transform: scale(1.06);
 }
 
+.product-card-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(160deg, var(--cream-dark) 0%, var(--warm-grey) 140%);
+}
+.product-card-placeholder svg {
+  width: 30px;
+  height: 30px;
+  stroke: var(--gold);
+  opacity: 0.55;
+}
+.product-card-placeholder span {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brown);
+  opacity: 0.75;
+  text-align: center;
+  padding: 0 12px;
+}
+
 .product-card-info {
   padding: 16px 18px 20px;
   border-top: 2px solid var(--gold);

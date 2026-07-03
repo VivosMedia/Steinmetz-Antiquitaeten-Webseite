@@ -368,6 +368,13 @@
       height: 130px;
       background-size: cover; background-position: center;
       background-color: rgba(255,255,255,0.03);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .prod-img-missing {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
     }
     .prod-info { padding: 11px 12px; }
     .prod-name {
@@ -748,7 +755,7 @@ function renderCat() {
   }
   grid.innerHTML = items.map((p, i) => `
     <div class="prod-card">
-      <div class="prod-img" style="background-image:url('${esc(p.img)}')"></div>
+      <div class="prod-img" style="background-image:url('${esc(p.img)}')">${p.img ? '' : '<span class=\"prod-img-missing\">Kein Foto</span>'}</div>
       <div class="prod-info">
         <div class="prod-name" title="${esc(p.name)}">${esc(p.name)}</div>
         <div class="prod-desc" title="${esc(p.desc)}">${esc(p.desc)}</div>

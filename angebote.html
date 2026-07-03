@@ -50,11 +50,12 @@
   <meta property="og:url" content="https://steinmetz-antiquitaeten.de/angebote.html">
   <meta property="og:title" content="Antiquitäten Ausverkauf Hamburg – Alles reduziert | Steinmetz">
   <meta property="og:description" content="Ausverkauf bei Steinmetz Antiquitäten Hamburg: Biedermeiermöbel & antike Objekte zu stark reduzierten Preisen. Einmalige Gelegenheit – jetzt zugreifen!">
-  <meta property="og:image" content="https://steinmetz-antiquitaeten.de/Gemini%20Generated%20Image%20Wohnzimmer.png">
+  <meta property="og:image" content="https://steinmetz-antiquitaeten.de/Gemini%20Generated%20Image%20Wohnzimmer.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Antiquitäten Ausverkauf Hamburg – Alles reduziert | Steinmetz">
   <meta name="twitter:description" content="Ausverkauf bei Steinmetz Antiquitäten Hamburg: Biedermeiermöbel & antike Objekte zu stark reduzierten Preisen. Einmalige Gelegenheit – jetzt zugreifen!">
-  <meta name="twitter:image" content="https://steinmetz-antiquitaeten.de/Gemini%20Generated%20Image%20Wohnzimmer.png">
+  <meta name="twitter:image" content="https://steinmetz-antiquitaeten.de/Gemini%20Generated%20Image%20Wohnzimmer.jpg">
+  <link rel="preload" as="image" href="Gemini Generated Image Wohnzimmer.jpg">
 </head>
 <body>
 
@@ -74,7 +75,7 @@
   </nav>
 
   <section class="cat-hero">
-    <div class="cat-hero-bg" style="background-image: url('https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/10/718A77A0-7DFD-4C93-9C13-B99A05C80160.png')"></div>
+    <div class="cat-hero-bg" style="background-image: url('Gemini Generated Image Wohnzimmer.jpg')"></div>
     <div class="cat-hero-overlay"></div>
     <div class="cat-hero-content">
       <span class="section-label">Steinmetz Antiquitäten · Hamburg</span>
@@ -140,14 +141,19 @@
   </script>
 
   <script>
-    /* ── dynamic product loader ── */
+    /* ── dynamic product loader (mit Lazy-Loading) ── */
     (function() {
-      const CAT      = "angebote";
-      const FALLBACK = [{"id": "da23ba51", "img": "https://www.steinmetz-antiquitaeten.de/wp-content/uploads/2022/10/718A77A0-7DFD-4C93-9C13-B99A05C80160.png", "name": "Empirespiegel ca. 1820", "desc": "Vergoldet"}];
+      const CAT         = "angebote";
+      const FALLBACK    = [{"id": "da23ba51", "img": null, "name": "Empirespiegel ca. 1820", "desc": "Vergoldet"}];
+      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
 
       function esc(s) {
         return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       }
+
+      const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
+        + '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/>'
+        + '<path d="M21 15l-5-5-9 9"/></svg>';
 
       function render(items) {
         const grid    = document.getElementById('productGrid');
@@ -159,19 +165,106 @@
         }
         grid.innerHTML = items.map(function(p, i) {
           var d = ['','delay-1','delay-2'][i % 3];
+          var imgInner;
+          if (!p.img) {
+            imgInner = '<div class="product-card-img-inner product-card-placeholder">'
+              + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
+          } else if (i < EAGER_COUNT) {
+            imgInner = '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>';
+          } else {
+            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
+          }
           return '<article class="product-card fade-up' + (d?' '+d:'') + '">'
-            + '<div class="product-card-img">'
-            + '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>'
-            + '</div>'
+            + '<div class="product-card-img">' + imgInner + '</div>'
             + '<div class="product-card-info">'
             + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
             + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
             + '</div></article>';
         }).join('');
-        var obs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+
+        var revealObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
         }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-        grid.querySelectorAll('.fade-up').forEach(function(el) { obs.observe(el); });
+        grid.querySelectorAll('.fade-up').forEach(function(el) { revealObs.observe(el); });
+
+        var lazyObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              var el = e.target;
+              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
+              el.classList.remove('lazy-bg');
+              lazyObs.unobserve(el);
+            }
+          });
+        }, { rootMargin: '600px 0px' });
+        grid.querySelectorAll('.lazy-bg').forEach(function(el) { lazyObs.observe(el); });
+      }
+
+      fetch('./products.json?' + Date.now())
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(data) { render(Array.isArray(data[CAT]) ? data[CAT] : FALLBACK); })
+        .catch(function() { render(FALLBACK); });
+    })();
+  </script>
+
+  <script>
+    /* ── dynamic product loader (mit Lazy-Loading) ── */
+    (function() {
+      const CAT         = "angebote";
+      const FALLBACK    = [{"id": "da23ba51", "img": null, "name": "Empirespiegel ca. 1820", "desc": "Vergoldet"}];
+      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
+
+      function esc(s) {
+        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
+        + '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/>'
+        + '<path d="M21 15l-5-5-9 9"/></svg>';
+
+      function render(items) {
+        const grid    = document.getElementById('productGrid');
+        const counter = document.querySelector('.product-count');
+        if (counter) counter.textContent = items.length + ' Objekte';
+        if (!items.length) {
+          grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
+          return;
+        }
+        grid.innerHTML = items.map(function(p, i) {
+          var d = ['','delay-1','delay-2'][i % 3];
+          var imgInner;
+          if (!p.img) {
+            imgInner = '<div class="product-card-img-inner product-card-placeholder">'
+              + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
+          } else if (i < EAGER_COUNT) {
+            imgInner = '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>';
+          } else {
+            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
+          }
+          return '<article class="product-card fade-up' + (d?' '+d:'') + '">'
+            + '<div class="product-card-img">' + imgInner + '</div>'
+            + '<div class="product-card-info">'
+            + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
+            + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
+            + '</div></article>';
+        }).join('');
+
+        var revealObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+        grid.querySelectorAll('.fade-up').forEach(function(el) { revealObs.observe(el); });
+
+        var lazyObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              var el = e.target;
+              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
+              el.classList.remove('lazy-bg');
+              lazyObs.unobserve(el);
+            }
+          });
+        }, { rootMargin: '600px 0px' });
+        grid.querySelectorAll('.lazy-bg').forEach(function(el) { lazyObs.observe(el); });
       }
 
       fetch('./products.json?' + Date.now())
