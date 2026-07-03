@@ -302,11 +302,18 @@
       color: var(--gold);
       margin-bottom: 14px;
     }
-    .add-row {
+    .add-row-top {
       display: grid;
-      grid-template-columns: 1fr 1fr 2fr;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-bottom: 12px;
+    }
+    .add-row-img {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
     }
     .f-input {
       background: rgba(255,255,255,0.04);
@@ -321,6 +328,32 @@
     }
     .f-input:focus { border-color: var(--border-hi); background: rgba(255,255,255,0.06); }
     .f-input::placeholder { color: rgba(245,240,232,0.2); }
+    .f-input:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-upload {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.08);
+      border: 1px dashed var(--border-hi);
+      color: var(--gold);
+      padding: 9px 16px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-upload:hover { background: rgba(201,168,76,0.16); border-color: var(--gold-light); }
+    .btn-upload.has-file { border-style: solid; }
+    .add-or {
+      font-size: 0.65rem;
+      color: var(--warm-grey);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      flex-shrink: 0;
+    }
     .add-actions {
       display: flex; align-items: center; gap: 12px;
     }
@@ -332,6 +365,21 @@
       transition: border-color 0.2s;
     }
     .img-thumb.has-img { border-style: solid; border-color: var(--border-hi); }
+    .upload-filename {
+      font-size: 0.72rem;
+      color: var(--warm-grey);
+      max-width: 150px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .upload-clear {
+      background: transparent; border: none;
+      color: var(--warm-grey);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0 4px;
+      transition: color 0.2s;
+    }
+    .upload-clear:hover { color: var(--red-light); }
     .btn-add {
       background: var(--gold);
       border: none;
@@ -549,10 +597,17 @@
       <!-- Add form -->
       <div class="add-panel">
         <div class="add-panel-label">Neues Produkt hinzufügen</div>
-        <div class="add-row">
+        <div class="add-row-top">
           <input class="f-input" id="newName" placeholder="Bezeichnung">
           <input class="f-input" id="newDesc" placeholder="Beschreibung (optional)">
-          <input class="f-input" id="newImg"  placeholder="Bild-URL (https://…)">
+        </div>
+        <div class="add-row-img">
+          <label class="btn-upload" id="uploadLabel" for="newImgFile">📷 Foto aus Mediathek wählen</label>
+          <input type="file" id="newImgFile" accept="image/*" hidden>
+          <span class="upload-filename" id="uploadFilename"></span>
+          <button type="button" class="upload-clear" id="btnClearFile" style="display:none;" title="Foto entfernen">✕</button>
+          <span class="add-or">oder URL</span>
+          <input class="f-input" id="newImg" placeholder="Bild-URL (https://…)" style="max-width:220px;">
         </div>
         <div class="add-actions">
           <div class="img-thumb" id="imgThumb"></div>
@@ -618,6 +673,16 @@ let currentCat  = 'kommoden';
 let isDirty     = false;
 let ghToken     = localStorage.getItem('sa_gh_token') || '';
 let ghFileSha   = null;
+let pendingFileData = null; // { path, base64 } für das aktuell im Formular gewählte Foto
+let pendingUploads  = JSON.parse(localStorage.getItem('sa_pending_uploads') || '{}'); // { path: base64 } noch nicht veröffentlichte Fotos
+
+function savePendingUploads() {
+  try {
+    localStorage.setItem('sa_pending_uploads', JSON.stringify(pendingUploads));
+  } catch (e) {
+    toast('Warnung: Zwischenspeicher voll — Foto bleibt bis zur Veröffentlichung nur im Formular.', 'err');
+  }
+}
 
 /* ─── PASSWORD ──────────────────────────────────────────────────────── */
 async function sha256(str) {
@@ -660,8 +725,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* Image preview */
+  /* Image preview via URL */
   document.getElementById('newImg').addEventListener('input', e => {
+    if (pendingFileData) return; // Datei-Upload hat Vorrang, solange gesetzt
     const t = document.getElementById('imgThumb');
     if (e.target.value) {
       t.style.backgroundImage = `url('${e.target.value}')`;
@@ -671,6 +737,45 @@ document.addEventListener('DOMContentLoaded', () => {
       t.classList.remove('has-img');
     }
   });
+
+  /* Foto aus Mediathek wählen */
+  document.getElementById('newImgFile').addEventListener('change', async e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const errEl = document.getElementById('addErr');
+    errEl.textContent = '';
+
+    if (!file.type.startsWith('image/')) {
+      errEl.textContent = 'Bitte eine Bilddatei auswählen.';
+      return;
+    }
+
+    setStatus('Foto wird komprimiert …', 'warn');
+    try {
+      const { dataUrl, base64 } = await compressImage(file);
+      const path = `images/products/${currentCat}-${Date.now().toString(36)}-${uid()}.jpg`;
+      pendingFileData = { path, base64 };
+
+      const thumb = document.getElementById('imgThumb');
+      thumb.style.backgroundImage = `url('${dataUrl}')`;
+      thumb.classList.add('has-img');
+
+      document.getElementById('uploadFilename').textContent = file.name;
+      document.getElementById('btnClearFile').style.display = 'inline';
+      document.getElementById('uploadLabel').classList.add('has-file');
+
+      const urlInput = document.getElementById('newImg');
+      urlInput.value = '';
+      urlInput.disabled = true;
+
+      setStatus('Foto bereit — jetzt Produkt hinzufügen.', 'ok');
+    } catch (err) {
+      errEl.textContent = 'Foto konnte nicht verarbeitet werden.';
+      setStatus('Fehler bei der Bildverarbeitung.', 'error');
+    }
+  });
+
+  document.getElementById('btnClearFile').addEventListener('click', () => clearStagedFile());
 
   document.getElementById('btnAdd').addEventListener('click', addProduct);
   document.getElementById('btnPublish').addEventListener('click', publish);
@@ -771,32 +876,61 @@ function updateBadge(cat) {
 
 /* ─── ADD / DELETE ──────────────────────────────────────────────────── */
 function addProduct() {
-  const name = document.getElementById('newName').value.trim();
-  const desc = document.getElementById('newDesc').value.trim();
-  const img  = document.getElementById('newImg').value.trim();
-  const errEl = document.getElementById('addErr');
+  const name   = document.getElementById('newName').value.trim();
+  const desc   = document.getElementById('newDesc').value.trim();
+  const urlVal = document.getElementById('newImg').value.trim();
+  const errEl  = document.getElementById('addErr');
   errEl.textContent = '';
 
   if (!name) { errEl.textContent = 'Bezeichnung erforderlich.'; return; }
-  if (!img)  { errEl.textContent = 'Bild-URL erforderlich.'; return; }
+
+  let img = null;
+  if (pendingFileData) {
+    img = pendingFileData.path;
+    pendingUploads[pendingFileData.path] = pendingFileData.base64;
+    savePendingUploads();
+  } else if (urlVal) {
+    img = urlVal;
+  }
+  if (!img) { errEl.textContent = 'Bitte ein Foto hochladen oder eine Bild-URL angeben.'; return; }
 
   if (!products[currentCat]) products[currentCat] = [];
   products[currentCat].unshift({ id: uid(), img, name, desc });
 
-  ['newName','newDesc','newImg'].forEach(id => document.getElementById(id).value = '');
-  const t = document.getElementById('imgThumb');
-  t.style.backgroundImage = ''; t.classList.remove('has-img');
-
+  resetAddForm();
   updateBadge(currentCat);
   renderCat();
   markDirty();
   toast(`„${name}" hinzugefügt.`, 'ok');
+  setStatus('Bereit', null);
+}
+
+function resetAddForm() {
+  ['newName','newDesc','newImg'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('newImg').disabled = false;
+  document.getElementById('newImgFile').value = '';
+  clearStagedFile();
+}
+
+function clearStagedFile() {
+  pendingFileData = null;
+  document.getElementById('newImgFile').value = '';
+  document.getElementById('newImg').disabled = false;
+  document.getElementById('uploadFilename').textContent = '';
+  document.getElementById('btnClearFile').style.display = 'none';
+  document.getElementById('uploadLabel').classList.remove('has-file');
+  const t = document.getElementById('imgThumb');
+  t.style.backgroundImage = ''; t.classList.remove('has-img');
 }
 
 function delProduct(i) {
   const p = (products[currentCat]||[])[i];
   if (!p) return;
   if (!confirm(`„${p.name}" wirklich löschen?`)) return;
+  if (p.img && pendingUploads[p.img]) {
+    delete pendingUploads[p.img];
+    savePendingUploads();
+  }
   products[currentCat].splice(i, 1);
   updateBadge(currentCat);
   renderCat();
@@ -846,6 +980,42 @@ async function fetchGhSha() {
   } catch (_) {}
 }
 
+async function uploadPendingImages() {
+  const paths = Object.keys(pendingUploads);
+  for (let i = 0; i < paths.length; i++) {
+    const path = paths[i];
+    setStatus(`Lade Foto ${i + 1}/${paths.length} hoch …`, 'warn');
+
+    let sha = null;
+    try {
+      const check = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`, {
+        headers: { 'Authorization': `Bearer ${ghToken}`, 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (check.ok) sha = (await check.json()).sha;
+    } catch (_) {}
+
+    const body = { message: `Foto hochgeladen: ${path}`, content: pendingUploads[path], branch: BRANCH };
+    if (sha) body.sha = sha;
+
+    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${ghToken}`,
+        'Content-Type':  'application/json',
+        'Accept':        'application/vnd.github.v3+json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!r.ok) {
+      const e = await r.json();
+      throw new Error(`Foto-Upload fehlgeschlagen (${path}): ${e.message || r.status}`);
+    }
+    delete pendingUploads[path];
+    savePendingUploads();
+  }
+}
+
 async function publish() {
   if (!ghToken) { document.getElementById('ghModal').style.display = 'flex'; return; }
 
@@ -855,6 +1025,7 @@ async function publish() {
   setStatus('Veröffentliche auf GitHub …', 'warn');
 
   try {
+    await uploadPendingImages();
     if (!ghFileSha) await fetchGhSha();
     const json = JSON.stringify(products, null, 2);
     const body = {
@@ -890,6 +1061,33 @@ async function publish() {
     btn.textContent = 'Veröffentlichen';
     updatePublishBtn();
   }
+}
+
+/* ─── BILDKOMPRIMIERUNG (clientseitig, vor dem Upload) ───────────────── */
+function compressImage(file, maxDim = 1400, quality = 0.78) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (Math.max(width, height) > maxDim) {
+          const ratio = maxDim / Math.max(width, height);
+          width  = Math.round(width * ratio);
+          height = Math.round(height * ratio);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+        resolve({ dataUrl, base64: dataUrl.split(',')[1] });
+      };
+      img.onerror = () => reject(new Error('Bild konnte nicht geladen werden.'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Datei konnte nicht gelesen werden.'));
+    reader.readAsDataURL(file);
+  });
 }
 
 /* ─── UTILS ─────────────────────────────────────────────────────────── */
