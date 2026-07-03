@@ -532,6 +532,89 @@
     .toast.show { opacity: 1; transform: translateY(0); }
     .toast.ok  { border-left: 3px solid #4a7; }
     .toast.err { border-left: 3px solid #c55; }
+
+    /* ─── GitHub-Verbindungsstatus ────────────────────────────────────── */
+    .gh-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm-grey);
+      white-space: nowrap;
+    }
+    .gh-status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--warm-grey);
+      flex-shrink: 0;
+    }
+    .gh-status.connected { color: #7bc99a; }
+    .gh-status.connected .gh-status-dot { background: #4a7; }
+
+    /* ─── Touch-Geräte: Löschen-Button ohne Hover erreichbar ───────────── */
+    @media (hover: none) {
+      .del-btn { opacity: 1; width: 30px; height: 30px; font-size: 15px; }
+    }
+
+    /* ─── Mobile: App-Shell umbauen ─────────────────────────────────────── */
+    @media (max-width: 780px) {
+      #app { height: 100vh; height: 100dvh; }
+
+      .adm-header {
+        height: auto;
+        flex-wrap: wrap;
+        row-gap: 8px;
+        padding: 10px 14px;
+      }
+      .adm-wordmark { flex: 1 1 100%; font-size: 0.92rem; }
+      .adm-wordmark small { display: block; margin-left: 0; margin-top: 2px; }
+      .hdr-btn, .hdr-btn-gold, .hdr-btn-dl {
+        flex: 1;
+        text-align: center;
+        padding: 9px 8px;
+        font-size: 0.62rem;
+      }
+      .gh-status { flex: 1 1 100%; justify-content: center; order: 10; }
+
+      .adm-body { flex-direction: column; }
+      .adm-sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding-top: 0;
+        -webkit-overflow-scrolling: touch;
+      }
+      .sidebar-section-label { display: none; }
+      .cat-tab {
+        flex-shrink: 0;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+        padding: 13px 16px;
+        white-space: nowrap;
+      }
+      .cat-tab.active { border-left-color: transparent; border-bottom-color: var(--gold); padding-left: 16px; }
+      .sidebar-divider { display: none; }
+      .sidebar-logout {
+        margin-top: 0; border-top: none; border-left: 1px solid var(--border);
+        flex-shrink: 0; padding: 0 14px;
+      }
+      .btn-logout { width: auto; white-space: nowrap; }
+
+      .adm-main { padding: 16px; }
+      .cat-heading { font-size: 1.25rem; }
+      .add-row-top { grid-template-columns: 1fr; }
+      .add-row-img { gap: 8px; }
+      .add-row-img .f-input { max-width: none !important; width: 100%; }
+      .btn-upload { flex: 1 1 100%; justify-content: center; }
+      .add-or { flex: 1 1 100%; text-align: center; }
+      .prod-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+
+      .gate-card { width: min(360px, 88vw); padding: 44px 28px 36px; }
+    }
   </style>
 </head>
 <body>
@@ -563,6 +646,7 @@
     <button class="hdr-btn-dl" id="btnDownload" title="Aktualisierte products.json herunterladen">
       ↓ Herunterladen
     </button>
+    <span class="gh-status" id="ghStatus"><span class="gh-status-dot"></span><span id="ghStatusText">Nicht verbunden</span></span>
     <button class="hdr-btn" id="btnGhSettings">GitHub-Token</button>
     <button class="hdr-btn-gold" id="btnPublish" disabled>Veröffentlichen</button>
   </header>
@@ -634,8 +718,9 @@
   <div class="modal">
     <div class="modal-title">GitHub Personal Access Token</div>
     <div class="modal-body">
-      Mit einem Token können Änderungen direkt auf GitHub veröffentlicht werden,
-      ohne die Seite manuell zu aktualisieren.<br><br>
+      Der Token wird einmalig hinterlegt und bleibt dauerhaft in diesem Browser
+      gespeichert — Sie müssen ihn danach nicht erneut eingeben, auch nicht
+      nach einem Neustart. Änderungen werden dann direkt veröffentlicht.<br><br>
       Token erstellen unter:
       <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a><br>
       Berechtigung benötigt: <code>contents: write</code><br>
@@ -646,6 +731,7 @@
              placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="flex:1;">
     </div>
     <div class="modal-actions">
+      <button class="hdr-btn" id="btnGhDisconnect" style="display:none;">Verbindung trennen</button>
       <button class="hdr-btn" id="btnGhCancel">Abbrechen</button>
       <button class="hdr-btn-gold" id="btnGhSave">Token speichern</button>
     </div>
@@ -788,6 +874,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* GitHub modal */
   document.getElementById('btnGhSettings').addEventListener('click', () => {
     document.getElementById('ghTokenInput').value = ghToken;
+    document.getElementById('btnGhDisconnect').style.display = ghToken ? 'inline-block' : 'none';
     document.getElementById('ghModal').style.display = 'flex';
   });
   document.getElementById('btnGhCancel').addEventListener('click', () =>
@@ -795,11 +882,37 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnGhSave').addEventListener('click', () => {
     ghToken = document.getElementById('ghTokenInput').value.trim();
     localStorage.setItem('sa_gh_token', ghToken);
+    ghFileSha = null; // ggf. mit neuem Token neu abrufen
     document.getElementById('ghModal').style.display = 'none';
+    updateGhStatus();
     updatePublishBtn();
-    toast('GitHub-Token gespeichert.', 'ok');
+    toast(ghToken ? 'GitHub-Token dauerhaft gespeichert.' : 'Token entfernt.', 'ok');
   });
+  document.getElementById('btnGhDisconnect').addEventListener('click', () => {
+    ghToken = '';
+    ghFileSha = null;
+    localStorage.removeItem('sa_gh_token');
+    document.getElementById('ghTokenInput').value = '';
+    document.getElementById('ghModal').style.display = 'none';
+    updateGhStatus();
+    updatePublishBtn();
+    toast('Verbindung getrennt.', 'ok');
+  });
+
+  updateGhStatus();
 });
+
+function updateGhStatus() {
+  const el   = document.getElementById('ghStatus');
+  const text = document.getElementById('ghStatusText');
+  if (ghToken) {
+    el.classList.add('connected');
+    text.textContent = 'Mit GitHub verbunden';
+  } else {
+    el.classList.remove('connected');
+    text.textContent = 'Nicht verbunden';
+  }
+}
 
 /* ─── BOOT SEQUENCE ─────────────────────────────────────────────────── */
 async function boot() {
