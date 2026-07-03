@@ -357,14 +357,6 @@
     .add-actions {
       display: flex; align-items: center; gap: 12px;
     }
-    .img-thumb {
-      width: 52px; height: 52px; flex-shrink: 0;
-      border: 1px dashed rgba(201,168,76,0.25);
-      background-size: cover; background-position: center;
-      background-color: rgba(255,255,255,0.03);
-      transition: border-color 0.2s;
-    }
-    .img-thumb.has-img { border-style: solid; border-color: var(--border-hi); }
     .upload-filename {
       font-size: 0.72rem;
       color: var(--warm-grey);
@@ -694,7 +686,6 @@
           <input class="f-input" id="newImg" placeholder="Bild-URL (https://…)" style="max-width:220px;">
         </div>
         <div class="add-actions">
-          <div class="img-thumb" id="imgThumb"></div>
           <button class="btn-add" id="btnAdd">+ Hinzufügen</button>
           <span class="add-err" id="addErr"></span>
         </div>
@@ -811,19 +802,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* Image preview via URL */
-  document.getElementById('newImg').addEventListener('input', e => {
-    if (pendingFileData) return; // Datei-Upload hat Vorrang, solange gesetzt
-    const t = document.getElementById('imgThumb');
-    if (e.target.value) {
-      t.style.backgroundImage = `url('${e.target.value}')`;
-      t.classList.add('has-img');
-    } else {
-      t.style.backgroundImage = '';
-      t.classList.remove('has-img');
-    }
-  });
-
   /* Foto aus Mediathek wählen */
   document.getElementById('newImgFile').addEventListener('change', async e => {
     const file = e.target.files[0];
@@ -838,13 +816,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setStatus('Foto wird komprimiert …', 'warn');
     try {
-      const { dataUrl, base64 } = await compressImage(file);
+      const { base64 } = await compressImage(file);
       const path = `images/products/${currentCat}-${Date.now().toString(36)}-${uid()}.jpg`;
       pendingFileData = { path, base64 };
-
-      const thumb = document.getElementById('imgThumb');
-      thumb.style.backgroundImage = `url('${dataUrl}')`;
-      thumb.classList.add('has-img');
 
       document.getElementById('uploadFilename').textContent = file.name;
       document.getElementById('btnClearFile').style.display = 'inline';
@@ -1032,8 +1006,6 @@ function clearStagedFile() {
   document.getElementById('uploadFilename').textContent = '';
   document.getElementById('btnClearFile').style.display = 'none';
   document.getElementById('uploadLabel').classList.remove('has-file');
-  const t = document.getElementById('imgThumb');
-  t.style.backgroundImage = ''; t.classList.remove('has-img');
 }
 
 function delProduct(i) {
