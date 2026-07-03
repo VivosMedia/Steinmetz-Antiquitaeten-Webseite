@@ -137,12 +137,13 @@
           } else {
             imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
           }
-          return '<article class="product-card fade-up' + (d?' '+d:'') + '">'
+          var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
+          return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
             + '<div class="product-card-img">' + imgInner + '</div>'
             + '<div class="product-card-info">'
             + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
             + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
-            + '</div></article>';
+            + '</div></a>';
         }).join('');
 
         var revealObs = new IntersectionObserver(function(entries) {
@@ -210,6 +211,74 @@
             + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
             + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
             + '</div></article>';
+        }).join('');
+
+        var revealObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+        grid.querySelectorAll('.fade-up').forEach(function(el) { revealObs.observe(el); });
+
+        var lazyObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              var el = e.target;
+              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
+              el.classList.remove('lazy-bg');
+              lazyObs.unobserve(el);
+            }
+          });
+        }, { rootMargin: '600px 0px' });
+        grid.querySelectorAll('.lazy-bg').forEach(function(el) { lazyObs.observe(el); });
+      }
+
+      fetch('./products.json?' + Date.now())
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(data) { render(Array.isArray(data[CAT]) ? data[CAT] : FALLBACK); })
+        .catch(function() { render(FALLBACK); });
+    })();
+  </script>
+
+  <script>
+    /* ── dynamic product loader (mit Lazy-Loading) ── */
+    (function() {
+      const CAT         = "schraenke";
+      const FALLBACK    = [{"id": "cf74d348", "img": null, "name": "Salonvitrine Ahorn", "desc": "Schinkelgiebel Berlin"}, {"id": "dde91c43", "img": null, "name": "Barockschrank um 1790", "desc": "Nussbaum auf Eichenholz"}, {"id": "b09c3b37", "img": null, "name": "Massiv Kirschholz", "desc": "1,90 × 1,40 × 0,45 m"}, {"id": "8625e3a7", "img": null, "name": "Dielenschrank ca. 1825", "desc": "Nussbaum, schöne Patina"}, {"id": "27525bf3", "img": null, "name": "Anrichte Birke ca. 1920", "desc": "Salonmöbel im Biedermeierstil"}, {"id": "4170bbb8", "img": null, "name": "Hamburger Dielenschrank", "desc": "Ca. 1820"}, {"id": "b6ed6098", "img": null, "name": "Norddeutsch um 1810 Esche", "desc": "Höhe 2,00 m"}, {"id": "36dafc24", "img": null, "name": "Klassiker", "desc": "Rheinland, Patina"}, {"id": "335bffb6", "img": null, "name": "Kirsche süddeutsch", "desc": "Klassiker"}, {"id": "4e6ba69c", "img": null, "name": "Eckvitrine ca. 1820", "desc": "Ahorn, Klassiker"}, {"id": "411230ad", "img": null, "name": "Schrank um 1780", "desc": "Patina"}, {"id": "94304263", "img": "images/products/A55617A4-E947-4D51-A7D3-26840E6024CA-2fd588aeebc3.jpg", "name": "Eckvitrine Birke", "desc": "Schöne Patina"}, {"id": "2ba6bade", "img": "images/products/3F95BD10-E9F0-4BD4-8120-CD71D6D5371F-0d19d86d1d58.jpg", "name": "Eckvitrine", "desc": "Ebonisiert"}, {"id": "5d414800", "img": "images/products/746C8D0E-8630-467A-B506-0FBF6305EABB-45f4f5379edb.jpg", "name": "Dielenschrank Berlin um 1820", "desc": "Birke, selten"}, {"id": "bee5d0a7", "img": "images/products/51C75604-3FD7-4B8C-81B0-3195C8DF276B-b706fbeadd15.jpg", "name": "Barock", "desc": "Norddeutsch, ca. 1780"}, {"id": "d683ad31", "img": null, "name": "Aufsatzvitrine Top", "desc": "Mahagoni"}, {"id": "c1171225", "img": null, "name": "Dielenschrank Kiefer um 1800", "desc": "Norddeutschland"}, {"id": "20a1dfb5", "img": "images/products/0AECD7D1-CE7F-4EDD-A6FC-EF277284BA75-d41f66044370.jpg", "name": "Eckvitrine Norddeutschland", "desc": "Barock"}, {"id": "e9e0aea5", "img": null, "name": "Eiche norddeutsch um 1780", "desc": "Br. 1,80 m · H. 2,35 m"}, {"id": "93b111c5", "img": "images/products/3D82B358-9B78-4C64-A238-9F661FB1A9E3-e0340a463987.jpg", "name": "Eckvitrine norddeutsch ca. 1825", "desc": "Fadenintarsiert, H. 2,30 m"}, {"id": "c6a891be", "img": "images/products/33E127C1-9EF5-42CF-A21A-FD7B8BB181B0-bb9d4e8babef.jpg", "name": "Vitrinenschrank Mahagoni", "desc": "Norddeutsch, um 1800"}, {"id": "fa7dd98e", "img": "images/products/IMG_0692-5155b721a355.jpg", "name": "Eckvitrine Berlin ca. 1820", "desc": "Seltener Klassiker Schinkel"}, {"id": "f73267a4", "img": "images/products/image-72b2969edd75.jpg", "name": "Schränkchen ca. 1830 Birke", "desc": "Bernsteinfarben, 2 Schubladen, Br. 1,10 m"}, {"id": "dbd9a151", "img": "images/products/IMG_5397-f8b3fb51f94f.jpg", "name": "Kabinettschrank Rokoko", "desc": "Wurzelholz furniert, H. 2,30 m · Br. 1,10 m"}, {"id": "2aac8be9", "img": "images/products/image23-7c4119b041cd.jpg", "name": "Aufsatzvitrine Kirsch", "desc": "Biedermeier, Leipzig ca. 1810, Kirsche mit Ebonisierung"}];
+      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
+
+      function esc(s) {
+        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
+        + '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/>'
+        + '<path d="M21 15l-5-5-9 9"/></svg>';
+
+      function render(items) {
+        const grid    = document.getElementById('productGrid');
+        const counter = document.querySelector('.product-count');
+        if (counter) counter.textContent = items.length + ' Objekte';
+        if (!items.length) {
+          grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
+          return;
+        }
+        grid.innerHTML = items.map(function(p, i) {
+          var d = ['','delay-1','delay-2'][i % 3];
+          var imgInner;
+          if (!p.img) {
+            imgInner = '<div class="product-card-img-inner product-card-placeholder">'
+              + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
+          } else if (i < EAGER_COUNT) {
+            imgInner = '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>';
+          } else {
+            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
+          }
+          var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
+          return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
+            + '<div class="product-card-img">' + imgInner + '</div>'
+            + '<div class="product-card-info">'
+            + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
+            + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
+            + '</div></a>';
         }).join('');
 
         var revealObs = new IntersectionObserver(function(entries) {

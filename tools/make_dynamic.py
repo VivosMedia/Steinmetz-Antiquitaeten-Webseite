@@ -43,12 +43,13 @@ LOADER_TEMPLATE = '''
           }} else {{
             imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
           }}
-          return '<article class="product-card fade-up' + (d?' '+d:'') + '">'
+          var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
+          return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
             + '<div class="product-card-img">' + imgInner + '</div>'
             + '<div class="product-card-info">'
             + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
             + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
-            + '</div></article>';
+            + '</div></a>';
         }}).join('');
 
         var revealObs = new IntersectionObserver(function(entries) {{

@@ -139,12 +139,13 @@
           } else {
             imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
           }
-          return '<article class="product-card fade-up' + (d?' '+d:'') + '">'
+          var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
+          return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
             + '<div class="product-card-img">' + imgInner + '</div>'
             + '<div class="product-card-info">'
             + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
             + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
-            + '</div></article>';
+            + '</div></a>';
         }).join('');
 
         var revealObs = new IntersectionObserver(function(entries) {
@@ -212,6 +213,74 @@
             + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
             + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
             + '</div></article>';
+        }).join('');
+
+        var revealObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+        grid.querySelectorAll('.fade-up').forEach(function(el) { revealObs.observe(el); });
+
+        var lazyObs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              var el = e.target;
+              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
+              el.classList.remove('lazy-bg');
+              lazyObs.unobserve(el);
+            }
+          });
+        }, { rootMargin: '600px 0px' });
+        grid.querySelectorAll('.lazy-bg').forEach(function(el) { lazyObs.observe(el); });
+      }
+
+      fetch('./products.json?' + Date.now())
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(data) { render(Array.isArray(data[CAT]) ? data[CAT] : FALLBACK); })
+        .catch(function() { render(FALLBACK); });
+    })();
+  </script>
+
+  <script>
+    /* ── dynamic product loader (mit Lazy-Loading) ── */
+    (function() {
+      const CAT         = "tische";
+      const FALLBACK    = [{"id": "a642ced9", "img": null, "name": "Trommeltisch", "desc": "Wurzelholz und ebonisiert"}, {"id": "a3d60030", "img": null, "name": "Konsole ca. 1810", "desc": "Frankreich"}, {"id": "24f57439", "img": null, "name": "Konsoltisch", "desc": "Frankreich, ca. 1860"}, {"id": "5605848e", "img": null, "name": "Sofatisch", "desc": "Wurzelholz, 30er Jahre"}, {"id": "b65320a4", "img": "images/products/FB919E23-FD34-4D6C-902C-7093A4D28E79-28275daab176.jpg", "name": "Nuss unrestauriert", "desc": "Ca. 1830"}, {"id": "a20fa805", "img": "images/products/9DC1339E-AD62-4BC1-AF99-873F16BE9083-7886f83297ef.jpg", "name": "Konsoltisch", "desc": "90 × 45 cm"}, {"id": "cc07e2c4", "img": "images/products/AC7F9C9A-637C-43A6-AD3E-2EECC6A285DF-2ca741ac6f54.jpg", "name": "Empire Tisch Mahagoni", "desc": "Frankreich, um 1810"}, {"id": "60b97852", "img": "images/products/FBA238EB-EDD4-4790-93AA-AEDC9ABEB36A-fb792290980b.jpg", "name": "Konsole Birke", "desc": "Schellack poliert"}, {"id": "589f30ec", "img": "images/products/E9F86362-6B61-4716-A057-3B6B1847EBE4-04a2936582e2.jpg", "name": "Kleiner Schreibtisch", "desc": "Birke, norddeutsch"}, {"id": "bc5a642c", "img": "images/products/E3CBA059-DDF9-4383-AC4E-BC602D374385-4af09d6896cb.jpg", "name": "Tischchen Baltikum", "desc": "Wurzelholz"}, {"id": "eff36946", "img": null, "name": "Gustavianisch", "desc": "Durchmesser 1,30 m"}, {"id": "f7ff8de9", "img": "images/products/image-b597406af457.jpg", "name": "Beistelltisch", "desc": "Birke, um 1840, auf Messingrollen"}, {"id": "ae4c3254", "img": "images/products/image38-bbbca970b5f0.jpg", "name": "Großer Esstisch Wurzelholz", "desc": "Baltikum, Ø 1,18 m ausziehbar, Wurzelmaser, poliert"}];
+      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
+
+      function esc(s) {
+        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }
+
+      const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
+        + '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/>'
+        + '<path d="M21 15l-5-5-9 9"/></svg>';
+
+      function render(items) {
+        const grid    = document.getElementById('productGrid');
+        const counter = document.querySelector('.product-count');
+        if (counter) counter.textContent = items.length + ' Objekte';
+        if (!items.length) {
+          grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
+          return;
+        }
+        grid.innerHTML = items.map(function(p, i) {
+          var d = ['','delay-1','delay-2'][i % 3];
+          var imgInner;
+          if (!p.img) {
+            imgInner = '<div class="product-card-img-inner product-card-placeholder">'
+              + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
+          } else if (i < EAGER_COUNT) {
+            imgInner = '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>';
+          } else {
+            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
+          }
+          var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
+          return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
+            + '<div class="product-card-img">' + imgInner + '</div>'
+            + '<div class="product-card-info">'
+            + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
+            + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
+            + '</div></a>';
         }).join('');
 
         var revealObs = new IntersectionObserver(function(entries) {
