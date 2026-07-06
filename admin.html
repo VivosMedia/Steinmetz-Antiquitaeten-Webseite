@@ -947,13 +947,21 @@ function renderCat() {
   }
   grid.innerHTML = items.map((p, i) => `
     <div class="prod-card">
-      <div class="prod-img" style="background-image:url('${esc(p.img)}')">${p.img ? '' : '<span class=\"prod-img-missing\">Kein Foto</span>'}</div>
+      <div class="prod-img" style="background-image:url('${esc(resolveImgSrc(p.img))}')">${p.img ? '' : '<span class=\"prod-img-missing\">Kein Foto</span>'}</div>
       <div class="prod-info">
         <div class="prod-name" title="${esc(p.name)}">${esc(p.name)}</div>
         <div class="prod-desc" title="${esc(p.desc)}">${esc(p.desc)}</div>
       </div>
       <button class="del-btn" onclick="delProduct(${i})" title="Löschen">×</button>
     </div>`).join('');
+}
+
+/* Noch nicht veröffentlichte Fotos liegen nur als Base64 in pendingUploads vor —
+   der spätere GitHub-Pfad existiert erst nach dem Veröffentlichen. Für die
+   Vorschau greifen wir daher so lange auf die Base64-Daten zurück. */
+function resolveImgSrc(img) {
+  if (img && pendingUploads[img]) return 'data:image/jpeg;base64,' + pendingUploads[img];
+  return img || '';
 }
 
 function updateBadge(cat) {
