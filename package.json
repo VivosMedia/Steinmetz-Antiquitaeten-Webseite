@@ -1,0 +1,10 @@
+{
+  "name": "steinmetz-antiquitaeten",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Steinmetz Antiquitäten Hamburg – statische Website mit Node-Tooling für serverseitige Funktionen (z. B. E-Mail-Versand via Resend).",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "resend": "^6.17.1"
+  }
+}
