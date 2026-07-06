@@ -970,7 +970,7 @@ function updateBadge(cat) {
 }
 
 /* ─── ADD / DELETE ──────────────────────────────────────────────────── */
-function addProduct() {
+async function addProduct() {
   const name   = document.getElementById('newName').value.trim();
   const desc   = document.getElementById('newDesc').value.trim();
   const urlVal = document.getElementById('newImg').value.trim();
@@ -996,8 +996,22 @@ function addProduct() {
   updateBadge(currentCat);
   renderCat();
   markDirty();
-  toast(`„${name}" hinzugefügt.`, 'ok');
-  setStatus('Bereit', null);
+
+  if (!ghToken) {
+    toast(`„${name}" hinzugefügt – GitHub-Token nötig zum Veröffentlichen.`, 'ok');
+    document.getElementById('ghModal').style.display = 'flex';
+    return;
+  }
+
+  const btn = document.getElementById('btnAdd');
+  btn.disabled = true;
+  btn.textContent = 'Wird veröffentlicht …';
+  try {
+    await publish();
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '+ Hinzufügen';
+  }
 }
 
 function resetAddForm() {
