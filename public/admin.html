@@ -140,7 +140,10 @@
       font-size: 1rem;
       color: var(--cream);
       flex: 1;
+      text-decoration: none;
+      transition: color 0.2s;
     }
+    .adm-wordmark:hover { color: var(--gold); }
     .adm-wordmark small {
       font-family: 'Lato', sans-serif;
       font-size: 0.6rem;
@@ -613,10 +616,10 @@
 
   <!-- Header -->
   <header class="adm-header">
-    <div class="adm-wordmark">
+    <a class="adm-wordmark" href="index.html" title="Zur Startseite">
       Steinmetz Antiquitäten
       <small>Produktverwaltung</small>
-    </div>
+    </a>
     <button class="hdr-btn-dl" id="btnDownload" title="Aktualisierte products.json herunterladen">
       ↓ Herunterladen
     </button>
