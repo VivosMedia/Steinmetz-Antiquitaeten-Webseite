@@ -3,7 +3,7 @@
 import re, json, os
 
 CATEGORIES = ['kommoden','lampen','dekoration','tische','sitzmoebel','sekretaere','schraenke','angebote']
-root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'public')
 
 with open(os.path.join(root, 'products.json'), encoding='utf-8') as f:
     all_products = json.load(f)
@@ -32,6 +32,8 @@ LOADER_TEMPLATE = '''
           grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
           return;
         }}
+        // Produkte ohne Foto ans Ende sortieren, Reihenfolge sonst unverändert
+        items = items.slice().sort(function(a, b) {{ return (a.img ? 0 : 1) - (b.img ? 0 : 1); }});
         grid.innerHTML = items.map(function(p, i) {{
           var d = ['','delay-1','delay-2'][i % 3];
           var imgInner;

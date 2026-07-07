@@ -138,73 +138,9 @@
   </script>
 
 
-  <script>
-    /* ── dynamic product loader (mit Lazy-Loading) ── */
-    (function() {
-      const CAT         = "lampen";
-      const FALLBACK    = [{"id": "9e2bcf88", "img": null, "name": "Palmenlampe", "desc": "Metall mit Goldauflage"}, {"id": "d088022f", "img": null, "name": "Deckenlampe", "desc": "Bernstorff Palais"}, {"id": "5349c7f8", "img": "images/products/0CDF26CA-5402-4435-891C-868E518A8AD9-8d8912a52d34.jpg", "name": "Kristallüster", "desc": "Empire, 19. Jahrhundert"}, {"id": "9cff6b21", "img": "images/products/495392AF-6AEC-4D0A-8658-C3C1FC725FF2-e2d31c1257a6.jpg", "name": "Rokoko Lüster", "desc": "8-flammig, ca. 1920"}, {"id": "a028b8f2", "img": "images/products/A210D0D7-7224-4BA9-A534-CBD7AD8C039D-5144eec12b8b.jpg", "name": "Gustavianisch", "desc": "Sehr dekorativ"}, {"id": "f7d40336", "img": "images/products/EB7369D7-6789-429E-A2E2-2CB3116454D1-a36d2fab65e4.jpg", "name": "Prunklüster 19. Jahrhundert", "desc": "Rarität"}, {"id": "636e032a", "img": "images/products/81BC368F-6056-4EDB-AC07-0A198C7C6A61-e3f2547ab74f.jpg", "name": "Palmenlampe vergoldet", "desc": "Höhe 65 cm"}, {"id": "e13a757b", "img": "images/products/IMG_56062-e2e70d70b90e.jpg", "name": "Große Kerzenampel", "desc": "Später elektrifiziert"}, {"id": "d6955692", "img": "images/products/image5-db84fca4ceba.jpg", "name": "Deckenkrone 8-flammig", "desc": "Rokokoform, Schweden um 1920"}, {"id": "c5704cf6", "img": "images/products/image-d969bf673e0e.jpg", "name": "Deckenampel", "desc": "Italienisch, 1-flammig, vergoldete Montur"}, {"id": "fb404131", "img": "images/products/3653904-d0326e67b5a6.jpg", "name": "Paar Kerzenampeln Wien", "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"}, {"id": "7e53a6d9", "img": "images/products/image60-ac5ac06cb553.jpg", "name": "Deckenkrone gustavianisch", "desc": "4-flammig, Schweden, 19. Jahrhundert"}];
-      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
 
-      function esc(s) {
-        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-      }
 
-      const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
-        + '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/>'
-        + '<path d="M21 15l-5-5-9 9"/></svg>';
 
-      function render(items) {
-        const grid    = document.getElementById('productGrid');
-        const counter = document.querySelector('.product-count');
-        if (counter) counter.textContent = items.length + ' Objekte';
-        if (!items.length) {
-          grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
-          return;
-        }
-        grid.innerHTML = items.map(function(p, i) {
-          var d = ['','delay-1','delay-2'][i % 3];
-          var imgInner;
-          if (!p.img) {
-            imgInner = '<div class="product-card-img-inner product-card-placeholder">'
-              + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
-          } else if (i < EAGER_COUNT) {
-            imgInner = '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>';
-          } else {
-            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
-          }
-          var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
-          return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
-            + '<div class="product-card-img">' + imgInner + '</div>'
-            + '<div class="product-card-info">'
-            + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
-            + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
-            + '</div></a>';
-        }).join('');
-
-        var revealObs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-        grid.querySelectorAll('.fade-up').forEach(function(el) { revealObs.observe(el); });
-
-        var lazyObs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) {
-            if (e.isIntersecting) {
-              var el = e.target;
-              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
-              el.classList.remove('lazy-bg');
-              lazyObs.unobserve(el);
-            }
-          });
-        }, { rootMargin: '600px 0px' });
-        grid.querySelectorAll('.lazy-bg').forEach(function(el) { lazyObs.observe(el); });
-      }
-
-      fetch('./products.json?' + Date.now())
-        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
-        .then(function(data) { render(Array.isArray(data[CAT]) ? data[CAT] : FALLBACK); })
-        .catch(function() { render(FALLBACK); });
-    })();
-  </script>
 
   <script>
     /* ── dynamic product loader (mit Lazy-Loading) ── */
@@ -229,73 +165,8 @@
           grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
           return;
         }
-        grid.innerHTML = items.map(function(p, i) {
-          var d = ['','delay-1','delay-2'][i % 3];
-          var imgInner;
-          if (!p.img) {
-            imgInner = '<div class="product-card-img-inner product-card-placeholder">'
-              + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
-          } else if (i < EAGER_COUNT) {
-            imgInner = '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>';
-          } else {
-            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
-          }
-          return '<article class="product-card fade-up' + (d?' '+d:'') + '">'
-            + '<div class="product-card-img">' + imgInner + '</div>'
-            + '<div class="product-card-info">'
-            + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
-            + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
-            + '</div></article>';
-        }).join('');
-
-        var revealObs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-        grid.querySelectorAll('.fade-up').forEach(function(el) { revealObs.observe(el); });
-
-        var lazyObs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) {
-            if (e.isIntersecting) {
-              var el = e.target;
-              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
-              el.classList.remove('lazy-bg');
-              lazyObs.unobserve(el);
-            }
-          });
-        }, { rootMargin: '600px 0px' });
-        grid.querySelectorAll('.lazy-bg').forEach(function(el) { lazyObs.observe(el); });
-      }
-
-      fetch('./products.json?' + Date.now())
-        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
-        .then(function(data) { render(Array.isArray(data[CAT]) ? data[CAT] : FALLBACK); })
-        .catch(function() { render(FALLBACK); });
-    })();
-  </script>
-
-  <script>
-    /* ── dynamic product loader (mit Lazy-Loading) ── */
-    (function() {
-      const CAT         = "lampen";
-      const FALLBACK    = [{"id": "9e2bcf88", "img": null, "name": "Palmenlampe", "desc": "Metall mit Goldauflage"}, {"id": "d088022f", "img": null, "name": "Deckenlampe", "desc": "Bernstorff Palais"}, {"id": "5349c7f8", "img": "images/products/0CDF26CA-5402-4435-891C-868E518A8AD9-8d8912a52d34.jpg", "name": "Kristallüster", "desc": "Empire, 19. Jahrhundert"}, {"id": "9cff6b21", "img": "images/products/495392AF-6AEC-4D0A-8658-C3C1FC725FF2-e2d31c1257a6.jpg", "name": "Rokoko Lüster", "desc": "8-flammig, ca. 1920"}, {"id": "a028b8f2", "img": "images/products/A210D0D7-7224-4BA9-A534-CBD7AD8C039D-5144eec12b8b.jpg", "name": "Gustavianisch", "desc": "Sehr dekorativ"}, {"id": "f7d40336", "img": "images/products/EB7369D7-6789-429E-A2E2-2CB3116454D1-a36d2fab65e4.jpg", "name": "Prunklüster 19. Jahrhundert", "desc": "Rarität"}, {"id": "636e032a", "img": "images/products/81BC368F-6056-4EDB-AC07-0A198C7C6A61-e3f2547ab74f.jpg", "name": "Palmenlampe vergoldet", "desc": "Höhe 65 cm"}, {"id": "e13a757b", "img": "images/products/IMG_56062-e2e70d70b90e.jpg", "name": "Große Kerzenampel", "desc": "Später elektrifiziert"}, {"id": "d6955692", "img": "images/products/image5-db84fca4ceba.jpg", "name": "Deckenkrone 8-flammig", "desc": "Rokokoform, Schweden um 1920"}, {"id": "c5704cf6", "img": "images/products/image-d969bf673e0e.jpg", "name": "Deckenampel", "desc": "Italienisch, 1-flammig, vergoldete Montur"}, {"id": "fb404131", "img": "images/products/3653904-d0326e67b5a6.jpg", "name": "Paar Kerzenampeln Wien", "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"}, {"id": "7e53a6d9", "img": "images/products/image60-ac5ac06cb553.jpg", "name": "Deckenkrone gustavianisch", "desc": "4-flammig, Schweden, 19. Jahrhundert"}];
-      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
-
-      function esc(s) {
-        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-      }
-
-      const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
-        + '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/>'
-        + '<path d="M21 15l-5-5-9 9"/></svg>';
-
-      function render(items) {
-        const grid    = document.getElementById('productGrid');
-        const counter = document.querySelector('.product-count');
-        if (counter) counter.textContent = items.length + ' Objekte';
-        if (!items.length) {
-          grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
-          return;
-        }
+        // Produkte ohne Foto ans Ende sortieren, Reihenfolge sonst unverändert
+        items = items.slice().sort(function(a, b) { return (a.img ? 0 : 1) - (b.img ? 0 : 1); });
         grid.innerHTML = items.map(function(p, i) {
           var d = ['','delay-1','delay-2'][i % 3];
           var imgInner;

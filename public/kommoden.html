@@ -104,11 +104,15 @@
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   </script>
 
+
+
+
+
   <script>
     /* ── dynamic product loader (mit Lazy-Loading) ── */
     (function() {
       const CAT         = "kommoden";
-      const FALLBACK    = [{"id": "462ed825", "img": "Gemini Generated Image Wohnzimmer.jpg", "name": "Barock Kommode", "desc": "Ca. 1760"}, {"id": "e1999a9a", "img": null, "name": "Trommelschränkchen", "desc": "Ebonisiert"}, {"id": "01d6265a", "img": null, "name": "Große Kommode um 1810", "desc": "Gustavianisch"}, {"id": "5810c02e", "img": null, "name": "Klassiker Birke", "desc": "Norddeutsch"}, {"id": "b1291f0e", "img": null, "name": "Kleine Kommode", "desc": "Birke, Patina"}, {"id": "da4a353d", "img": null, "name": "Rokoko Kommode ca. 1780", "desc": "Schöne Patina"}, {"id": "7525c1cc", "img": "images/products/8AA98183-9ABD-4543-A08E-C679EC50F4A7-3a73a6c9b6fc.jpg", "name": "Große Kommode", "desc": "Eiche geschwärzt, ca. 1810"}, {"id": "83e9a045", "img": "images/products/6BC7CAA3-79D3-4DF3-A495-4E94B2BEF03B-9518e34ddd03.jpg", "name": "Kommode", "desc": "Frankreich, ca. 1810"}, {"id": "0fd9857e", "img": "images/products/956E1357-4826-466E-936E-D20E5058AB08-4dc23081f1d2.jpg", "name": "Paar Trommelschränke", "desc": "Rarität – Esche"}, {"id": "dac6d3cf", "img": "images/products/8D3F0FD2-5828-413B-9A2E-7D95C5194114-a46b83545b1b.jpg", "name": "Trommelschränkchen", "desc": "Ebonisiert"}, {"id": "b0751ade", "img": null, "name": "Empire Kommode", "desc": "Ebonisiert"}, {"id": "3d6dc688", "img": "images/products/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5-d94ffc588348.jpg", "name": "Empire Kommode", "desc": "Mahagoni, 80 cm Breite"}, {"id": "555845b7", "img": null, "name": "Kleine Kommode Mahagoni", "desc": "Klassizismus, um 1800"}, {"id": "f40345da", "img": "images/products/893A24CD-1378-4D28-8BA6-CF6D5417CFBA-79db7825194d.jpg", "name": "Kommode Birke Klassiker", "desc": "Originalzustand!"}, {"id": "3137a3fe", "img": null, "name": "Empire Kommode Ulme", "desc": "Schöne Patina"}, {"id": "97716ffa", "img": "images/products/5A067AB1-1FF5-412D-8D43-BBA205601B56-11a756aff9a3.jpg", "name": "Klassizistische Kommode", "desc": "Breite 1,20 m"}, {"id": "58def19a", "img": "images/products/F5E83765-F83D-430E-B4C8-E06611AF45D9-86c959998ab6.jpg", "name": "Kommode Birke", "desc": "Schöne Patina"}, {"id": "5a390aa7", "img": "images/products/6D5DEF03-AFBC-4229-88E5-EA8C8EFAD3CA-21facbab6c0b.jpg", "name": "Kommode ca. 1830 Ulme", "desc": "Schöne Patina"}];
+      const FALLBACK    = [{"id": "gb76ti3t", "img": "images/products/kommoden-mrak13ul-cmcaq3bd.jpg", "name": "Hoefisch", "desc": "Ca 1780"}, {"id": "462ed825", "img": "Gemini Generated Image Wohnzimmer.jpg", "name": "Barock Kommode", "desc": "Ca. 1760"}, {"id": "e1999a9a", "img": null, "name": "Trommelschränkchen", "desc": "Ebonisiert"}, {"id": "01d6265a", "img": null, "name": "Große Kommode um 1810", "desc": "Gustavianisch"}, {"id": "5810c02e", "img": null, "name": "Klassiker Birke", "desc": "Norddeutsch"}, {"id": "b1291f0e", "img": null, "name": "Kleine Kommode", "desc": "Birke, Patina"}, {"id": "da4a353d", "img": null, "name": "Rokoko Kommode ca. 1780", "desc": "Schöne Patina"}, {"id": "7525c1cc", "img": "images/products/8AA98183-9ABD-4543-A08E-C679EC50F4A7-3a73a6c9b6fc.jpg", "name": "Große Kommode", "desc": "Eiche geschwärzt, ca. 1810"}, {"id": "83e9a045", "img": "images/products/6BC7CAA3-79D3-4DF3-A495-4E94B2BEF03B-9518e34ddd03.jpg", "name": "Kommode", "desc": "Frankreich, ca. 1810"}, {"id": "0fd9857e", "img": "images/products/956E1357-4826-466E-936E-D20E5058AB08-4dc23081f1d2.jpg", "name": "Paar Trommelschränke", "desc": "Rarität – Esche"}, {"id": "dac6d3cf", "img": "images/products/8D3F0FD2-5828-413B-9A2E-7D95C5194114-a46b83545b1b.jpg", "name": "Trommelschränkchen", "desc": "Ebonisiert"}, {"id": "b0751ade", "img": null, "name": "Empire Kommode", "desc": "Ebonisiert"}, {"id": "3d6dc688", "img": "images/products/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5-d94ffc588348.jpg", "name": "Empire Kommode", "desc": "Mahagoni, 80 cm Breite"}, {"id": "555845b7", "img": null, "name": "Kleine Kommode Mahagoni", "desc": "Klassizismus, um 1800"}, {"id": "f40345da", "img": "images/products/893A24CD-1378-4D28-8BA6-CF6D5417CFBA-79db7825194d.jpg", "name": "Kommode Birke Klassiker", "desc": "Originalzustand!"}, {"id": "3137a3fe", "img": null, "name": "Empire Kommode Ulme", "desc": "Schöne Patina"}, {"id": "97716ffa", "img": "images/products/5A067AB1-1FF5-412D-8D43-BBA205601B56-11a756aff9a3.jpg", "name": "Klassizistische Kommode", "desc": "Breite 1,20 m"}, {"id": "58def19a", "img": "images/products/F5E83765-F83D-430E-B4C8-E06611AF45D9-86c959998ab6.jpg", "name": "Kommode Birke", "desc": "Schöne Patina"}, {"id": "5a390aa7", "img": "images/products/6D5DEF03-AFBC-4229-88E5-EA8C8EFAD3CA-21facbab6c0b.jpg", "name": "Kommode ca. 1830 Ulme", "desc": "Schöne Patina"}];
       const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
 
       function esc(s) {
@@ -127,141 +131,8 @@
           grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
           return;
         }
-        grid.innerHTML = items.map(function(p, i) {
-          var d = ['','delay-1','delay-2'][i % 3];
-          var imgInner;
-          if (!p.img) {
-            imgInner = '<div class="product-card-img-inner product-card-placeholder">'
-              + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
-          } else if (i < EAGER_COUNT) {
-            imgInner = '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>';
-          } else {
-            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
-          }
-          var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
-          return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
-            + '<div class="product-card-img">' + imgInner + '</div>'
-            + '<div class="product-card-info">'
-            + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
-            + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
-            + '</div></a>';
-        }).join('');
-
-        var revealObs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-        grid.querySelectorAll('.fade-up').forEach(function(el) { revealObs.observe(el); });
-
-        var lazyObs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) {
-            if (e.isIntersecting) {
-              var el = e.target;
-              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
-              el.classList.remove('lazy-bg');
-              lazyObs.unobserve(el);
-            }
-          });
-        }, { rootMargin: '600px 0px' });
-        grid.querySelectorAll('.lazy-bg').forEach(function(el) { lazyObs.observe(el); });
-      }
-
-      fetch('./products.json?' + Date.now())
-        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
-        .then(function(data) { render(Array.isArray(data[CAT]) ? data[CAT] : FALLBACK); })
-        .catch(function() { render(FALLBACK); });
-    })();
-  </script>
-
-  <script>
-    /* ── dynamic product loader (mit Lazy-Loading) ── */
-    (function() {
-      const CAT         = "kommoden";
-      const FALLBACK    = [{"id": "462ed825", "img": "Gemini Generated Image Wohnzimmer.jpg", "name": "Barock Kommode", "desc": "Ca. 1760"}, {"id": "e1999a9a", "img": null, "name": "Trommelschränkchen", "desc": "Ebonisiert"}, {"id": "01d6265a", "img": null, "name": "Große Kommode um 1810", "desc": "Gustavianisch"}, {"id": "5810c02e", "img": null, "name": "Klassiker Birke", "desc": "Norddeutsch"}, {"id": "b1291f0e", "img": null, "name": "Kleine Kommode", "desc": "Birke, Patina"}, {"id": "da4a353d", "img": null, "name": "Rokoko Kommode ca. 1780", "desc": "Schöne Patina"}, {"id": "7525c1cc", "img": "images/products/8AA98183-9ABD-4543-A08E-C679EC50F4A7-3a73a6c9b6fc.jpg", "name": "Große Kommode", "desc": "Eiche geschwärzt, ca. 1810"}, {"id": "83e9a045", "img": "images/products/6BC7CAA3-79D3-4DF3-A495-4E94B2BEF03B-9518e34ddd03.jpg", "name": "Kommode", "desc": "Frankreich, ca. 1810"}, {"id": "0fd9857e", "img": "images/products/956E1357-4826-466E-936E-D20E5058AB08-4dc23081f1d2.jpg", "name": "Paar Trommelschränke", "desc": "Rarität – Esche"}, {"id": "dac6d3cf", "img": "images/products/8D3F0FD2-5828-413B-9A2E-7D95C5194114-a46b83545b1b.jpg", "name": "Trommelschränkchen", "desc": "Ebonisiert"}, {"id": "b0751ade", "img": null, "name": "Empire Kommode", "desc": "Ebonisiert"}, {"id": "3d6dc688", "img": "images/products/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5-d94ffc588348.jpg", "name": "Empire Kommode", "desc": "Mahagoni, 80 cm Breite"}, {"id": "555845b7", "img": null, "name": "Kleine Kommode Mahagoni", "desc": "Klassizismus, um 1800"}, {"id": "f40345da", "img": "images/products/893A24CD-1378-4D28-8BA6-CF6D5417CFBA-79db7825194d.jpg", "name": "Kommode Birke Klassiker", "desc": "Originalzustand!"}, {"id": "3137a3fe", "img": null, "name": "Empire Kommode Ulme", "desc": "Schöne Patina"}, {"id": "97716ffa", "img": "images/products/5A067AB1-1FF5-412D-8D43-BBA205601B56-11a756aff9a3.jpg", "name": "Klassizistische Kommode", "desc": "Breite 1,20 m"}, {"id": "58def19a", "img": "images/products/F5E83765-F83D-430E-B4C8-E06611AF45D9-86c959998ab6.jpg", "name": "Kommode Birke", "desc": "Schöne Patina"}, {"id": "5a390aa7", "img": "images/products/6D5DEF03-AFBC-4229-88E5-EA8C8EFAD3CA-21facbab6c0b.jpg", "name": "Kommode ca. 1830 Ulme", "desc": "Schöne Patina"}];
-      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
-
-      function esc(s) {
-        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-      }
-
-      const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
-        + '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/>'
-        + '<path d="M21 15l-5-5-9 9"/></svg>';
-
-      function render(items) {
-        const grid    = document.getElementById('productGrid');
-        const counter = document.querySelector('.product-count');
-        if (counter) counter.textContent = items.length + ' Objekte';
-        if (!items.length) {
-          grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
-          return;
-        }
-        grid.innerHTML = items.map(function(p, i) {
-          var d = ['','delay-1','delay-2'][i % 3];
-          var imgInner;
-          if (!p.img) {
-            imgInner = '<div class="product-card-img-inner product-card-placeholder">'
-              + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
-          } else if (i < EAGER_COUNT) {
-            imgInner = '<div class="product-card-img-inner" style="background-image:url(\'' + esc(p.img) + '\')"></div>';
-          } else {
-            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
-          }
-          return '<article class="product-card fade-up' + (d?' '+d:'') + '">'
-            + '<div class="product-card-img">' + imgInner + '</div>'
-            + '<div class="product-card-info">'
-            + '<h3 class="product-card-name">' + esc(p.name) + '</h3>'
-            + '<p class="product-card-desc">' + esc(p.desc) + '</p>'
-            + '</div></article>';
-        }).join('');
-
-        var revealObs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
-        }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
-        grid.querySelectorAll('.fade-up').forEach(function(el) { revealObs.observe(el); });
-
-        var lazyObs = new IntersectionObserver(function(entries) {
-          entries.forEach(function(e) {
-            if (e.isIntersecting) {
-              var el = e.target;
-              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
-              el.classList.remove('lazy-bg');
-              lazyObs.unobserve(el);
-            }
-          });
-        }, { rootMargin: '600px 0px' });
-        grid.querySelectorAll('.lazy-bg').forEach(function(el) { lazyObs.observe(el); });
-      }
-
-      fetch('./products.json?' + Date.now())
-        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
-        .then(function(data) { render(Array.isArray(data[CAT]) ? data[CAT] : FALLBACK); })
-        .catch(function() { render(FALLBACK); });
-    })();
-  </script>
-
-  <script>
-    /* ── dynamic product loader (mit Lazy-Loading) ── */
-    (function() {
-      const CAT         = "kommoden";
-      const FALLBACK    = [{"id": "462ed825", "img": "Gemini Generated Image Wohnzimmer.jpg", "name": "Barock Kommode", "desc": "Ca. 1760"}, {"id": "e1999a9a", "img": null, "name": "Trommelschränkchen", "desc": "Ebonisiert"}, {"id": "01d6265a", "img": null, "name": "Große Kommode um 1810", "desc": "Gustavianisch"}, {"id": "5810c02e", "img": null, "name": "Klassiker Birke", "desc": "Norddeutsch"}, {"id": "b1291f0e", "img": null, "name": "Kleine Kommode", "desc": "Birke, Patina"}, {"id": "da4a353d", "img": null, "name": "Rokoko Kommode ca. 1780", "desc": "Schöne Patina"}, {"id": "7525c1cc", "img": "images/products/8AA98183-9ABD-4543-A08E-C679EC50F4A7-3a73a6c9b6fc.jpg", "name": "Große Kommode", "desc": "Eiche geschwärzt, ca. 1810"}, {"id": "83e9a045", "img": "images/products/6BC7CAA3-79D3-4DF3-A495-4E94B2BEF03B-9518e34ddd03.jpg", "name": "Kommode", "desc": "Frankreich, ca. 1810"}, {"id": "0fd9857e", "img": "images/products/956E1357-4826-466E-936E-D20E5058AB08-4dc23081f1d2.jpg", "name": "Paar Trommelschränke", "desc": "Rarität – Esche"}, {"id": "dac6d3cf", "img": "images/products/8D3F0FD2-5828-413B-9A2E-7D95C5194114-a46b83545b1b.jpg", "name": "Trommelschränkchen", "desc": "Ebonisiert"}, {"id": "b0751ade", "img": null, "name": "Empire Kommode", "desc": "Ebonisiert"}, {"id": "3d6dc688", "img": "images/products/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5-d94ffc588348.jpg", "name": "Empire Kommode", "desc": "Mahagoni, 80 cm Breite"}, {"id": "555845b7", "img": null, "name": "Kleine Kommode Mahagoni", "desc": "Klassizismus, um 1800"}, {"id": "f40345da", "img": "images/products/893A24CD-1378-4D28-8BA6-CF6D5417CFBA-79db7825194d.jpg", "name": "Kommode Birke Klassiker", "desc": "Originalzustand!"}, {"id": "3137a3fe", "img": null, "name": "Empire Kommode Ulme", "desc": "Schöne Patina"}, {"id": "97716ffa", "img": "images/products/5A067AB1-1FF5-412D-8D43-BBA205601B56-11a756aff9a3.jpg", "name": "Klassizistische Kommode", "desc": "Breite 1,20 m"}, {"id": "58def19a", "img": "images/products/F5E83765-F83D-430E-B4C8-E06611AF45D9-86c959998ab6.jpg", "name": "Kommode Birke", "desc": "Schöne Patina"}, {"id": "5a390aa7", "img": "images/products/6D5DEF03-AFBC-4229-88E5-EA8C8EFAD3CA-21facbab6c0b.jpg", "name": "Kommode ca. 1830 Ulme", "desc": "Schöne Patina"}];
-      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
-
-      function esc(s) {
-        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-      }
-
-      const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
-        + '<rect x="3" y="5" width="18" height="14" rx="1"/><circle cx="8.5" cy="10" r="1.5"/>'
-        + '<path d="M21 15l-5-5-9 9"/></svg>';
-
-      function render(items) {
-        const grid    = document.getElementById('productGrid');
-        const counter = document.querySelector('.product-count');
-        if (counter) counter.textContent = items.length + ' Objekte';
-        if (!items.length) {
-          grid.innerHTML = '<p style="padding:40px;color:#8B7355;text-align:center;">Keine Produkte vorhanden.</p>';
-          return;
-        }
+        // Produkte ohne Foto ans Ende sortieren, Reihenfolge sonst unverändert
+        items = items.slice().sort(function(a, b) { return (a.img ? 0 : 1) - (b.img ? 0 : 1); });
         grid.innerHTML = items.map(function(p, i) {
           var d = ['','delay-1','delay-2'][i % 3];
           var imgInner;
