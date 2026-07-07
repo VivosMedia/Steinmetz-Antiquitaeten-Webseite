@@ -525,23 +525,6 @@
     .toast.ok  { border-left: 3px solid #4a7; }
     .toast.err { border-left: 3px solid #c55; }
 
-    /* ─── GitHub-Verbindungsstatus ────────────────────────────────────── */
-    .gh-status {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.66rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--warm-grey);
-      white-space: nowrap;
-    }
-    .gh-status-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--warm-grey);
-      flex-shrink: 0;
-    }
-    .gh-status.connected { color: #7bc99a; }
-    .gh-status.connected .gh-status-dot { background: #4a7; }
-
     /* ─── Touch-Geräte: Löschen-Button ohne Hover erreichbar ───────────── */
     @media (hover: none) {
       .del-btn { opacity: 1; width: 30px; height: 30px; font-size: 15px; }
@@ -565,7 +548,6 @@
         padding: 9px 8px;
         font-size: 0.62rem;
       }
-      .gh-status { flex: 1 1 100%; justify-content: center; order: 10; }
 
       .adm-body { flex-direction: column; }
       .adm-sidebar {
@@ -638,8 +620,6 @@
     <button class="hdr-btn-dl" id="btnDownload" title="Aktualisierte products.json herunterladen">
       ↓ Herunterladen
     </button>
-    <span class="gh-status" id="ghStatus"><span class="gh-status-dot"></span><span id="ghStatusText">Nicht verbunden</span></span>
-    <button class="hdr-btn" id="btnGhSettings">GitHub-Token</button>
     <button class="hdr-btn-gold" id="btnPublish" disabled>Veröffentlichen</button>
   </header>
 
@@ -704,39 +684,12 @@
   </footer>
 </div>
 
-<!-- ═══ GITHUB MODAL ════════════════════════════════════════════════════ -->
-<div class="modal-bg" id="ghModal" style="display:none;">
-  <div class="modal">
-    <div class="modal-title">GitHub Personal Access Token</div>
-    <div class="modal-body">
-      Der Token wird einmalig hinterlegt und bleibt dauerhaft in diesem Browser
-      gespeichert — Sie müssen ihn danach nicht erneut eingeben, auch nicht
-      nach einem Neustart. Änderungen werden dann direkt veröffentlicht.<br><br>
-      Token erstellen unter:
-      <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens/new</a><br>
-      Berechtigung benötigt: <code>contents: write</code><br>
-      Repository: <code>VivosMedia/Steinmetz-Antiquitaeten-Webseite</code>
-    </div>
-    <div class="modal-row">
-      <input class="f-input" id="ghTokenInput" type="password"
-             placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="flex:1;">
-    </div>
-    <div class="modal-actions">
-      <button class="hdr-btn" id="btnGhDisconnect" style="display:none;">Verbindung trennen</button>
-      <button class="hdr-btn" id="btnGhCancel">Abbrechen</button>
-      <button class="hdr-btn-gold" id="btnGhSave">Token speichern</button>
-    </div>
-  </div>
-</div>
-
 <!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
 /* ─── CONFIG ────────────────────────────────────────────────────────── */
-const REPO   = 'VivosMedia/Steinmetz-Antiquitaeten-Webseite';
-const BRANCH = 'master';
-const FILE   = 'products.json';
+const API_BASE = 'https://steinmetz-antiquitaeten.vercel.app'; // Backend-Funktion, hält den GitHub-Token serverseitig
 
 const CAT_LABELS = {
   kommoden:'Kommoden', lampen:'Lampen', dekoration:'Dekoration',
@@ -748,8 +701,6 @@ const CAT_LABELS = {
 let products    = {};
 let currentCat  = 'kommoden';
 let isDirty     = false;
-let ghToken     = localStorage.getItem('sa_gh_token') || '';
-let ghFileSha   = null;
 let pendingFileData = null; // { path, base64 } für das aktuell im Formular gewählte Foto
 let pendingUploads  = JSON.parse(localStorage.getItem('sa_pending_uploads') || '{}'); // { path: base64 } noch nicht veröffentlichte Fotos
 
@@ -785,6 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const entered = await sha256(document.getElementById('pwInput').value);
     if (entered === await getStoredHash()) {
       sessionStorage.setItem('sa_auth', '1');
+      sessionStorage.setItem('sa_session_hash', entered);
       boot();
     } else {
       document.getElementById('loginErr').textContent = 'Falsches Passwort.';
@@ -842,51 +794,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btnDownload').addEventListener('click', downloadJSON);
   document.getElementById('btnLogout').addEventListener('click', () => {
     sessionStorage.removeItem('sa_auth');
+    sessionStorage.removeItem('sa_session_hash');
     location.reload();
   });
-
-  /* GitHub modal */
-  document.getElementById('btnGhSettings').addEventListener('click', () => {
-    document.getElementById('ghTokenInput').value = ghToken;
-    document.getElementById('btnGhDisconnect').style.display = ghToken ? 'inline-block' : 'none';
-    document.getElementById('ghModal').style.display = 'flex';
-  });
-  document.getElementById('btnGhCancel').addEventListener('click', () =>
-    document.getElementById('ghModal').style.display = 'none');
-  document.getElementById('btnGhSave').addEventListener('click', () => {
-    ghToken = document.getElementById('ghTokenInput').value.trim();
-    localStorage.setItem('sa_gh_token', ghToken);
-    ghFileSha = null; // ggf. mit neuem Token neu abrufen
-    document.getElementById('ghModal').style.display = 'none';
-    updateGhStatus();
-    updatePublishBtn();
-    toast(ghToken ? 'GitHub-Token dauerhaft gespeichert.' : 'Token entfernt.', 'ok');
-  });
-  document.getElementById('btnGhDisconnect').addEventListener('click', () => {
-    ghToken = '';
-    ghFileSha = null;
-    localStorage.removeItem('sa_gh_token');
-    document.getElementById('ghTokenInput').value = '';
-    document.getElementById('ghModal').style.display = 'none';
-    updateGhStatus();
-    updatePublishBtn();
-    toast('Verbindung getrennt.', 'ok');
-  });
-
-  updateGhStatus();
 });
-
-function updateGhStatus() {
-  const el   = document.getElementById('ghStatus');
-  const text = document.getElementById('ghStatusText');
-  if (ghToken) {
-    el.classList.add('connected');
-    text.textContent = 'Mit GitHub verbunden';
-  } else {
-    el.classList.remove('connected');
-    text.textContent = 'Nicht verbunden';
-  }
-}
 
 /* ─── BOOT SEQUENCE ─────────────────────────────────────────────────── */
 async function boot() {
@@ -915,7 +826,6 @@ async function loadProducts() {
       products = await r.json();
       finishLoad(false);
       setStatus('Produktdaten erfolgreich geladen.', 'ok');
-      if (ghToken) fetchGhSha();
       return;
     }
   } catch (_) {}
@@ -997,12 +907,6 @@ async function addProduct() {
   renderCat();
   markDirty();
 
-  if (!ghToken) {
-    toast(`„${name}" hinzugefügt – GitHub-Token nötig zum Veröffentlichen.`, 'ok');
-    document.getElementById('ghModal').style.display = 'flex';
-    return;
-  }
-
   const btn = document.getElementById('btnAdd');
   btn.disabled = true;
   btn.textContent = 'Wird veröffentlicht …';
@@ -1062,8 +966,7 @@ function clearDirty() {
 
 function updatePublishBtn() {
   const btn = document.getElementById('btnPublish');
-  btn.disabled = !isDirty || !ghToken;
-  btn.title = !ghToken ? 'GitHub-Token benötigt (Schaltfläche oben)' : '';
+  btn.disabled = !isDirty;
 }
 
 /* ─── DOWNLOAD ──────────────────────────────────────────────────────── */
@@ -1076,90 +979,38 @@ function downloadJSON() {
   toast('products.json heruntergeladen. Datei ersetzen und git push ausführen.', 'ok');
 }
 
-/* ─── PUBLISH VIA GITHUB API ────────────────────────────────────────── */
-async function fetchGhSha() {
-  if (!ghToken) return;
-  try {
-    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}?ref=${BRANCH}`, {
-      headers: { 'Authorization': `Bearer ${ghToken}`, 'Accept': 'application/vnd.github.v3+json' }
-    });
-    if (r.ok) ghFileSha = (await r.json()).sha;
-  } catch (_) {}
-}
-
-async function uploadPendingImages() {
-  const paths = Object.keys(pendingUploads);
-  for (let i = 0; i < paths.length; i++) {
-    const path = paths[i];
-    setStatus(`Lade Foto ${i + 1}/${paths.length} hoch …`, 'warn');
-
-    let sha = null;
-    try {
-      const check = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`, {
-        headers: { 'Authorization': `Bearer ${ghToken}`, 'Accept': 'application/vnd.github.v3+json' }
-      });
-      if (check.ok) sha = (await check.json()).sha;
-    } catch (_) {}
-
-    const body = { message: `Foto hochgeladen: ${path}`, content: pendingUploads[path], branch: BRANCH };
-    if (sha) body.sha = sha;
-
-    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${ghToken}`,
-        'Content-Type':  'application/json',
-        'Accept':        'application/vnd.github.v3+json'
-      },
-      body: JSON.stringify(body)
-    });
-
-    if (!r.ok) {
-      const e = await r.json();
-      throw new Error(`Foto-Upload fehlgeschlagen (${path}): ${e.message || r.status}`);
-    }
-    delete pendingUploads[path];
-    savePendingUploads();
-  }
-}
-
+/* ─── PUBLISH ÜBER SERVERSEITIGE FUNKTION (Vercel) ───────────────────── */
+/* Der GitHub-Token liegt ausschließlich server-side als Env-Var. Das
+   Admin-Panel schickt nur Produktdaten + Passwort-Hash an eine zentrale
+   API-Route, die dann mit dem Token bei GitHub schreibt. So muss der
+   Token nirgends im Browser/Gerät gespeichert werden. */
 async function publish() {
-  if (!ghToken) { document.getElementById('ghModal').style.display = 'flex'; return; }
-
   const btn = document.getElementById('btnPublish');
   btn.disabled = true;
   btn.textContent = 'Wird veröffentlicht …';
-  setStatus('Veröffentliche auf GitHub …', 'warn');
+  setStatus('Veröffentliche …', 'warn');
 
   try {
-    await uploadPendingImages();
-    if (!ghFileSha) await fetchGhSha();
-    const json = JSON.stringify(products, null, 2);
-    const body = {
-      message: 'Produkte aktualisiert via Admin-Panel',
-      content: b64encode(json),
-      branch:  BRANCH,
-    };
-    if (ghFileSha) body.sha = ghFileSha;
+    const passwordHash = sessionStorage.getItem('sa_session_hash');
+    if (!passwordHash) throw new Error('Sitzung abgelaufen — bitte neu einloggen.');
 
-    const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${ghToken}`,
-        'Content-Type':  'application/json',
-        'Accept':        'application/vnd.github.v3+json'
-      },
-      body: JSON.stringify(body)
+    const images = Object.entries(pendingUploads).map(([path, content]) => ({ path, content }));
+
+    const r = await fetch(`${API_BASE}/api/admin/publish`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ passwordHash, products, images }),
     });
+    const result = await r.json();
 
-    if (r.ok) {
-      ghFileSha = (await r.json()).content.sha;
+    if (r.ok && result.success) {
+      pendingUploads = {};
+      savePendingUploads();
       clearDirty();
       setStatus('Erfolgreich veröffentlicht! GitHub Pages aktualisiert sich in ~1 Minute.', 'ok');
       toast('Erfolgreich veröffentlicht!', 'ok');
     } else {
-      const e = await r.json();
-      throw new Error(e.message || `HTTP ${r.status}`);
+      throw new Error(result.error || `HTTP ${r.status}`);
     }
   } catch (e) {
     setStatus(`Fehler: ${e.message}`, 'error');
@@ -1203,8 +1054,6 @@ function esc(s) {
   return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
                       .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-function b64encode(str) { return btoa(unescape(encodeURIComponent(str))); }
-
 function setStatus(msg, type) {
   document.getElementById('statusMsg').textContent = msg;
   const dot = document.getElementById('statusDot');
