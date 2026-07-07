@@ -994,7 +994,9 @@ async function publish() {
     const passwordHash = sessionStorage.getItem('sa_session_hash');
     if (!passwordHash) throw new Error('Sitzung abgelaufen — bitte neu einloggen.');
 
-    const images = Object.entries(pendingUploads).map(([path, content]) => ({ path, content }));
+    // Bildpfade sind relativ zur ausgelieferten Seite (images/products/...);
+    // im Repository liegen sie aber unter public/, das hängen wir hier an.
+    const images = Object.entries(pendingUploads).map(([path, content]) => ({ path: `public/${path}`, content }));
 
     const r = await fetch(`${API_BASE}/api/admin/publish`, {
       method: 'POST',

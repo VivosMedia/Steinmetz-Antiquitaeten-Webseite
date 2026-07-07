@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const REPO   = "VivosMedia/Steinmetz-Antiquitaeten-Webseite";
 const BRANCH = "master";
-const FILE   = "products.json";
+const FILE   = "public/products.json";
 
 const GH_API = "https://api.github.com";
 const GH_HEADERS = {
