@@ -673,6 +673,12 @@
   ],
   "schraenke": [
     {
+      "id": "jhek8rnn",
+      "img": "images/products/schraenke-mrbro1sg-denb4o4l.jpg",
+      "name": "Louis Seize Schrank Nussbaum",
+      "desc": "Herrliche Patina"
+    },
+    {
       "id": "cf74d348",
       "img": null,
       "name": "Salonvitrine Ahorn",
@@ -755,12 +761,6 @@
       "img": "images/products/746C8D0E-8630-467A-B506-0FBF6305EABB-45f4f5379edb.jpg",
       "name": "Dielenschrank Berlin um 1820",
       "desc": "Birke, selten"
-    },
-    {
-      "id": "bee5d0a7",
-      "img": "images/products/51C75604-3FD7-4B8C-81B0-3195C8DF276B-b706fbeadd15.jpg",
-      "name": "Barock",
-      "desc": "Norddeutsch, ca. 1780"
     },
     {
       "id": "d683ad31",
