@@ -1,22 +1,16 @@
 {
   "kommoden": [
     {
-      "id": "bdleenwv",
-      "img": "images/products/kommoden-mranx4rf-4jm3eplv.jpg",
-      "name": "Empire ca 1810",
-      "desc": "Süddeutsch"
+      "id": "ou0qzkzb",
+      "img": "images/products/kommoden-mrc3mmmq-jhzgwhtg.jpg",
+      "name": "Empire Daenemark",
+      "desc": "Ebonisiert"
     },
     {
-      "id": "fbinqcvq",
-      "img": "images/products/kommoden-mranv3w3-ujaynj9d.jpg",
-      "name": "Rokoko ca 1760",
-      "desc": "Schweden"
-    },
-    {
-      "id": "u78ld2n9",
-      "img": "images/products/kommoden-mranshu1-mlmi5pgu.jpg",
-      "name": "Herrschaftlich",
-      "desc": "Ca 1780"
+      "id": "sxs0pdku",
+      "img": "images/products/kommoden-mr4pv9w4-ui1pmtza.jpg",
+      "name": "jjj",
+      "desc": "jjjjjjjj"
     },
     {
       "id": "462ed825",
@@ -129,16 +123,16 @@
   ],
   "lampen": [
     {
-      "id": "2ca0ctci",
-      "img": "images/products/lampen-mrbra3mf-n8ziyy3d.jpg",
-      "name": "Kleiner Kristallüster",
-      "desc": "2flammig"
+      "id": "9e2bcf88",
+      "img": null,
+      "name": "Palmenlampe",
+      "desc": "Metall mit Goldauflage"
     },
     {
-      "id": "204sj8o7",
-      "img": "images/products/lampen-mrbr7omr-j5f6dd45.jpg",
-      "name": "Palmenlampe",
-      "desc": "Kögl 3 flammig"
+      "id": "d088022f",
+      "img": null,
+      "name": "Deckenlampe",
+      "desc": "Bernstorff Palais"
     },
     {
       "id": "5349c7f8",
@@ -189,6 +183,12 @@
       "desc": "Italienisch, 1-flammig, vergoldete Montur"
     },
     {
+      "id": "fb404131",
+      "img": "images/products/3653904-d0326e67b5a6.jpg",
+      "name": "Paar Kerzenampeln Wien",
+      "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"
+    },
+    {
       "id": "7e53a6d9",
       "img": "images/products/image60-ac5ac06cb553.jpg",
       "name": "Deckenkrone gustavianisch",
@@ -196,6 +196,18 @@
     }
   ],
   "dekoration": [
+    {
+      "id": "75gznq8m",
+      "img": "images/products/dekoration-mr4zoyjt-oudnk4fb.jpg",
+      "name": "Backgammon",
+      "desc": "Frankreich"
+    },
+    {
+      "id": "1wgemj0c",
+      "img": "images/products/lampen-mr4zl7xm-q3gmik8a.jpg",
+      "name": "Backgammonkoffer  Mahagoni",
+      "desc": "Frankreich"
+    },
     {
       "id": "00b35ebe",
       "img": null,
@@ -575,30 +587,6 @@
   ],
   "sekretaere": [
     {
-      "id": "azjuqw3f",
-      "img": "images/products/sekretaere-mrbrlryp-o4is2re7.jpg",
-      "name": "Schreibkommode ca 1820",
-      "desc": "Wurzelholz"
-    },
-    {
-      "id": "iwcw038u",
-      "img": "images/products/sekretaere-mrbrka0c-texvaae3.jpg",
-      "name": "Norddeutsch um 1820",
-      "desc": "Nussbaum"
-    },
-    {
-      "id": "9uvuiyof",
-      "img": "images/products/sekretaere-mrbrj2xe-sjz7v6f6.jpg",
-      "name": "Kleiner Sekretär Birke",
-      "desc": ""
-    },
-    {
-      "id": "k9hwbcwd",
-      "img": "images/products/sekretaere-mrbrfkck-sg02eog2.jpg",
-      "name": "Sekretär konsch ca 1825",
-      "desc": "AHORN"
-    },
-    {
       "id": "6bd738dc",
       "img": null,
       "name": "Sekretär Birke ca. 1830",
@@ -672,12 +660,6 @@
     }
   ],
   "schraenke": [
-    {
-      "id": "jhek8rnn",
-      "img": "images/products/schraenke-mrbro1sg-denb4o4l.jpg",
-      "name": "Louis Seize Schrank Nussbaum",
-      "desc": "Herrliche Patina"
-    },
     {
       "id": "cf74d348",
       "img": null,
@@ -761,6 +743,12 @@
       "img": "images/products/746C8D0E-8630-467A-B506-0FBF6305EABB-45f4f5379edb.jpg",
       "name": "Dielenschrank Berlin um 1820",
       "desc": "Birke, selten"
+    },
+    {
+      "id": "bee5d0a7",
+      "img": "images/products/51C75604-3FD7-4B8C-81B0-3195C8DF276B-b706fbeadd15.jpg",
+      "name": "Barock",
+      "desc": "Norddeutsch, ca. 1780"
     },
     {
       "id": "d683ad31",
