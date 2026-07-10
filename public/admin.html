@@ -704,8 +704,22 @@ const CAT_LABELS = {
 let products    = {};
 let currentCat  = 'kommoden';
 let isDirty     = false;
-let pendingFileData = null; // { path, base64 } für das aktuell im Formular gewählte Foto
-let pendingUploads  = JSON.parse(localStorage.getItem('sa_pending_uploads') || '{}'); // { path: base64 } noch nicht veröffentlichte Fotos
+let pendingFileData  = null; // { path, base64 } für das aktuell im Formular gewählte Foto
+let pendingUploads   = JSON.parse(localStorage.getItem('sa_pending_uploads') || '{}'); // { path: base64 } noch nicht veröffentlichte Fotos
+let pendingDeletions = JSON.parse(localStorage.getItem('sa_pending_deletions') || '[]'); // [{cat, id}] noch nicht veröffentlichte Löschungen
+
+function savePendingDeletions() {
+  try { localStorage.setItem('sa_pending_deletions', JSON.stringify(pendingDeletions)); }
+  catch (e) {}
+}
+
+async function fetchServerProducts() {
+  try {
+    const r = await fetch('products.json?' + Date.now());
+    if (r.ok) return await r.json();
+  } catch (_) {}
+  return null;
+}
 
 function savePendingUploads() {
   try {
@@ -813,30 +827,50 @@ async function boot() {
 async function loadProducts() {
   setStatus('Lade Produktdaten …', 'warn');
 
-  /* 1 — Local draft (unsaved changes from this session) */
-  const draft = localStorage.getItem('sa_draft');
-  if (draft) {
-    products = JSON.parse(draft);
-    finishLoad(true);
-    setStatus('Lokaler Entwurf geladen (noch nicht veröffentlicht).', 'warn');
-    return;
-  }
-
-  /* 2 — Fetch from server */
+  /* Server ist immer die Wahrheit — ein alter lokaler Entwurf darf sie nie
+     einfach ersetzen (das hat schon einmal frisch hinzugefügte Produkte
+     anderer Geräte überschrieben). Ein Entwurf wird nur noch verwendet, um
+     wirklich unveröffentlichte Einträge (per id) zu den Serverdaten zu
+     ergänzen. */
+  let serverProducts = null;
   try {
     const r = await fetch('products.json?' + Date.now());
-    if (r.ok) {
-      products = await r.json();
-      finishLoad(false);
-      setStatus('Produktdaten erfolgreich geladen.', 'ok');
-      return;
-    }
+    if (r.ok) serverProducts = await r.json();
   } catch (_) {}
 
-  /* 3 — Empty fallback */
-  products = Object.fromEntries(Object.keys(CAT_LABELS).map(k=>[k,[]]));
-  finishLoad(false);
-  setStatus('Keine products.json gefunden – neue Datenbank wird angelegt.', 'warn');
+  if (!serverProducts) {
+    serverProducts = Object.fromEntries(Object.keys(CAT_LABELS).map(k=>[k,[]]));
+  }
+
+  const draft = localStorage.getItem('sa_draft');
+  let mergedInSomething = false;
+
+  if (draft) {
+    const draftProducts = JSON.parse(draft);
+    for (const cat of Object.keys(draftProducts)) {
+      if (!serverProducts[cat]) serverProducts[cat] = [];
+      const knownIds = new Set(serverProducts[cat].map(p => p.id));
+      for (const p of draftProducts[cat] || []) {
+        if (!knownIds.has(p.id)) {
+          serverProducts[cat].unshift(p);
+          mergedInSomething = true;
+        }
+      }
+    }
+  }
+
+  products = serverProducts;
+  finishLoad(mergedInSomething);
+  setStatus(
+    mergedInSomething
+      ? 'Serverdaten geladen, unveröffentlichter lokaler Entwurf ergänzt.'
+      : 'Produktdaten erfolgreich geladen.',
+    'ok'
+  );
+  if (draft && !mergedInSomething) {
+    // Entwurf war bereits vollständig auf dem Server — aufräumen
+    localStorage.removeItem('sa_draft');
+  }
 }
 
 function finishLoad(dirty) {
@@ -937,7 +971,7 @@ function clearStagedFile() {
   document.getElementById('uploadLabel').classList.remove('has-file');
 }
 
-function delProduct(i) {
+async function delProduct(i) {
   const p = (products[currentCat]||[])[i];
   if (!p) return;
   if (!confirm(`„${p.name}" wirklich löschen?`)) return;
@@ -945,11 +979,14 @@ function delProduct(i) {
     delete pendingUploads[p.img];
     savePendingUploads();
   }
+  pendingDeletions.push({ cat: currentCat, id: p.id });
+  savePendingDeletions();
   products[currentCat].splice(i, 1);
   updateBadge(currentCat);
   renderCat();
   markDirty();
   toast(`„${p.name}" gelöscht.`, 'ok');
+  await publish();
 }
 
 /* ─── DIRTY STATE ───────────────────────────────────────────────────── */
@@ -997,6 +1034,21 @@ async function publish() {
     const passwordHash = sessionStorage.getItem('sa_session_hash');
     if (!passwordHash) throw new Error('Sitzung abgelaufen — bitte neu einloggen.');
 
+    /* Nie den möglicherweise veralteten lokalen Stand blind überschreiben:
+       frische Serverdaten holen, eigene Löschungen abziehen, eigene noch
+       nicht veröffentlichte Hinzufügungen ergänzen. So überschreibt ein
+       Gerät nie, was ein anderes Gerät in der Zwischenzeit hinzugefügt hat. */
+    const serverProducts = (await fetchServerProducts()) || {};
+    const merged = {};
+    for (const cat of Object.keys(CAT_LABELS)) {
+      let items = (serverProducts[cat] || []).filter(
+        p => !pendingDeletions.some(d => d.cat === cat && d.id === p.id)
+      );
+      const knownIds = new Set(items.map(p => p.id));
+      const localOnly = (products[cat] || []).filter(p => !knownIds.has(p.id));
+      merged[cat] = [...localOnly, ...items];
+    }
+
     // Bildpfade sind relativ zur ausgelieferten Seite (images/products/...);
     // im Repository liegen sie aber unter public/, das hängen wir hier an.
     const images = Object.entries(pendingUploads).map(([path, content]) => ({ path: `public/${path}`, content }));
@@ -1004,14 +1056,19 @@ async function publish() {
     const r = await fetch(`${API_BASE}/api/admin/publish`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ passwordHash, products, images }),
+      body: JSON.stringify({ passwordHash, products: merged, images }),
     });
     const result = await r.json();
 
     if (r.ok && result.success) {
+      products = merged;
       pendingUploads = {};
+      pendingDeletions = [];
       savePendingUploads();
+      savePendingDeletions();
       clearDirty();
+      renderCat();
+      Object.keys(CAT_LABELS).forEach(updateBadge);
       setStatus('Erfolgreich veröffentlicht! GitHub Pages aktualisiert sich in ~1 Minute.', 'ok');
       toast('Erfolgreich veröffentlicht!', 'ok');
     } else {
