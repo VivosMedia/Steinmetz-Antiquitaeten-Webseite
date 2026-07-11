@@ -123,6 +123,12 @@
   ],
   "lampen": [
     {
+      "id": "1psyv5wa",
+      "img": "images/products/lampen-mrer19ss-tjzgdrgx.jpg",
+      "name": "Palmenlampe Kögl",
+      "desc": "1,85m hoch"
+    },
+    {
       "id": "wpwzn2th",
       "img": "images/products/lampen-mrer0lz4-x7znu39e.jpg",
       "name": "Palmenlampe  Kögl",
@@ -151,12 +157,6 @@
       "img": "images/products/EB7369D7-6789-429E-A2E2-2CB3116454D1-a36d2fab65e4.jpg",
       "name": "Prunklüster 19. Jahrhundert",
       "desc": "Rarität"
-    },
-    {
-      "id": "636e032a",
-      "img": "images/products/81BC368F-6056-4EDB-AC07-0A198C7C6A61-e3f2547ab74f.jpg",
-      "name": "Palmenlampe vergoldet",
-      "desc": "Höhe 65 cm"
     },
     {
       "id": "e13a757b",
