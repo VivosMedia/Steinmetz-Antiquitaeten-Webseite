@@ -531,16 +531,16 @@
       "desc": "Birke, Empireform"
     },
     {
-      "id": "572c144d",
-      "img": "images/products/AC19E6D9-E0C7-40F9-A311-BB9890A4F8A3-5d791235f7e5.jpg",
-      "name": "Ohrensessel",
-      "desc": "Kirsch"
-    },
-    {
       "id": "86f4a44a",
       "img": "images/products/14BE7972-D69A-45C8-B088-0F2967444160-f586bbf3a88c.jpg",
       "name": "Bergère",
       "desc": "Birke"
+    },
+    {
+      "id": "95299f58",
+      "img": "images/products/0B2BAE32-ECBC-4014-99F0-6FFA9C973942-4b97416f1b4b.jpg",
+      "name": "Ohrensessel",
+      "desc": "Schmale Form"
     },
     {
       "id": "0e594fae",
