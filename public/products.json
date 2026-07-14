@@ -459,6 +459,12 @@
   ],
   "sitzmoebel": [
     {
+      "id": "15b55nl1",
+      "img": "images/products/sitzmoebel-mrkb1e7i-qirpaqbp.jpg",
+      "name": "B. Mogensen Sessel Modell2207",
+      "desc": "mit Patina"
+    },
+    {
       "id": "b60a1261",
       "img": null,
       "name": "Eames Lounge Chair",
