@@ -311,6 +311,12 @@
       "desc": "Mahagonikoffer, sehr schön"
     },
     {
+      "id": "8afdad06",
+      "img": null,
+      "name": "Großer Spiegel Empire",
+      "desc": "Feine Intarsien, feuervergoldete Rosetten, neues Glas"
+    },
+    {
       "id": "0be725f9",
       "img": "images/products/image-47c059609171.jpg",
       "name": "Standuhr gustavianisch",
@@ -321,12 +327,6 @@
       "img": "images/products/image4-2714bd797462.jpg",
       "name": "Dekoratives",
       "desc": "Paar französische Kerzenleuchter"
-    },
-    {
-      "id": "9ba42d62",
-      "img": null,
-      "name": "Kleine Kaminuhr feuervergoldet",
-      "desc": "Frankreich, ca. 1820"
     },
     {
       "id": "26b3eb08",
