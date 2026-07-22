@@ -311,12 +311,6 @@
       "desc": "Mahagonikoffer, sehr schön"
     },
     {
-      "id": "8afdad06",
-      "img": null,
-      "name": "Großer Spiegel Empire",
-      "desc": "Feine Intarsien, feuervergoldete Rosetten, neues Glas"
-    },
-    {
       "id": "0be725f9",
       "img": "images/products/image-47c059609171.jpg",
       "name": "Standuhr gustavianisch",
@@ -357,6 +351,12 @@
       "img": "images/products/image82-ad526cb3b852.jpg",
       "name": "Bronze 19. Jahrhundert",
       "desc": "Frankreich, auf Marmorsockel"
+    },
+    {
+      "id": "767a4143",
+      "img": "images/products/image72-d54335d6a475.jpg",
+      "name": "Biedermeier Spiegel Kirschholz",
+      "desc": "Kleiner Spiegel, ca. 1820, Originalzustand"
     },
     {
       "id": "a0b81e0e",
