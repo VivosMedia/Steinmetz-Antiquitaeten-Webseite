@@ -329,6 +329,12 @@
       "desc": "Paar französische Kerzenleuchter"
     },
     {
+      "id": "9ba42d62",
+      "img": null,
+      "name": "Kleine Kaminuhr feuervergoldet",
+      "desc": "Frankreich, ca. 1820"
+    },
+    {
       "id": "26b3eb08",
       "img": "images/products/image17-e0062972d3f6.jpg",
       "name": "Paar Adelsportraits dat. 1767",
@@ -369,12 +375,6 @@
       "img": "images/products/3589814-94137fa2ea64.jpg",
       "name": "Portrait",
       "desc": "Original um 1900, 84 × 54 cm"
-    },
-    {
-      "id": "a2071ed4",
-      "img": "images/products/image11-23ca89607f97.jpg",
-      "name": "2 Vasen 19. Jahrhundert",
-      "desc": "Empireform, Bronze, sehr dekorativ"
     }
   ],
   "tische": [
