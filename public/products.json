@@ -1,6 +1,12 @@
 {
   "kommoden": [
     {
+      "id": "um3haox9",
+      "img": "images/products/kommoden-mryq2pld-el774ql9.jpg",
+      "name": "Rokokokommode ca 1780",
+      "desc": "Ulmenholz schöne Patina"
+    },
+    {
       "id": "rp41fceu",
       "img": "images/products/kommoden-mrkayyqq-pfqsdtzf.jpg",
       "name": "Empireform 19.Jahrhundert",
@@ -129,6 +135,30 @@
   ],
   "lampen": [
     {
+      "id": "fb404131",
+      "img": "images/products/3653904-d0326e67b5a6.jpg",
+      "name": "Paar Kerzenampeln Wien",
+      "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"
+    },
+    {
+      "id": "636e032a",
+      "img": "images/products/81BC368F-6056-4EDB-AC07-0A198C7C6A61-e3f2547ab74f.jpg",
+      "name": "Palmenlampe vergoldet",
+      "desc": "Höhe 65 cm"
+    },
+    {
+      "id": "d088022f",
+      "img": null,
+      "name": "Deckenlampe",
+      "desc": "Bernstorff Palais"
+    },
+    {
+      "id": "9e2bcf88",
+      "img": null,
+      "name": "Palmenlampe",
+      "desc": "Metall mit Goldauflage"
+    },
+    {
       "id": "wo4njdls",
       "img": "images/products/lampen-mrkb7j7l-baqxyza2.jpg",
       "name": "2 Wandlüster gustavianisch",
@@ -190,6 +220,12 @@
     }
   ],
   "dekoration": [
+    {
+      "id": "8d253116",
+      "img": "images/products/DA2679BE-E83D-4324-A856-C37739AEDB12-5e2646ca9a05.jpg",
+      "name": "Spiegel ca. 1880",
+      "desc": "Originalzustand"
+    },
     {
       "id": "yutyylla",
       "img": "images/products/dekoration-mrvy6s3f-kkrwdnne.jpg",
@@ -458,6 +494,24 @@
     }
   ],
   "sitzmoebel": [
+    {
+      "id": "95299f58",
+      "img": "images/products/0B2BAE32-ECBC-4014-99F0-6FFA9C973942-4b97416f1b4b.jpg",
+      "name": "Ohrensessel",
+      "desc": "Schmale Form"
+    },
+    {
+      "id": "86f4a44a",
+      "img": "images/products/14BE7972-D69A-45C8-B088-0F2967444160-f586bbf3a88c.jpg",
+      "name": "Bergère",
+      "desc": "Birke"
+    },
+    {
+      "id": "ef631eca",
+      "img": "images/products/E45CD500-2923-4A88-B4A2-BE6F83A210E6-11d003fa4a16.jpg",
+      "name": "2 Clubsessel",
+      "desc": "Chesterfield, kleine Ausführung"
+    },
     {
       "id": "15b55nl1",
       "img": "images/products/sitzmoebel-mrkb1e7i-qirpaqbp.jpg",
