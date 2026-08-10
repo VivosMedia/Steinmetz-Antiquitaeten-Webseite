@@ -721,10 +721,16 @@
   ],
   "schraenke": [
     {
-      "id": "b09c3b37",
+      "id": "8625e3a7",
       "img": null,
-      "name": "Massiv Kirschholz",
-      "desc": "1,90 × 1,40 × 0,45 m"
+      "name": "Dielenschrank ca. 1825",
+      "desc": "Nussbaum, schöne Patina"
+    },
+    {
+      "id": "94304263",
+      "img": "images/products/A55617A4-E947-4D51-A7D3-26840E6024CA-2fd588aeebc3.jpg",
+      "name": "Eckvitrine Birke",
+      "desc": "Schöne Patina"
     },
     {
       "id": "by615kqp",
@@ -745,10 +751,16 @@
       "desc": "Schinkelgiebel Berlin"
     },
     {
-      "id": "8625e3a7",
+      "id": "dde91c43",
       "img": null,
-      "name": "Dielenschrank ca. 1825",
-      "desc": "Nussbaum, schöne Patina"
+      "name": "Barockschrank um 1790",
+      "desc": "Nussbaum auf Eichenholz"
+    },
+    {
+      "id": "b09c3b37",
+      "img": null,
+      "name": "Massiv Kirschholz",
+      "desc": "1,90 × 1,40 × 0,45 m"
     },
     {
       "id": "27525bf3",
@@ -793,12 +805,6 @@
       "desc": "Patina"
     },
     {
-      "id": "94304263",
-      "img": "images/products/A55617A4-E947-4D51-A7D3-26840E6024CA-2fd588aeebc3.jpg",
-      "name": "Eckvitrine Birke",
-      "desc": "Schöne Patina"
-    },
-    {
       "id": "2ba6bade",
       "img": "images/products/3F95BD10-E9F0-4BD4-8120-CD71D6D5371F-0d19d86d1d58.jpg",
       "name": "Eckvitrine",
@@ -809,12 +815,6 @@
       "img": "images/products/746C8D0E-8630-467A-B506-0FBF6305EABB-45f4f5379edb.jpg",
       "name": "Dielenschrank Berlin um 1820",
       "desc": "Birke, selten"
-    },
-    {
-      "id": "bee5d0a7",
-      "img": "images/products/51C75604-3FD7-4B8C-81B0-3195C8DF276B-b706fbeadd15.jpg",
-      "name": "Barock",
-      "desc": "Norddeutsch, ca. 1780"
     },
     {
       "id": "d683ad31",
