@@ -79,6 +79,12 @@
       "desc": "Frankreich, ca. 1810"
     },
     {
+      "id": "0fd9857e",
+      "img": "images/products/956E1357-4826-466E-936E-D20E5058AB08-4dc23081f1d2.jpg",
+      "name": "Paar Trommelschränke",
+      "desc": "Rarität – Esche"
+    },
+    {
       "id": "dac6d3cf",
       "img": "images/products/8D3F0FD2-5828-413B-9A2E-7D95C5194114-a46b83545b1b.jpg",
       "name": "Trommelschränkchen",
@@ -89,12 +95,6 @@
       "img": null,
       "name": "Empire Kommode",
       "desc": "Ebonisiert"
-    },
-    {
-      "id": "3d6dc688",
-      "img": "images/products/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5-d94ffc588348.jpg",
-      "name": "Empire Kommode",
-      "desc": "Mahagoni, 80 cm Breite"
     },
     {
       "id": "555845b7",
