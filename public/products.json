@@ -469,12 +469,6 @@
       "desc": "Frankreich, um 1810"
     },
     {
-      "id": "60b97852",
-      "img": "images/products/FBA238EB-EDD4-4790-93AA-AEDC9ABEB36A-fb792290980b.jpg",
-      "name": "Konsole Birke",
-      "desc": "Schellack poliert"
-    },
-    {
       "id": "589f30ec",
       "img": "images/products/E9F86362-6B61-4716-A057-3B6B1847EBE4-04a2936582e2.jpg",
       "name": "Kleiner Schreibtisch",
@@ -491,6 +485,12 @@
       "img": null,
       "name": "Gustavianisch",
       "desc": "Durchmesser 1,30 m"
+    },
+    {
+      "id": "f7ff8de9",
+      "img": "images/products/image-b597406af457.jpg",
+      "name": "Beistelltisch",
+      "desc": "Birke, um 1840, auf Messingrollen"
     },
     {
       "id": "ae4c3254",
