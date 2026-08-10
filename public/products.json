@@ -481,6 +481,12 @@
       "desc": "Birke, norddeutsch"
     },
     {
+      "id": "bc5a642c",
+      "img": "images/products/E3CBA059-DDF9-4383-AC4E-BC602D374385-4af09d6896cb.jpg",
+      "name": "Tischchen Baltikum",
+      "desc": "Wurzelholz"
+    },
+    {
       "id": "eff36946",
       "img": null,
       "name": "Gustavianisch",
@@ -491,12 +497,6 @@
       "img": "images/products/image-b597406af457.jpg",
       "name": "Beistelltisch",
       "desc": "Birke, um 1840, auf Messingrollen"
-    },
-    {
-      "id": "ae4c3254",
-      "img": "images/products/image38-bbbca970b5f0.jpg",
-      "name": "Großer Esstisch Wurzelholz",
-      "desc": "Baltikum, Ø 1,18 m ausziehbar, Wurzelmaser, poliert"
     }
   ],
   "sitzmoebel": [
