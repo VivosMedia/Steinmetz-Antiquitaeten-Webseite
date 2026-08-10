@@ -721,12 +721,6 @@
   ],
   "schraenke": [
     {
-      "id": "94304263",
-      "img": "images/products/A55617A4-E947-4D51-A7D3-26840E6024CA-2fd588aeebc3.jpg",
-      "name": "Eckvitrine Birke",
-      "desc": "Schöne Patina"
-    },
-    {
       "id": "by615kqp",
       "img": "images/products/schraenke-msn43c20-rhdxrqru.jpg",
       "name": "Trommelschrank",
@@ -815,6 +809,12 @@
       "img": "images/products/746C8D0E-8630-467A-B506-0FBF6305EABB-45f4f5379edb.jpg",
       "name": "Dielenschrank Berlin um 1820",
       "desc": "Birke, selten"
+    },
+    {
+      "id": "bee5d0a7",
+      "img": "images/products/51C75604-3FD7-4B8C-81B0-3195C8DF276B-b706fbeadd15.jpg",
+      "name": "Barock",
+      "desc": "Norddeutsch, ca. 1780"
     },
     {
       "id": "d683ad31",
