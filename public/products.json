@@ -67,12 +67,6 @@
       "desc": "Schöne Patina"
     },
     {
-      "id": "7525c1cc",
-      "img": "images/products/8AA98183-9ABD-4543-A08E-C679EC50F4A7-3a73a6c9b6fc.jpg",
-      "name": "Große Kommode",
-      "desc": "Eiche geschwärzt, ca. 1810"
-    },
-    {
       "id": "83e9a045",
       "img": "images/products/6BC7CAA3-79D3-4DF3-A495-4E94B2BEF03B-9518e34ddd03.jpg",
       "name": "Kommode",
@@ -95,6 +89,12 @@
       "img": null,
       "name": "Empire Kommode",
       "desc": "Ebonisiert"
+    },
+    {
+      "id": "3d6dc688",
+      "img": "images/products/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5-d94ffc588348.jpg",
+      "name": "Empire Kommode",
+      "desc": "Mahagoni, 80 cm Breite"
     },
     {
       "id": "555845b7",
