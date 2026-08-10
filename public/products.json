@@ -463,6 +463,12 @@
       "desc": "90 × 45 cm"
     },
     {
+      "id": "cc07e2c4",
+      "img": "images/products/AC7F9C9A-637C-43A6-AD3E-2EECC6A285DF-2ca741ac6f54.jpg",
+      "name": "Empire Tisch Mahagoni",
+      "desc": "Frankreich, um 1810"
+    },
+    {
       "id": "60b97852",
       "img": "images/products/FBA238EB-EDD4-4790-93AA-AEDC9ABEB36A-fb792290980b.jpg",
       "name": "Konsole Birke",
@@ -485,12 +491,6 @@
       "img": null,
       "name": "Gustavianisch",
       "desc": "Durchmesser 1,30 m"
-    },
-    {
-      "id": "f7ff8de9",
-      "img": "images/products/image-b597406af457.jpg",
-      "name": "Beistelltisch",
-      "desc": "Birke, um 1840, auf Messingrollen"
     },
     {
       "id": "ae4c3254",
