@@ -721,6 +721,12 @@
   ],
   "schraenke": [
     {
+      "id": "94304263",
+      "img": "images/products/A55617A4-E947-4D51-A7D3-26840E6024CA-2fd588aeebc3.jpg",
+      "name": "Eckvitrine Birke",
+      "desc": "Schöne Patina"
+    },
+    {
       "id": "by615kqp",
       "img": "images/products/schraenke-msn43c20-rhdxrqru.jpg",
       "name": "Trommelschrank",
@@ -751,10 +757,10 @@
       "desc": "1,90 × 1,40 × 0,45 m"
     },
     {
-      "id": "27525bf3",
+      "id": "8625e3a7",
       "img": null,
-      "name": "Anrichte Birke ca. 1920",
-      "desc": "Salonmöbel im Biedermeierstil"
+      "name": "Dielenschrank ca. 1825",
+      "desc": "Nussbaum, schöne Patina"
     },
     {
       "id": "4170bbb8",
@@ -791,12 +797,6 @@
       "img": null,
       "name": "Schrank um 1780",
       "desc": "Patina"
-    },
-    {
-      "id": "94304263",
-      "img": "images/products/A55617A4-E947-4D51-A7D3-26840E6024CA-2fd588aeebc3.jpg",
-      "name": "Eckvitrine Birke",
-      "desc": "Schöne Patina"
     },
     {
       "id": "2ba6bade",
