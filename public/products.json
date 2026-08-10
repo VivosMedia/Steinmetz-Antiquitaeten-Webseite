@@ -721,6 +721,12 @@
   ],
   "schraenke": [
     {
+      "id": "b09c3b37",
+      "img": null,
+      "name": "Massiv Kirschholz",
+      "desc": "1,90 × 1,40 × 0,45 m"
+    },
+    {
       "id": "by615kqp",
       "img": "images/products/schraenke-msn43c20-rhdxrqru.jpg",
       "name": "Trommelschrank",
@@ -737,18 +743,6 @@
       "img": null,
       "name": "Salonvitrine Ahorn",
       "desc": "Schinkelgiebel Berlin"
-    },
-    {
-      "id": "dde91c43",
-      "img": null,
-      "name": "Barockschrank um 1790",
-      "desc": "Nussbaum auf Eichenholz"
-    },
-    {
-      "id": "b09c3b37",
-      "img": null,
-      "name": "Massiv Kirschholz",
-      "desc": "1,90 × 1,40 × 0,45 m"
     },
     {
       "id": "8625e3a7",
@@ -797,6 +791,12 @@
       "img": null,
       "name": "Schrank um 1780",
       "desc": "Patina"
+    },
+    {
+      "id": "94304263",
+      "img": "images/products/A55617A4-E947-4D51-A7D3-26840E6024CA-2fd588aeebc3.jpg",
+      "name": "Eckvitrine Birke",
+      "desc": "Schöne Patina"
     },
     {
       "id": "2ba6bade",
