@@ -135,6 +135,12 @@
   ],
   "lampen": [
     {
+      "id": "fb404131",
+      "img": "images/products/3653904-d0326e67b5a6.jpg",
+      "name": "Paar Kerzenampeln Wien",
+      "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"
+    },
+    {
       "id": "d6jplb5v",
       "img": "images/products/lampen-msn40v2u-16r0j9m0.jpg",
       "name": "Kleine Deckenkrone",
@@ -145,12 +151,6 @@
       "img": "images/products/lampen-msn3xh10-kpk3j1kd.jpg",
       "name": "Tischlampe",
       "desc": "70 iger JAHRE"
-    },
-    {
-      "id": "fb404131",
-      "img": "images/products/3653904-d0326e67b5a6.jpg",
-      "name": "Paar Kerzenampeln Wien",
-      "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"
     },
     {
       "id": "636e032a",
@@ -507,10 +507,10 @@
   ],
   "sitzmoebel": [
     {
-      "id": "95299f58",
-      "img": "images/products/0B2BAE32-ECBC-4014-99F0-6FFA9C973942-4b97416f1b4b.jpg",
-      "name": "Ohrensessel",
-      "desc": "Schmale Form"
+      "id": "86f4a44a",
+      "img": "images/products/14BE7972-D69A-45C8-B088-0F2967444160-f586bbf3a88c.jpg",
+      "name": "Bergère",
+      "desc": "Birke"
     },
     {
       "id": "ef631eca",
