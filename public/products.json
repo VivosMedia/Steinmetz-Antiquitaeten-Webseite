@@ -135,12 +135,6 @@
   ],
   "lampen": [
     {
-      "id": "fb404131",
-      "img": "images/products/3653904-d0326e67b5a6.jpg",
-      "name": "Paar Kerzenampeln Wien",
-      "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"
-    },
-    {
       "id": "d6jplb5v",
       "img": "images/products/lampen-msn40v2u-16r0j9m0.jpg",
       "name": "Kleine Deckenkrone",
@@ -151,6 +145,12 @@
       "img": "images/products/lampen-msn3xh10-kpk3j1kd.jpg",
       "name": "Tischlampe",
       "desc": "70 iger JAHRE"
+    },
+    {
+      "id": "fb404131",
+      "img": "images/products/3653904-d0326e67b5a6.jpg",
+      "name": "Paar Kerzenampeln Wien",
+      "desc": "19. Jahrhundert, signiert Wien, sehr dekorativ"
     },
     {
       "id": "636e032a",
@@ -513,6 +513,12 @@
       "desc": "Birke"
     },
     {
+      "id": "ef631eca",
+      "img": "images/products/E45CD500-2923-4A88-B4A2-BE6F83A210E6-11d003fa4a16.jpg",
+      "name": "2 Clubsessel",
+      "desc": "Chesterfield, kleine Ausführung"
+    },
+    {
       "id": "15b55nl1",
       "img": "images/products/sitzmoebel-mrkb1e7i-qirpaqbp.jpg",
       "name": "B. Mogensen Sessel Modell2207",
@@ -589,12 +595,6 @@
       "img": "images/products/AC19E6D9-E0C7-40F9-A311-BB9890A4F8A3-5d791235f7e5.jpg",
       "name": "Ohrensessel",
       "desc": "Kirsch"
-    },
-    {
-      "id": "0e594fae",
-      "img": "images/products/11EA7849-3187-40D7-8BE0-FE2B9F0A999D-027684e9d56f.jpg",
-      "name": "Lounge Chair Eames",
-      "desc": "Ausführung Miller USA"
     },
     {
       "id": "f463d297",
