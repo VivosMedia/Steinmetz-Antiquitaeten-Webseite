@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kontakt & Öffnungszeiten | Steinmetz Antiquitäten</title>
   <meta name="description" content="Steinmetz Antiquitäten Hamburg – Uhlenhorster Weg 14, 22085 Hamburg. Mi–Fr 15–18 Uhr, Sa 11–13 Uhr. Tel: (0)172 450 23 87 · jetzt anfragen!" />
+  <link rel="preload" as="font" type="font/woff2" href="fonts/S6uyw4BMUTPHjx4wXg.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" crossorigin>
   <link rel="stylesheet" href="fonts/fonts.css" />
   <link rel="stylesheet" href="steinmetz-kategorie.css" />
   <style>
@@ -117,6 +119,16 @@
       stroke: currentColor;
       fill: none;
       flex-shrink: 0;
+    }
+    .map-embed {
+      margin-top: 16px;
+      border: 1px solid rgba(201, 168, 76, 0.18);
+      overflow: hidden;
+      filter: grayscale(8%) contrast(1.02);
+    }
+    .map-embed iframe {
+      display: block;
+      width: 100%;
     }
 
     /* ── Right column: Reach ────────────────────────────────────────────── */
@@ -244,6 +256,57 @@
       font-weight: 700;
     }
 
+    /* ── FAQ ─────────────────────────────────────────────────────────────── */
+    .faq-section {
+      padding: 20px 40px 90px;
+      background: var(--cream);
+    }
+    .faq-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .faq-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      font-weight: 500;
+      color: var(--brown);
+      line-height: 1.25;
+      margin-bottom: 32px;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+      padding: 18px 0;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 0.94rem;
+      color: var(--brown);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      flex-shrink: 0;
+      color: var(--gold);
+      font-size: 1.3rem;
+      font-weight: 400;
+      transition: transform 0.25s ease;
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item p {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      color: var(--warm-grey);
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
     /* ── Responsive ─────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
       .contact-inner {
@@ -268,10 +331,66 @@
   <meta name="twitter:title" content="Kontakt & Öffnungszeiten | Steinmetz Antiquitäten">
   <meta name="twitter:description" content="Steinmetz Antiquitäten Hamburg – Uhlenhorster Weg 14, 22085 Hamburg. Mi–Fr 15–18 Uhr, Sa 11–13 Uhr. Tel: (0)172 450 23 87 · jetzt anfragen!">
   <meta name="twitter:image" content="https://www.steinmetz-antiquitaeten.de/Gemini%20Generated%20Image%20Wohnzimmer.jpg">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Kaufen Sie auch Antiquitäten an?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Aktuell kaufen wir nur selten Möbelstücke an, eine Anfrage können Sie uns aber jederzeit stellen – gerne mit Fotos und Maßen, wir melden uns mit einer ehrlichen Einschätzung zurück."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sind die Möbel restauriert?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Das ist unterschiedlich: Viele Stücke bewahren wir bewusst mit ihrer gewachsenen, originalen Patina, andere restaurieren wir fachgerecht für den täglichen Gebrauch. Auf Wunsch restaurieren wir auch einzelne Stücke gezielt für Sie. Den jeweiligen Zustand nennen wir Ihnen immer transparent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann ich die Möbel vor Ort besichtigen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, unsere Ausstellung am Uhlenhorster Weg 14 in Hamburg-Uhlenhorst ist Mi–Fr 15–18 Uhr und Sa 11–13 Uhr geöffnet, außerhalb dieser Zeiten gerne nach Vereinbarung."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Liefern Sie die Möbel auch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, wir organisieren auf Wunsch eine fachgerechte Spedition oder einen persönlichen Liefertermin – sprechen Sie uns einfach darauf an."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was macht Biedermeiermöbel besonders wertvoll?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Biedermeiermöbel überzeugen durch klare, zeitlose Formen, hochwertige Hölzer wie Kirschbaum, Birke und Mahagoni sowie handwerkliche Verarbeitung, die auch nach fast 200 Jahren noch alltagstauglich ist."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann ich einzelne Stücke reservieren lassen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, rufen Sie uns an oder schreiben Sie uns per WhatsApp – wir halten Ihnen ein Stück für einen fairen Zeitraum zurück."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 
-  <nav id="navbar">
+  <nav id="navbar" aria-label="Hauptnavigation">
     <a href="/" class="nav-logo">Steinmetz Antiquitäten<span>Hamburg · Antiquitäten</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="kommoden">Kommoden</a></li>
@@ -284,7 +403,7 @@
       <li><a href="angebote">Angebote</a></li>
       <li><a href="kontakt" class="active nav-cta">Kontakt</a></li>
     </ul>
-    <button class="nav-hamburger" id="navToggle"><span></span><span></span><span></span></button>
+    <button class="nav-hamburger" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </nav>
 
   <!-- Category hero -->
@@ -321,6 +440,16 @@
             <svg viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             In Google Maps öffnen
           </a>
+          <div class="map-embed">
+            <iframe
+              src="https://www.google.com/maps?q=Uhlenhorster+Weg+14,22085+Hamburg&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Steinmetz Antiquitäten – Ausstellung Uhlenhorster Weg 14, Hamburg"
+              aria-label="Google-Maps-Karte: Ausstellung Uhlenhorster Weg 14, Hamburg"
+              width="100%" height="220" style="border:0;">
+            </iframe>
+          </div>
         </div>
 
         <div class="contact-address-block">
@@ -416,6 +545,38 @@
     </div>
   </section>
 
+  <section class="faq-section" aria-label="Häufig gestellte Fragen">
+    <div class="faq-inner fade-up">
+      <span class="section-label">Häufige Fragen</span>
+      <h2>Gut zu wissen</h2>
+
+      <details class="faq-item">
+        <summary>Kaufen Sie auch Antiquitäten an?</summary>
+        <p>Aktuell kaufen wir nur selten Möbelstücke an, eine Anfrage können Sie uns aber jederzeit stellen – gerne mit Fotos und Maßen, wir melden uns mit einer ehrlichen Einschätzung zurück.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Sind die Möbel restauriert?</summary>
+        <p>Das ist unterschiedlich: Viele Stücke bewahren wir bewusst mit ihrer gewachsenen, originalen Patina, andere restaurieren wir fachgerecht für den täglichen Gebrauch. Auf Wunsch restaurieren wir auch einzelne Stücke gezielt für Sie. Den jeweiligen Zustand nennen wir Ihnen immer transparent.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Kann ich die Möbel vor Ort besichtigen?</summary>
+        <p>Ja, unsere Ausstellung am Uhlenhorster Weg 14 in Hamburg-Uhlenhorst ist Mi–Fr 15–18 Uhr und Sa 11–13 Uhr geöffnet, außerhalb dieser Zeiten gerne nach Vereinbarung.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Liefern Sie die Möbel auch?</summary>
+        <p>Ja, wir organisieren auf Wunsch eine fachgerechte Spedition oder einen persönlichen Liefertermin – sprechen Sie uns einfach darauf an.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Was macht Biedermeiermöbel besonders wertvoll?</summary>
+        <p>Biedermeiermöbel überzeugen durch klare, zeitlose Formen, hochwertige Hölzer wie Kirschbaum, Birke und Mahagoni sowie handwerkliche Verarbeitung, die auch nach fast 200 Jahren noch alltagstauglich ist.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Kann ich einzelne Stücke reservieren lassen?</summary>
+        <p>Ja, rufen Sie uns an oder schreiben Sie uns per WhatsApp – wir halten Ihnen ein Stück für einen fairen Zeitraum zurück.</p>
+      </details>
+    </div>
+  </section>
+
   <section class="cta-banner">
     <div class="cta-banner-inner fade-up">
       <span class="cta-banner-eyebrow">Wir freuen uns auf Sie</span>
@@ -443,7 +604,7 @@
       </div>
       <div class="footer-col">
         <h4>Öffnungszeiten</h4>
-        <p>Mi – Fr: 15:00 – 18:00 Uhr<br>Sa: 11:00 – 13:00 Uhr<br>Sonst auf Anfrage<br><br>Tel: (0)172 450 23 87<br>info@steinmetz-antiquitaeten.de</p>
+        <p>Mi – Fr: 15:00 – 18:00 Uhr<br>Sa: 11:00 – 13:00 Uhr<br>Sonst auf Anfrage<br><br>Tel: <a href="tel:+491724502387">(0)172 450 23 87</a><br><a href="mailto:info@steinmetz-antiquitaeten.de">info@steinmetz-antiquitaeten.de</a></p>
       </div>
       <div class="footer-col"><h4>Kategorien</h4>
         <a href="kommoden">Kommoden</a><a href="lampen">Lampen</a><a href="dekoration">Dekoration</a>
@@ -460,7 +621,10 @@
   <script>
     const navToggle = document.getElementById('navToggle');
     const navLinks  = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
     setTimeout(() => document.querySelector('.cat-hero-bg').classList.add('loaded'), 100);
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });

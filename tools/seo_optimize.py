@@ -80,6 +80,7 @@ PAGES = {
         'title': 'Kontakt & Öffnungszeiten | Steinmetz Antiquitäten',
         'desc':  'Steinmetz Antiquitäten Hamburg – Uhlenhorster Weg 14, 22085 Hamburg. Mi–Fr 15–18 Uhr, Sa 11–13 Uhr. Tel: (0)172 450 23 87 · jetzt anfragen!',
         'url':   f'{BASE}/kontakt',
+        'faq': True,
     },
     'impressum.html': {
         'title': 'Impressum | Steinmetz Antiquitäten Hamburg',
@@ -128,6 +129,39 @@ JSONLD = '''\
     ]
   }
   </script>'''
+
+
+FAQ_ITEMS = [
+    ('Kaufen Sie auch Antiquitäten an?',
+     'Aktuell kaufen wir nur selten Möbelstücke an, eine Anfrage können Sie uns aber jederzeit stellen – gerne mit Fotos und Maßen, wir melden uns mit einer ehrlichen Einschätzung zurück.'),
+    ('Sind die Möbel restauriert?',
+     'Das ist unterschiedlich: Viele Stücke bewahren wir bewusst mit ihrer gewachsenen, originalen Patina, andere restaurieren wir fachgerecht für den täglichen Gebrauch. Auf Wunsch restaurieren wir auch einzelne Stücke gezielt für Sie. Den jeweiligen Zustand nennen wir Ihnen immer transparent.'),
+    ('Kann ich die Möbel vor Ort besichtigen?',
+     'Ja, unsere Ausstellung am Uhlenhorster Weg 14 in Hamburg-Uhlenhorst ist Mi–Fr 15–18 Uhr und Sa 11–13 Uhr geöffnet, außerhalb dieser Zeiten gerne nach Vereinbarung.'),
+    ('Liefern Sie die Möbel auch?',
+     'Ja, wir organisieren auf Wunsch eine fachgerechte Spedition oder einen persönlichen Liefertermin – sprechen Sie uns einfach darauf an.'),
+    ('Was macht Biedermeiermöbel besonders wertvoll?',
+     'Biedermeiermöbel überzeugen durch klare, zeitlose Formen, hochwertige Hölzer wie Kirschbaum, Birke und Mahagoni sowie handwerkliche Verarbeitung, die auch nach fast 200 Jahren noch alltagstauglich ist.'),
+    ('Kann ich einzelne Stücke reservieren lassen?',
+     'Ja, rufen Sie uns an oder schreiben Sie uns per WhatsApp – wir halten Ihnen ein Stück für einen fairen Zeitraum zurück.'),
+]
+
+
+def build_faq_jsonld():
+    ld = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        'mainEntity': [
+            {
+                '@type': 'Question',
+                'name': q,
+                'acceptedAnswer': {'@type': 'Answer', 'text': a},
+            }
+            for q, a in FAQ_ITEMS
+        ],
+    }
+    body = json.dumps(ld, ensure_ascii=False, indent=2)
+    return f'  <script type="application/ld+json">\n{body}\n  </script>'
 
 
 def build_category_jsonld(cat, data):
@@ -201,6 +235,8 @@ def build_head_tags(page, data):
         lines.append(JSONLD)
     elif 'category' in data:
         lines.append(build_category_jsonld(data['category'], data))
+    if data.get('faq'):
+        lines.append(build_faq_jsonld())
 
     return '\n'.join(lines)
 

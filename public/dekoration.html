@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Antike Dekoration Hamburg | Spiegel & Gemälde – Steinmetz</title>
   <meta name="description" content="Antike Dekoration in Hamburg: Gemälde, Spiegel, Bronzen & Kerzenleuchter, kuratiert von Jon Steinmetz. Jetzt Sammlerstücke persönlich anfragen!" />
+  <link rel="preload" as="font" type="font/woff2" href="fonts/S6uyw4BMUTPHjx4wXg.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" crossorigin>
   <link rel="stylesheet" href="fonts/fonts.css" />
   <link rel="stylesheet" href="steinmetz-kategorie.css" />
   <link rel="preload" as="image" href="images/products/DA2679BE-E83D-4324-A856-C37739AEDB12-5e2646ca9a05.jpg">
@@ -551,7 +553,7 @@
 </head>
 <body>
 
-  <nav id="navbar">
+  <nav id="navbar" aria-label="Hauptnavigation">
     <a href="/" class="nav-logo">Steinmetz Antiquitäten<span>Hamburg · Antiquitäten</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="kommoden">Kommoden</a></li>
@@ -563,7 +565,7 @@
       <li><a href="schraenke">Schränke</a></li>
       <li><a href="angebote" class="nav-cta">Angebote</a></li>
     </ul>
-    <button class="nav-hamburger" id="navToggle"><span></span><span></span><span></span></button>
+    <button class="nav-hamburger" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
   </nav>
 
   <section class="cat-hero">
@@ -589,6 +591,10 @@
       </div>
       <div class="product-grid" id="productGrid">
       </div>
+      <div class="category-info-text fade-up">
+        <h3>Antike Dekoration – kleine Details, große Wirkung</h3>
+        <p>Dekorative Antiquitäten sind die Details, die einen Raum unverwechselbar machen. Zu unserem traditionellen Sortiment zählen Biedermeier-Spiegel mit vergoldetem Rahmen, Ölgemälde des 19. Jahrhunderts, Bronzefiguren, Kerzenleuchter, Kaminuhren und feines Porzellan – in großer stilistischer und handwerklicher Bandbreite. Viele Stücke stammen aus Hamburger Nachlässen und norddeutschem Bürgertum und tragen die charaktervolle Patina echter Handwerkskunst. Wir prüfen jedes Objekt auf Herkunft, Zustand und Echtheit. Was Sie online sehen, ist nur eine kleine Auswahl – Ausstellung und Lager in Ahrensfelde halten deutlich mehr Sammlerstücke bereit, von klassizistisch bis spätbiedermeierlich. Rufen Sie uns an oder besuchen Sie uns in Hamburg-Uhlenhorst, wir zeigen Ihnen gerne mehr.</p>
+      </div>
     </div>
   </section>
 
@@ -596,7 +602,7 @@
     <div class="cta-banner-inner fade-up">
       <span class="cta-banner-eyebrow">Persönliche Beratung</span>
       <h2>Sie suchen etwas Besonderes?<br><em>Wir helfen Ihnen persönlich.</em></h2>
-      <a href="kontakt" class="btn-gold-lg">Jetzt anfragen</a>
+      <a href="kontakt" class="btn-gold-lg" aria-label="Jetzt zu Dekoration anfragen">Jetzt anfragen</a>
     </div>
   </section>
 
@@ -604,7 +610,7 @@
     <div class="footer-inner">
       <div class="footer-brand"><div class="logo-text">Steinmetz Antiquitäten</div><span class="logo-sub">Hamburg</span><p>Hamburgs feinste Antiquitäten – persönlich kuratiert, seit über 30 Jahren.</p></div>
       <div class="footer-col"><h4>Ausstellung</h4><address>Uhlenhorster Weg 14<br>22085 Hamburg</address><h4 class="footer-h4-second">Lagerverkauf</h4><address>Teichstrasse 5<br>22926 Ahrensfelde</address></div>
-      <div class="footer-col"><h4>Öffnungszeiten</h4><p>Mi – Fr: 15:00 – 18:00 Uhr<br>Sa: 11:00 – 13:00 Uhr<br>Sonst auf Anfrage<br><br>Tel: (0)172 450 23 87<br>info@steinmetz-antiquitaeten.de</p></div>
+      <div class="footer-col"><h4>Öffnungszeiten</h4><p>Mi – Fr: 15:00 – 18:00 Uhr<br>Sa: 11:00 – 13:00 Uhr<br>Sonst auf Anfrage<br><br>Tel: <a href="tel:+491724502387">(0)172 450 23 87</a><br><a href="mailto:info@steinmetz-antiquitaeten.de">info@steinmetz-antiquitaeten.de</a></p></div>
       <div class="footer-col"><h4>Kategorien</h4>
         <a href="kommoden">Kommoden</a><a href="lampen">Lampen</a><a href="dekoration">Dekoration</a>
         <a href="tische">Tische</a><a href="sitzmoebel">Sitzmöbel</a><a href="sekretaere">Sekretäre</a>
@@ -620,7 +626,10 @@
   <script>
     const navToggle = document.getElementById('navToggle');
     const navLinks  = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
     setTimeout(() => document.querySelector('.cat-hero-bg').classList.add('loaded'), 100);
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });

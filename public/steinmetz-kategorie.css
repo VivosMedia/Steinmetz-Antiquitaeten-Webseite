@@ -305,6 +305,26 @@ body::after {
   text-underline-offset: 2px;
   transition: color 0.2s, text-decoration-color 0.2s;
 }
+.category-info-text {
+  max-width: 760px;
+  margin: 64px auto 0;
+  padding-top: 40px;
+  border-top: 1px solid rgba(201, 168, 76, 0.2);
+}
+.category-info-text h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--brown);
+  margin-bottom: 14px;
+}
+.category-info-text p {
+  font-size: 0.9rem;
+  color: var(--warm-grey);
+  font-weight: 300;
+  line-height: 1.85;
+}
+
 .products-header p a:hover {
   color: var(--gold-light);
   text-decoration-color: var(--gold-light);

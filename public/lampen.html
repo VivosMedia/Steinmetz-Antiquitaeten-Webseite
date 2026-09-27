@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Antike Lampen & Lüster Hamburg kaufen – Steinmetz</title>
   <meta name="description" content="Antike Lampen in Hamburg: Kristallüster, Palmenlampen & Kerzenampeln aus Biedermeier & Empire. 12 einzigartige Stücke – jetzt anfragen!" />
+  <link rel="preload" as="font" type="font/woff2" href="fonts/S6uyw4BMUTPHjx4wXg.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="fonts/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgA.woff2" crossorigin>
   <link rel="stylesheet" href="fonts/fonts.css" />
   <link rel="stylesheet" href="steinmetz-kategorie.css" />
   <link rel="preload" as="image" href="images/products/0CDF26CA-5402-4435-891C-868E518A8AD9-8d8912a52d34.jpg">
@@ -318,7 +320,7 @@
       <li><a href="schraenke">Schränke</a></li>
       <li><a href="angebote" class="nav-cta">Angebote</a></li>
     </ul>
-    <button class="nav-hamburger" id="navToggle" aria-label="Menü öffnen">
+    <button class="nav-hamburger" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>
     </button>
   </nav>
@@ -351,6 +353,10 @@
 
       <div class="product-grid" id="productGrid">
       </div>
+      <div class="category-info-text fade-up">
+        <h3>Antike Lampen – Licht mit Geschichte</h3>
+        <p>Antike Lampen erzählen von der Lichtkultur vergangener Jahrhunderte – von schweren Kristalllüstern bürgerlicher Salons bis zu schlichten Petroleum- und frühen Elektrolampen der Biedermeierzeit. Zu unserem Sortiment gehören traditionell Kristallüster, vergoldete Palmenlampen, Kerzenampeln und Wandleuchter aus Messing, Bronze und Zinn, viele davon aus dem 19. Jahrhundert und mit fachgerechter Elektrifizierung für den heutigen Gebrauch. Jedes Stück prüfen wir auf Vollständigkeit und Zustand, kleinere Restaurierungen dokumentieren wir transparent. Antike Beleuchtung setzt in der modernen Wohnkultur bewusste Akzente. Die online gezeigte Auswahl ist nur ein Ausschnitt: In unserer Ausstellung am Uhlenhorster Weg in Hamburg-Uhlenhorst und im Lager in Ahrensfelde warten weitere Lampen und Leuchter unterschiedlichster Stilepochen auf Entdeckung – sprechen Sie uns einfach an.</p>
+      </div>
     </div>
   </section>
 
@@ -358,7 +364,7 @@
     <div class="cta-banner-inner fade-up">
       <span class="cta-banner-eyebrow">Persönliche Beratung</span>
       <h2>Sie suchen etwas Besonderes?<br><em>Wir helfen Ihnen persönlich.</em></h2>
-      <a href="kontakt" class="btn-gold-lg">Jetzt anfragen</a>
+      <a href="kontakt" class="btn-gold-lg" aria-label="Jetzt zu Lampen anfragen">Jetzt anfragen</a>
     </div>
   </section>
 
@@ -377,7 +383,7 @@
       </div>
       <div class="footer-col">
         <h4>Öffnungszeiten</h4>
-        <p>Mi – Fr: 15:00 – 18:00 Uhr<br>Sa: 11:00 – 13:00 Uhr<br>Sonst auf Anfrage<br><br>Tel: (0)172 450 23 87<br>info@steinmetz-antiquitaeten.de</p>
+        <p>Mi – Fr: 15:00 – 18:00 Uhr<br>Sa: 11:00 – 13:00 Uhr<br>Sonst auf Anfrage<br><br>Tel: <a href="tel:+491724502387">(0)172 450 23 87</a><br><a href="mailto:info@steinmetz-antiquitaeten.de">info@steinmetz-antiquitaeten.de</a></p>
       </div>
       <div class="footer-col">
         <h4>Kategorien</h4>
@@ -404,7 +410,10 @@
   <script>
     const navToggle = document.getElementById('navToggle');
     const navLinks  = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+    });
     document.querySelector('.cat-hero-bg').style.transition = 'transform 8s ease';
     setTimeout(() => document.querySelector('.cat-hero-bg').classList.add('loaded'), 100);
     const observer = new IntersectionObserver((entries) => {
