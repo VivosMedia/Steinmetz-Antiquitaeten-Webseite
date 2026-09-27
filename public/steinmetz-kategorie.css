@@ -298,6 +298,17 @@ body::after {
   font-weight: 300;
   line-height: 1.8;
 }
+.products-header p a {
+  color: var(--gold);
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 168, 76, 0.45);
+  text-underline-offset: 2px;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+.products-header p a:hover {
+  color: var(--gold-light);
+  text-decoration-color: var(--gold-light);
+}
 
 .product-count {
   font-family: 'Lato', sans-serif;
@@ -348,6 +359,11 @@ body::after {
   background-size: cover;
   background-position: center;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+img.product-card-img-inner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .product-card:hover .product-card-img-inner {
   transform: scale(1.06);

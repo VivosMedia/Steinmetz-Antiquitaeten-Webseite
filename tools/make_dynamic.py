@@ -10,14 +10,27 @@ with open(os.path.join(root, 'products.json'), encoding='utf-8') as f:
 
 LOADER_TEMPLATE = '''
   <script>
-    /* ── dynamic product loader (mit Lazy-Loading) ── */
+    /* ── dynamic product loader ── */
     (function() {{
       const CAT         = {cat_json};
       const FALLBACK    = {fallback_json};
-      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest lazy
+      const EAGER_COUNT = 6; // erste zwei Reihen sofort laden, Rest per loading="lazy"
+
+      const SINGULAR = {{
+        kommoden: 'Kommode', lampen: 'Lampe', dekoration: 'Dekorationsobjekt',
+        tische: 'Tisch', sitzmoebel: 'Sitzmöbel', sekretaere: 'Sekretär',
+        schraenke: 'Schrank', angebote: 'Antiquität'
+      }};
 
       function esc(s) {{
         return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+      }}
+
+      function altText(p) {{
+        var label = SINGULAR[CAT] || CAT;
+        var parts = [p.name];
+        if (p.desc) parts.push(p.desc);
+        return parts.join(', ') + ' – antike ' + label + ' bei Steinmetz Antiquitäten Hamburg';
       }}
 
       const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">'
@@ -40,10 +53,10 @@ LOADER_TEMPLATE = '''
           if (!p.img) {{
             imgInner = '<div class="product-card-img-inner product-card-placeholder">'
               + PLACEHOLDER_SVG + '<span>Foto folgt in K&uuml;rze</span></div>';
-          }} else if (i < EAGER_COUNT) {{
-            imgInner = '<div class="product-card-img-inner" style="background-image:url(\\'' + esc(p.img) + '\\')"></div>';
           }} else {{
-            imgInner = '<div class="product-card-img-inner lazy-bg" data-bg="' + esc(p.img) + '"></div>';
+            var loadAttr = i < EAGER_COUNT ? 'eager' : 'lazy';
+            imgInner = '<img class="product-card-img-inner" src="' + esc(p.img) + '" alt="' + esc(altText(p))
+              + '" loading="' + loadAttr + '" decoding="async" width="600" height="600">';
           }}
           var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
           return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
@@ -58,18 +71,6 @@ LOADER_TEMPLATE = '''
           entries.forEach(function(e) {{ if (e.isIntersecting) {{ e.target.classList.add('visible'); revealObs.unobserve(e.target); }} }});
         }}, {{ threshold: 0.08, rootMargin: '0px 0px -20px 0px' }});
         grid.querySelectorAll('.fade-up').forEach(function(el) {{ revealObs.observe(el); }});
-
-        var lazyObs = new IntersectionObserver(function(entries) {{
-          entries.forEach(function(e) {{
-            if (e.isIntersecting) {{
-              var el = e.target;
-              el.style.backgroundImage = "url('" + el.dataset.bg + "')";
-              el.classList.remove('lazy-bg');
-              lazyObs.unobserve(el);
-            }}
-          }});
-        }}, {{ rootMargin: '600px 0px' }});
-        grid.querySelectorAll('.lazy-bg').forEach(function(el) {{ lazyObs.observe(el); }});
       }}
 
       fetch('./products.json?' + Date.now())

@@ -1,12 +1,27 @@
 #!/usr/bin/env python3
-"""Comprehensive SEO optimization for all Steinmetz Antiquitäten pages."""
-import os, re
+"""Comprehensive SEO optimization for all Steinmetz Antiquitäten pages.
 
-root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = 'https://steinmetz-antiquitaeten.de'   # update when domain goes live
-OG_IMG = f'{BASE}/Gemini%20Generated%20Image%20Wohnzimmer.png'
+Regenerates title/description/canonical/OG/Twitter tags and JSON-LD
+(AntiqueStore on index.html, CollectionPage+ItemList on category pages)
+from the data below and from public/products.json. Safe to re-run any
+time page copy or the product catalog changes.
+"""
+import os, re, json
 
-# ── SEO data per page ────────────────────────────────────────────────
+root = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'public')
+BASE = 'https://www.steinmetz-antiquitaeten.de'
+OG_IMG = f'{BASE}/Gemini%20Generated%20Image%20Wohnzimmer.jpg'
+
+with open(os.path.join(root, 'products.json'), encoding='utf-8') as f:
+    ALL_PRODUCTS = json.load(f)
+
+CATEGORY_LABELS = {
+    'kommoden': 'Kommoden', 'lampen': 'Lampen', 'dekoration': 'Dekoration',
+    'tische': 'Tische', 'sitzmoebel': 'Sitzmöbel', 'sekretaere': 'Sekretäre',
+    'schraenke': 'Schränke', 'angebote': 'Angebote',
+}
+
+# ── SEO data per page (title <=60 chars, desc <=155 chars, CTA included) ──
 PAGES = {
     'index.html': {
         'title': 'Antiquitäten Hamburg – Steinmetz | Biedermeiermöbel kaufen',
@@ -14,63 +29,80 @@ PAGES = {
         'url':   f'{BASE}/',
     },
     'kommoden.html': {
-        'title': 'Antike Kommoden kaufen Hamburg | Biedermeier & Empire – Steinmetz',
-        'desc':  'Antike Kommoden in Hamburg: Biedermeier, Empire & Rokoko aus Birke, Ulme, Mahagoni. Über 18 handverlesene Stücke bei Steinmetz Antiquitäten – persönlich anfragen.',
+        'title': 'Antike Kommoden kaufen Hamburg | Biedermeier – Steinmetz',
+        'desc':  'Antike Kommoden in Hamburg: Biedermeier, Empire & Rokoko aus Birke, Ulme, Mahagoni. 18 handverlesene Stücke – jetzt persönlich anfragen!',
         'url':   f'{BASE}/kommoden.html',
+        'category': 'kommoden',
     },
     'lampen.html': {
-        'title': 'Antike Lampen & Lüster Hamburg kaufen | Steinmetz Antiquitäten',
-        'desc':  'Antike Lampen in Hamburg: Kristallüster, Palmenlampen & Kerzenampeln aus Biedermeier & Empire. 12 einzigartige Stücke bei Steinmetz Antiquitäten.',
+        'title': 'Antike Lampen & Lüster Hamburg kaufen – Steinmetz',
+        'desc':  'Antike Lampen in Hamburg: Kristallüster, Palmenlampen & Kerzenampeln aus Biedermeier & Empire. 12 einzigartige Stücke – jetzt anfragen!',
         'url':   f'{BASE}/lampen.html',
+        'category': 'lampen',
     },
     'dekoration.html': {
-        'title': 'Antike Dekoration Hamburg | Spiegel, Gemälde, Uhren – Steinmetz',
-        'desc':  'Antike Dekoration kaufen in Hamburg: Gemälde, Spiegel, Bronzen, Kerzenleuchter & Sammlerstücke. Kuratiert von Jon Steinmetz – Hamburgs Antiquitätenexperte.',
+        'title': 'Antike Dekoration Hamburg | Spiegel & Gemälde – Steinmetz',
+        'desc':  'Antike Dekoration in Hamburg: Gemälde, Spiegel, Bronzen & Kerzenleuchter, kuratiert von Jon Steinmetz. Jetzt Sammlerstücke persönlich anfragen!',
         'url':   f'{BASE}/dekoration.html',
+        'category': 'dekoration',
     },
     'tische.html': {
-        'title': 'Antike Tische Hamburg kaufen | Biedermeier Konsol- & Esstische',
-        'desc':  'Antike Tische in Hamburg: Konsoltische, Sofatische & Esstische aus Biedermeier & Empire. Handverlesene Stücke bei Steinmetz Antiquitäten Hamburg.',
+        'title': 'Antike Tische Hamburg kaufen | Biedermeier – Steinmetz',
+        'desc':  'Antike Tische in Hamburg: Konsoltische, Sofatische & Esstische aus Biedermeier & Empire. Handverlesene Stücke – jetzt persönlich anfragen!',
         'url':   f'{BASE}/tische.html',
+        'category': 'tische',
     },
     'sitzmoebel.html': {
-        'title': 'Antike Sitzmöbel Hamburg | Biedermeier Sessel & Sofas kaufen',
-        'desc':  'Antike Sitzmöbel in Hamburg: Biedermeier-Sessel, Empire-Sofas & klassizistische Stühle. Einzigartiger Bestand bei Steinmetz Antiquitäten, Hamburg.',
+        'title': 'Antike Sitzmöbel Hamburg | Sessel & Sofas – Steinmetz',
+        'desc':  'Antike Sitzmöbel in Hamburg: Biedermeier-Sessel, Empire-Sofas & klassizistische Stühle. Einzigartiger Bestand – jetzt persönlich anfragen!',
         'url':   f'{BASE}/sitzmoebel.html',
+        'category': 'sitzmoebel',
     },
     'sekretaere.html': {
-        'title': 'Antike Sekretäre & Bureaus Hamburg kaufen | Biedermeier – Steinmetz',
-        'desc':  'Antike Sekretäre kaufen in Hamburg: Biedermeier-Sekretäre aus Birke & Ahorn, Zylinderbureau & Empire-Bureaus. Steinmetz Antiquitäten, Uhlenhorster Weg 14.',
+        'title': 'Antike Sekretäre Hamburg kaufen | Biedermeier – Steinmetz',
+        'desc':  'Antike Sekretäre in Hamburg: Biedermeier aus Birke & Ahorn, Zylinderbureau & Empire-Bureaus. Uhlenhorster Weg 14 – jetzt persönlich anfragen!',
         'url':   f'{BASE}/sekretaere.html',
+        'category': 'sekretaere',
     },
     'schraenke.html': {
-        'title': 'Antike Schränke & Vitrinen Hamburg kaufen | Steinmetz Antiquitäten',
-        'desc':  'Antike Schränke in Hamburg: Dielenschränke, Eckvitrinen & Aufsatzvitrinen aus Biedermeier und Barock. 25 Stücke – Steinmetz Antiquitäten Hamburg.',
+        'title': 'Antike Schränke & Vitrinen Hamburg – Steinmetz',
+        'desc':  'Antike Schränke in Hamburg: Dielenschränke, Eckvitrinen & Aufsatzvitrinen, Biedermeier bis Barock. 25 Stücke – jetzt persönlich anfragen!',
         'url':   f'{BASE}/schraenke.html',
+        'category': 'schraenke',
     },
     'angebote.html': {
-        'title': 'Antiquitäten Ausverkauf Hamburg – Alles reduziert | Steinmetz',
-        'desc':  'Ausverkauf bei Steinmetz Antiquitäten Hamburg: Biedermeiermöbel & antike Objekte zu stark reduzierten Preisen. Einmalige Gelegenheit – jetzt zugreifen!',
+        'title': 'Antiquitäten Ausverkauf Hamburg – Steinmetz',
+        'desc':  'Ausverkauf bei Steinmetz Antiquitäten Hamburg: Biedermeiermöbel & antike Objekte stark reduziert. Einmalige Gelegenheit – jetzt zugreifen!',
         'url':   f'{BASE}/angebote.html',
+        'category': 'angebote',
     },
     'kontakt.html': {
-        'title': 'Kontakt & Öffnungszeiten | Steinmetz Antiquitäten Hamburg',
-        'desc':  'Steinmetz Antiquitäten Hamburg – Uhlenhorster Weg 14, 22085 Hamburg. Mi–Fr 15–18 Uhr, Sa 11–13 Uhr. Tel: (0)172 450 23 87 · WhatsApp & E-Mail möglich.',
+        'title': 'Kontakt & Öffnungszeiten | Steinmetz Antiquitäten',
+        'desc':  'Steinmetz Antiquitäten Hamburg – Uhlenhorster Weg 14, 22085 Hamburg. Mi–Fr 15–18 Uhr, Sa 11–13 Uhr. Tel: (0)172 450 23 87 · jetzt anfragen!',
         'url':   f'{BASE}/kontakt.html',
+    },
+    'impressum.html': {
+        'title': 'Impressum | Steinmetz Antiquitäten Hamburg',
+        'desc':  'Impressum von Steinmetz Antiquitäten Hamburg. Angaben gemäß § 5 TMG, Kontaktdaten und rechtliche Hinweise.',
+        'url':   f'{BASE}/impressum.html',
     },
 }
 
-# ── JSON-LD LocalBusiness (only for index.html) ──────────────────────
+# ── JSON-LD AntiqueStore (only for index.html) ────────────────────────
 JSONLD = '''\
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AntiquesStore",
+    "@type": "AntiqueStore",
     "name": "Steinmetz Antiquitäten",
     "description": "Hamburgs Spezialist für Biedermeiermöbel und antike Möbel – persönlich kuratiert von Jon Steinmetz seit über 30 Jahren.",
     "url": "''' + BASE + '''",
     "telephone": "+491724502387",
     "email": "info@steinmetz-antiquitaeten.de",
+    "founder": {
+      "@type": "Person",
+      "name": "Jon Steinmetz"
+    },
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Uhlenhorster Weg 14",
@@ -92,11 +124,49 @@ JSONLD = '''\
     "priceRange": "€€€",
     "image": "''' + OG_IMG + '''",
     "sameAs": [
-      "https://www.instagram.com/jon_steinmetz_kunsthandel/",
-      "https://www.steinmetz-antiquitaeten.de"
+      "https://www.instagram.com/jon_steinmetz_kunsthandel/"
     ]
   }
   </script>'''
+
+
+def build_category_jsonld(cat, data):
+    """CollectionPage + ItemList JSON-LD generated from products.json."""
+    label = CATEGORY_LABELS.get(cat, cat)
+    products = ALL_PRODUCTS.get(cat, [])
+
+    items = []
+    for i, p in enumerate(products):
+        item = {
+            '@type': 'Product',
+            'name': p.get('name') or label,
+            'url': f'{BASE}/produkt.html?cat={cat}&id={p.get("id", "")}',
+            'itemCondition': 'https://schema.org/UsedCondition',
+            'brand': {'@type': 'Organization', 'name': 'Steinmetz Antiquitäten'},
+        }
+        if p.get('img'):
+            item['image'] = f'{BASE}/{p["img"]}'
+        if p.get('desc'):
+            item['description'] = p['desc']
+        items.append({'@type': 'ListItem', 'position': i + 1, 'item': item})
+
+    ld = {
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        'name': data['title'],
+        'url': data['url'],
+        'isPartOf': {'@type': 'WebSite', 'name': 'Steinmetz Antiquitäten', 'url': f'{BASE}/'},
+        'about': {'@type': 'Thing', 'name': label},
+        'mainEntity': {
+            '@type': 'ItemList',
+            'name': f'{label} – Steinmetz Antiquitäten',
+            'numberOfItems': len(items),
+            'itemListElement': items,
+        },
+    }
+    body = json.dumps(ld, ensure_ascii=False, indent=2)
+    return f'  <script type="application/ld+json">\n{body}\n  </script>'
+
 
 def build_head_tags(page, data):
     url   = data['url']
@@ -129,6 +199,8 @@ def build_head_tags(page, data):
 
     if is_index:
         lines.append(JSONLD)
+    elif 'category' in data:
+        lines.append(build_category_jsonld(data['category'], data))
 
     return '\n'.join(lines)
 

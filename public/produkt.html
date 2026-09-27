@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Objekt – Steinmetz Antiquitäten Hamburg</title>
   <meta name="description" content="Antikes Einzelstück von Steinmetz Antiquitäten Hamburg – persönlich kuratiert von Jon Steinmetz." />
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <link rel="stylesheet" href="fonts/fonts.css" />
   <link rel="stylesheet" href="steinmetz-kategorie.css" />
   <style>
@@ -260,10 +260,17 @@
     const navLinks  = document.getElementById('navLinks');
     navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
 
+    const BASE = 'https://www.steinmetz-antiquitaeten.de';
+
     const CAT_LABELS = {
       kommoden:'Kommoden', lampen:'Lampen', dekoration:'Dekoration',
       tische:'Tische', sitzmoebel:'Sitzmöbel', sekretaere:'Sekretäre',
       schraenke:'Schränke', angebote:'Angebote'
+    };
+    const CAT_SINGULAR = {
+      kommoden:'Kommode', lampen:'Lampe', dekoration:'Dekorationsobjekt',
+      tische:'Tisch', sitzmoebel:'Sitzmöbel', sekretaere:'Sekretär',
+      schraenke:'Schrank', angebote:'Antiquität'
     };
 
     const PLACEHOLDER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">'
@@ -274,7 +281,39 @@
       return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
 
+    function setMeta(attr, key, content) {
+      let el = document.querySelector(`meta[${attr}="${key}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', content);
+    }
+
+    function setCanonical(url) {
+      let el = document.querySelector('link[rel="canonical"]');
+      if (!el) {
+        el = document.createElement('link');
+        el.setAttribute('rel', 'canonical');
+        document.head.appendChild(el);
+      }
+      el.setAttribute('href', url);
+    }
+
+    function setProductJsonLd(data) {
+      let el = document.getElementById('productJsonLd');
+      if (!el) {
+        el = document.createElement('script');
+        el.type = 'application/ld+json';
+        el.id = 'productJsonLd';
+        document.head.appendChild(el);
+      }
+      el.textContent = JSON.stringify(data);
+    }
+
     function renderNotFound() {
+      setMeta('name', 'robots', 'noindex, follow');
       document.getElementById('productContent').innerHTML = `
         <div class="product-notfound">
           <h2>Objekt nicht gefunden</h2>
@@ -284,14 +323,48 @@
     }
 
     function renderProduct(cat, product) {
-      const label = CAT_LABELS[cat] || cat;
-      document.title = `${product.name} – Steinmetz Antiquitäten Hamburg`;
+      const label     = CAT_LABELS[cat] || cat;
+      const singular   = CAT_SINGULAR[cat] || label;
+      const pageUrl    = `${BASE}/produkt.html?cat=${encodeURIComponent(cat)}&id=${encodeURIComponent(product.id || '')}`;
+      const imgUrl     = product.img ? `${BASE}/${product.img}` : `${BASE}/Gemini%20Generated%20Image%20Wohnzimmer.jpg`;
+      const title      = `${product.name} – antike ${singular} | Steinmetz Antiquitäten Hamburg`;
+      const desc       = (product.desc ? `${product.name}, ${product.desc}` : product.name)
+        + ` – antike ${singular} bei Steinmetz Antiquitäten Hamburg. Jetzt persönlich anfragen!`;
+      const altText    = (product.desc ? `${product.name}, ${product.desc}` : product.name)
+        + ` – antike ${singular} bei Steinmetz Antiquitäten Hamburg`;
+
+      document.title = title;
       document.getElementById('breadcrumbCat').textContent = label;
       document.getElementById('breadcrumbCat').href = `${cat}.html`;
       document.getElementById('breadcrumbName').textContent = product.name;
 
+      setMeta('name', 'description', desc);
+      setMeta('name', 'robots', 'index, follow');
+      setCanonical(pageUrl);
+      setMeta('property', 'og:type', 'product');
+      setMeta('property', 'og:url', pageUrl);
+      setMeta('property', 'og:title', title);
+      setMeta('property', 'og:description', desc);
+      setMeta('property', 'og:image', imgUrl);
+      setMeta('name', 'twitter:card', 'summary_large_image');
+      setMeta('name', 'twitter:title', title);
+      setMeta('name', 'twitter:description', desc);
+      setMeta('name', 'twitter:image', imgUrl);
+
+      setProductJsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        name: product.name,
+        description: product.desc || undefined,
+        image: product.img ? imgUrl : undefined,
+        url: pageUrl,
+        category: label,
+        itemCondition: 'https://schema.org/UsedCondition',
+        brand: { '@type': 'Organization', name: 'Steinmetz Antiquitäten' },
+      });
+
       const imageHtml = product.img
-        ? `<div class="product-image-box"><img src="${esc(product.img)}" alt="${esc(product.name)}" loading="eager"></div>`
+        ? `<div class="product-image-box"><img src="${esc(product.img)}" alt="${esc(altText)}" loading="eager" decoding="async"></div>`
         : `<div class="product-image-placeholder">${PLACEHOLDER_SVG}<span>Foto folgt in K&uuml;rze</span></div>`;
 
       const descHtml = product.desc
