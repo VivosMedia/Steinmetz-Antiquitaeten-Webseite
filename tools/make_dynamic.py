@@ -58,7 +58,7 @@ LOADER_TEMPLATE = '''
             imgInner = '<img class="product-card-img-inner" src="' + esc(p.img) + '" alt="' + esc(altText(p))
               + '" loading="' + loadAttr + '" decoding="async" width="600" height="600">';
           }}
-          var href = 'produkt.html?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
+          var href = 'produkt?cat=' + encodeURIComponent(CAT) + '&id=' + encodeURIComponent(p.id || '');
           return '<a class="product-card fade-up' + (d?' '+d:'') + '" href="' + href + '">'
             + '<div class="product-card-img">' + imgInner + '</div>'
             + '<div class="product-card-info">'

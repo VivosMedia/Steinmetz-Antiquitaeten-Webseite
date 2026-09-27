@@ -189,23 +189,23 @@
 <body>
 
   <nav id="navbar">
-    <a href="index.html" class="nav-logo">Steinmetz Antiquitäten<span>Hamburg · Antiquitäten</span></a>
+    <a href="/" class="nav-logo">Steinmetz Antiquitäten<span>Hamburg · Antiquitäten</span></a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="kommoden.html">Kommoden</a></li>
-      <li><a href="lampen.html">Lampen</a></li>
-      <li><a href="dekoration.html">Dekoration</a></li>
-      <li><a href="tische.html">Tische</a></li>
-      <li><a href="sitzmoebel.html">Sitzmöbel</a></li>
-      <li><a href="sekretaere.html">Sekretäre</a></li>
-      <li><a href="schraenke.html">Schränke</a></li>
-      <li><a href="angebote.html">Angebote</a></li>
-      <li><a href="kontakt.html" class="nav-cta">Kontakt</a></li>
+      <li><a href="kommoden">Kommoden</a></li>
+      <li><a href="lampen">Lampen</a></li>
+      <li><a href="dekoration">Dekoration</a></li>
+      <li><a href="tische">Tische</a></li>
+      <li><a href="sitzmoebel">Sitzmöbel</a></li>
+      <li><a href="sekretaere">Sekretäre</a></li>
+      <li><a href="schraenke">Schränke</a></li>
+      <li><a href="angebote">Angebote</a></li>
+      <li><a href="kontakt" class="nav-cta">Kontakt</a></li>
     </ul>
     <button class="nav-hamburger" id="navToggle"><span></span><span></span><span></span></button>
   </nav>
 
   <div class="breadcrumb-bar"><div class="breadcrumb-bar-inner">
-    <a href="index.html">Startseite</a><span class="breadcrumb-sep">›</span>
+    <a href="/">Startseite</a><span class="breadcrumb-sep">›</span>
     <a href="#" id="breadcrumbCat">Kategorie</a><span class="breadcrumb-sep">›</span>
     <span class="current" id="breadcrumbName">Objekt</span>
   </div></div>
@@ -218,7 +218,7 @@
     <div class="cta-banner-inner fade-up">
       <span class="cta-banner-eyebrow">Persönliche Beratung</span>
       <h2>Sie suchen etwas Besonderes?<br><em>Wir helfen Ihnen persönlich.</em></h2>
-      <a href="kontakt.html" class="btn-gold-lg">Jetzt anfragen</a>
+      <a href="kontakt" class="btn-gold-lg">Jetzt anfragen</a>
     </div>
   </section>
 
@@ -244,14 +244,14 @@
         <p>Mi – Fr: 15:00 – 18:00 Uhr<br>Sa: 11:00 – 13:00 Uhr<br>Sonst auf Anfrage<br><br>Tel: (0)172 450 23 87<br>info@steinmetz-antiquitaeten.de</p>
       </div>
       <div class="footer-col"><h4>Kategorien</h4>
-        <a href="kommoden.html">Kommoden</a><a href="lampen.html">Lampen</a><a href="dekoration.html">Dekoration</a>
-        <a href="tische.html">Tische</a><a href="sitzmoebel.html">Sitzmöbel</a><a href="sekretaere.html">Sekretäre</a>
-        <a href="schraenke.html">Schränke</a><a href="angebote.html">Angebote</a>
+        <a href="kommoden">Kommoden</a><a href="lampen">Lampen</a><a href="dekoration">Dekoration</a>
+        <a href="tische">Tische</a><a href="sitzmoebel">Sitzmöbel</a><a href="sekretaere">Sekretäre</a>
+        <a href="schraenke">Schränke</a><a href="angebote">Angebote</a>
       </div>
     </div>
     <div class="footer-bottom">
       <p>&copy; 2024 Steinmetz Antiquitäten Hamburg.</p>
-      <div class="footer-bottom-links"><a href="impressum.html">Impressum</a><a href="kontakt.html">Kontakt</a><a href="admin.html">Verwaltung</a></div>
+      <div class="footer-bottom-links"><a href="impressum">Impressum</a><a href="kontakt">Kontakt</a><a href="admin.html">Verwaltung</a></div>
     </div>
   </footer>
 
@@ -318,14 +318,14 @@
         <div class="product-notfound">
           <h2>Objekt nicht gefunden</h2>
           <p>Dieses Stück ist nicht mehr verfügbar oder wurde bereits verkauft.</p>
-          <a href="index.html" class="btn-gold-lg">Zur Startseite</a>
+          <a href="/" class="btn-gold-lg">Zur Startseite</a>
         </div>`;
     }
 
     function renderProduct(cat, product) {
       const label     = CAT_LABELS[cat] || cat;
       const singular   = CAT_SINGULAR[cat] || label;
-      const pageUrl    = `${BASE}/produkt.html?cat=${encodeURIComponent(cat)}&id=${encodeURIComponent(product.id || '')}`;
+      const pageUrl    = `${BASE}/produkt?cat=${encodeURIComponent(cat)}&id=${encodeURIComponent(product.id || '')}`;
       const imgUrl     = product.img ? `${BASE}/${product.img}` : `${BASE}/Gemini%20Generated%20Image%20Wohnzimmer.jpg`;
       const title      = `${product.name} – antike ${singular} | Steinmetz Antiquitäten Hamburg`;
       const desc       = (product.desc ? `${product.name}, ${product.desc}` : product.name)
@@ -335,7 +335,7 @@
 
       document.title = title;
       document.getElementById('breadcrumbCat').textContent = label;
-      document.getElementById('breadcrumbCat').href = `${cat}.html`;
+      document.getElementById('breadcrumbCat').href = `${cat}`;
       document.getElementById('breadcrumbName').textContent = product.name;
 
       setMeta('name', 'description', desc);
@@ -372,7 +372,7 @@
         : `<p class="product-desc-empty">Keine weitere Beschreibung hinterlegt – gerne mehr Details auf Anfrage.</p>`;
 
       document.getElementById('productContent').innerHTML = `
-        <a href="${cat}.html" class="product-back">
+        <a href="${cat}" class="product-back">
           <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           Zurück zu ${esc(label)}
         </a>
@@ -384,7 +384,7 @@
             ${descHtml}
             <hr class="product-divider">
             <div class="product-actions">
-              <a href="kontakt.html" class="btn-gold-lg">Persönlich anfragen</a>
+              <a href="kontakt" class="btn-gold-lg">Persönlich anfragen</a>
             </div>
             <div class="product-note">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>

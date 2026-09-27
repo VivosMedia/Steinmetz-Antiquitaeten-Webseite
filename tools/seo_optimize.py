@@ -31,60 +31,60 @@ PAGES = {
     'kommoden.html': {
         'title': 'Antike Kommoden kaufen Hamburg | Biedermeier – Steinmetz',
         'desc':  'Antike Kommoden in Hamburg: Biedermeier, Empire & Rokoko aus Birke, Ulme, Mahagoni. 18 handverlesene Stücke – jetzt persönlich anfragen!',
-        'url':   f'{BASE}/kommoden.html',
+        'url':   f'{BASE}/kommoden',
         'category': 'kommoden',
     },
     'lampen.html': {
         'title': 'Antike Lampen & Lüster Hamburg kaufen – Steinmetz',
         'desc':  'Antike Lampen in Hamburg: Kristallüster, Palmenlampen & Kerzenampeln aus Biedermeier & Empire. 12 einzigartige Stücke – jetzt anfragen!',
-        'url':   f'{BASE}/lampen.html',
+        'url':   f'{BASE}/lampen',
         'category': 'lampen',
     },
     'dekoration.html': {
         'title': 'Antike Dekoration Hamburg | Spiegel & Gemälde – Steinmetz',
         'desc':  'Antike Dekoration in Hamburg: Gemälde, Spiegel, Bronzen & Kerzenleuchter, kuratiert von Jon Steinmetz. Jetzt Sammlerstücke persönlich anfragen!',
-        'url':   f'{BASE}/dekoration.html',
+        'url':   f'{BASE}/dekoration',
         'category': 'dekoration',
     },
     'tische.html': {
         'title': 'Antike Tische Hamburg kaufen | Biedermeier – Steinmetz',
         'desc':  'Antike Tische in Hamburg: Konsoltische, Sofatische & Esstische aus Biedermeier & Empire. Handverlesene Stücke – jetzt persönlich anfragen!',
-        'url':   f'{BASE}/tische.html',
+        'url':   f'{BASE}/tische',
         'category': 'tische',
     },
     'sitzmoebel.html': {
         'title': 'Antike Sitzmöbel Hamburg | Sessel & Sofas – Steinmetz',
         'desc':  'Antike Sitzmöbel in Hamburg: Biedermeier-Sessel, Empire-Sofas & klassizistische Stühle. Einzigartiger Bestand – jetzt persönlich anfragen!',
-        'url':   f'{BASE}/sitzmoebel.html',
+        'url':   f'{BASE}/sitzmoebel',
         'category': 'sitzmoebel',
     },
     'sekretaere.html': {
         'title': 'Antike Sekretäre Hamburg kaufen | Biedermeier – Steinmetz',
         'desc':  'Antike Sekretäre in Hamburg: Biedermeier aus Birke & Ahorn, Zylinderbureau & Empire-Bureaus. Uhlenhorster Weg 14 – jetzt persönlich anfragen!',
-        'url':   f'{BASE}/sekretaere.html',
+        'url':   f'{BASE}/sekretaere',
         'category': 'sekretaere',
     },
     'schraenke.html': {
         'title': 'Antike Schränke & Vitrinen Hamburg – Steinmetz',
         'desc':  'Antike Schränke in Hamburg: Dielenschränke, Eckvitrinen & Aufsatzvitrinen, Biedermeier bis Barock. 25 Stücke – jetzt persönlich anfragen!',
-        'url':   f'{BASE}/schraenke.html',
+        'url':   f'{BASE}/schraenke',
         'category': 'schraenke',
     },
     'angebote.html': {
         'title': 'Antiquitäten Ausverkauf Hamburg – Steinmetz',
         'desc':  'Ausverkauf bei Steinmetz Antiquitäten Hamburg: Biedermeiermöbel & antike Objekte stark reduziert. Einmalige Gelegenheit – jetzt zugreifen!',
-        'url':   f'{BASE}/angebote.html',
+        'url':   f'{BASE}/angebote',
         'category': 'angebote',
     },
     'kontakt.html': {
         'title': 'Kontakt & Öffnungszeiten | Steinmetz Antiquitäten',
         'desc':  'Steinmetz Antiquitäten Hamburg – Uhlenhorster Weg 14, 22085 Hamburg. Mi–Fr 15–18 Uhr, Sa 11–13 Uhr. Tel: (0)172 450 23 87 · jetzt anfragen!',
-        'url':   f'{BASE}/kontakt.html',
+        'url':   f'{BASE}/kontakt',
     },
     'impressum.html': {
         'title': 'Impressum | Steinmetz Antiquitäten Hamburg',
         'desc':  'Impressum von Steinmetz Antiquitäten Hamburg. Angaben gemäß § 5 TMG, Kontaktdaten und rechtliche Hinweise.',
-        'url':   f'{BASE}/impressum.html',
+        'url':   f'{BASE}/impressum',
     },
 }
 
@@ -140,7 +140,7 @@ def build_category_jsonld(cat, data):
         item = {
             '@type': 'Product',
             'name': p.get('name') or label,
-            'url': f'{BASE}/produkt.html?cat={cat}&id={p.get("id", "")}',
+            'url': f'{BASE}/produkt?cat={cat}&id={p.get("id", "")}',
             'itemCondition': 'https://schema.org/UsedCondition',
             'brand': {'@type': 'Organization', 'name': 'Steinmetz Antiquitäten'},
         }
