@@ -3,7 +3,7 @@
 (function () {
   var s = document.createElement('script');
   s.defer = true;
-  s.src = 'https://umami-production-41c4.up.railway.app/script.js';
-  s.setAttribute('data-website-id', 'c1449fe2-b7a1-4a31-b701-6fe6916ff8b9');
+  s.src = 'https://steinmetz-umami-analytics.vercel.app/script.js';
+  s.setAttribute('data-website-id', '5fd8284a-a13f-4d11-bf58-9ffab76594d2');
   document.head.appendChild(s);
 })();
