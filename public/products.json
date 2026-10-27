@@ -263,12 +263,6 @@
       "desc": "produkt mit Fehlern"
     },
     {
-      "id": "75gznq8m",
-      "img": "images/products/dekoration-mr4zoyjt-oudnk4fb.jpg",
-      "name": "Backgammon",
-      "desc": "Frankreich"
-    },
-    {
       "id": "00b35ebe",
       "img": null,
       "name": "Portraits",
@@ -279,6 +273,12 @@
       "img": null,
       "name": "Portrait",
       "desc": "Dänemark, um 1900"
+    },
+    {
+      "id": "14f80e56",
+      "img": null,
+      "name": "Portrait",
+      "desc": "1929"
     },
     {
       "id": "e5b0cf62",
