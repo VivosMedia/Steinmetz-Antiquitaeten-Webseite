@@ -245,6 +245,12 @@
   ],
   "dekoration": [
     {
+      "id": "75gznq8m",
+      "img": "images/products/dekoration-mr4zoyjt-oudnk4fb.jpg",
+      "name": "Backgammon",
+      "desc": "Frankreich"
+    },
+    {
       "id": "8d253116",
       "img": "images/products/DA2679BE-E83D-4324-A856-C37739AEDB12-5e2646ca9a05.jpg",
       "name": "Spiegel ca. 1880",
@@ -261,6 +267,12 @@
       "img": "images/products/dekoration-mrvy2xrq-9q889dl7.jpg",
       "name": "Japan 19.Jahrhundert",
       "desc": "produkt mit Fehlern"
+    },
+    {
+      "id": "1wgemj0c",
+      "img": "images/products/lampen-mr4zl7xm-q3gmik8a.jpg",
+      "name": "Backgammonkoffer  Mahagoni",
+      "desc": "Frankreich"
     },
     {
       "id": "00b35ebe",
@@ -393,12 +405,6 @@
       "img": "images/products/image20-ba82e2243f79.jpg",
       "name": "Schiffsmodell ca. 1880",
       "desc": "4-Mastsegelschiff Helene im Glashafen"
-    },
-    {
-      "id": "1788a036",
-      "img": "images/products/image4-9c7b9bdaddf5.jpg",
-      "name": "Ölgemälde signiert CP 1728",
-      "desc": "Sehr feine Malerei, biblische Szene, 70 × 50 cm"
     },
     {
       "id": "c31ba2bf",
