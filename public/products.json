@@ -103,22 +103,28 @@
       "desc": "Frankreich, ca. 1810"
     },
     {
-      "id": "b0751ade",
-      "img": null,
-      "name": "Empire Kommode",
-      "desc": "Ebonisiert"
-    },
-    {
       "id": "3d6dc688",
       "img": "images/products/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5-d94ffc588348.jpg",
       "name": "Empire Kommode",
       "desc": "Mahagoni, 80 cm Breite"
     },
     {
+      "id": "555845b7",
+      "img": null,
+      "name": "Kleine Kommode Mahagoni",
+      "desc": "Klassizismus, um 1800"
+    },
+    {
       "id": "f40345da",
       "img": "images/products/893A24CD-1378-4D28-8BA6-CF6D5417CFBA-79db7825194d.jpg",
       "name": "Kommode Birke Klassiker",
       "desc": "Originalzustand!"
+    },
+    {
+      "id": "3137a3fe",
+      "img": null,
+      "name": "Empire Kommode Ulme",
+      "desc": "Schöne Patina"
     },
     {
       "id": "58def19a",
