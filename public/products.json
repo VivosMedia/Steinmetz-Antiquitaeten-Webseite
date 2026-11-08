@@ -1,6 +1,12 @@
 {
   "kommoden": [
     {
+      "id": "3137a3fe",
+      "img": null,
+      "name": "Empire Kommode Ulme",
+      "desc": "Schöne Patina"
+    },
+    {
       "id": "ma2n2doq",
       "img": "images/products/kommoden-mw4mofbh-5nysam2x.jpg",
       "name": "Norddeutsch um 1830",
@@ -79,10 +85,10 @@
       "desc": "Norddeutsch"
     },
     {
-      "id": "b1291f0e",
+      "id": "da4a353d",
       "img": null,
-      "name": "Kleine Kommode",
-      "desc": "Birke, Patina"
+      "name": "Rokoko Kommode ca. 1780",
+      "desc": "Schöne Patina"
     },
     {
       "id": "7525c1cc",
@@ -119,12 +125,6 @@
       "img": "images/products/893A24CD-1378-4D28-8BA6-CF6D5417CFBA-79db7825194d.jpg",
       "name": "Kommode Birke Klassiker",
       "desc": "Originalzustand!"
-    },
-    {
-      "id": "3137a3fe",
-      "img": null,
-      "name": "Empire Kommode Ulme",
-      "desc": "Schöne Patina"
     },
     {
       "id": "58def19a",
