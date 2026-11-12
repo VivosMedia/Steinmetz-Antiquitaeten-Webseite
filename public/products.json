@@ -495,12 +495,6 @@
   ],
   "sitzmoebel": [
     {
-      "id": "86f4a44a",
-      "img": "images/products/14BE7972-D69A-45C8-B088-0F2967444160-f586bbf3a88c.jpg",
-      "name": "Bergère",
-      "desc": "Birke"
-    },
-    {
       "id": "15b55nl1",
       "img": "images/products/sitzmoebel-mrkb1e7i-qirpaqbp.jpg",
       "name": "B. Mogensen Sessel Modell2207",
@@ -571,6 +565,12 @@
       "img": "images/products/CCE1E739-6796-42C6-9807-FE44146956E1-0a5734db52c7.jpg",
       "name": "Paar Armlehnstühle",
       "desc": "Birke, Empireform"
+    },
+    {
+      "id": "572c144d",
+      "img": "images/products/AC19E6D9-E0C7-40F9-A311-BB9890A4F8A3-5d791235f7e5.jpg",
+      "name": "Ohrensessel",
+      "desc": "Kirsch"
     },
     {
       "id": "f463d297",
