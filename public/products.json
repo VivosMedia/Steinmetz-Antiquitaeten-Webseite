@@ -523,12 +523,5 @@
       "desc": "Biedermeier, Leipzig ca. 1810, Kirsche mit Ebonisierung"
     }
   ],
-  "angebote": [
-    {
-      "id": "da23ba51",
-      "img": null,
-      "name": "Empirespiegel ca. 1820",
-      "desc": "Vergoldet"
-    }
-  ]
+  "angebote": []
 }
