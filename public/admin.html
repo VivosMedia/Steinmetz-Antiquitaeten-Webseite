@@ -707,9 +707,14 @@ const CAT_LABELS = {
 let products    = {};
 let currentCat  = 'kommoden';
 let isDirty     = false;
+let isPublishing = false;
 let pendingFileData  = null; // { path, base64 } für das aktuell im Formular gewählte Foto
 let pendingUploads   = JSON.parse(localStorage.getItem('sa_pending_uploads') || '{}'); // { path: base64 } noch nicht veröffentlichte Fotos
 let pendingDeletions = JSON.parse(localStorage.getItem('sa_pending_deletions') || '[]'); // [{cat, id}] noch nicht veröffentlichte Löschungen
+
+function isPendingDeletion(cat, product) {
+  return pendingDeletions.some(deletion => deletion.cat === cat && deletion.id === product.id);
+}
 
 function savePendingDeletions() {
   try { localStorage.setItem('sa_pending_deletions', JSON.stringify(pendingDeletions)); }
@@ -845,6 +850,10 @@ async function loadProducts() {
     serverProducts = Object.fromEntries(Object.keys(CAT_LABELS).map(k=>[k,[]]));
   }
 
+  for (const cat of Object.keys(serverProducts)) {
+    serverProducts[cat] = (serverProducts[cat] || []).filter(p => !isPendingDeletion(cat, p));
+  }
+
   const draft = localStorage.getItem('sa_draft');
   let mergedInSomething = false;
 
@@ -854,7 +863,7 @@ async function loadProducts() {
       if (!serverProducts[cat]) serverProducts[cat] = [];
       const knownIds = new Set(serverProducts[cat].map(p => p.id));
       for (const p of draftProducts[cat] || []) {
-        if (!knownIds.has(p.id)) {
+        if (!knownIds.has(p.id) && !isPendingDeletion(cat, p)) {
           serverProducts[cat].unshift(p);
           mergedInSomething = true;
         }
@@ -863,12 +872,14 @@ async function loadProducts() {
   }
 
   products = serverProducts;
-  finishLoad(mergedInSomething);
+  finishLoad(mergedInSomething || pendingDeletions.length > 0);
   setStatus(
-    mergedInSomething
-      ? 'Serverdaten geladen, unveröffentlichter lokaler Entwurf ergänzt.'
-      : 'Produktdaten erfolgreich geladen.',
-    'ok'
+    pendingDeletions.length > 0
+      ? 'Ausstehende Löschungen geladen — bitte erneut veröffentlichen.'
+      : mergedInSomething
+        ? 'Serverdaten geladen, unveröffentlichter lokaler Entwurf ergänzt.'
+        : 'Produktdaten erfolgreich geladen.',
+    pendingDeletions.length > 0 ? 'warn' : 'ok'
   );
   if (draft && !mergedInSomething) {
     // Entwurf war bereits vollständig auf dem Server — aufräumen
@@ -902,7 +913,7 @@ function renderCat() {
         <div class="prod-name" title="${esc(p.name)}">${esc(p.name)}</div>
         <div class="prod-desc" title="${esc(p.desc)}">${esc(p.desc)}</div>
       </div>
-      <button class="del-btn" onclick="delProduct(${i})" title="Löschen">×</button>
+      <button class="del-btn" onclick="delProduct(${i})" title="Löschen" ${isPublishing ? 'disabled' : ''}>×</button>
     </div>`).join('');
 }
 
@@ -921,6 +932,7 @@ function updateBadge(cat) {
 
 /* ─── ADD / DELETE ──────────────────────────────────────────────────── */
 async function addProduct() {
+  if (isPublishing) return;
   const name   = document.getElementById('newName').value.trim();
   const desc   = document.getElementById('newDesc').value.trim();
   const urlVal = document.getElementById('newImg').value.trim();
@@ -975,6 +987,7 @@ function clearStagedFile() {
 }
 
 async function delProduct(i) {
+  if (isPublishing) return;
   const p = (products[currentCat]||[])[i];
   if (!p) return;
   if (!confirm(`„${p.name}" wirklich löschen?`)) return;
@@ -1009,7 +1022,7 @@ function clearDirty() {
 
 function updatePublishBtn() {
   const btn = document.getElementById('btnPublish');
-  btn.disabled = !isDirty;
+  btn.disabled = !isDirty || isPublishing;
 }
 
 /* ─── DOWNLOAD ──────────────────────────────────────────────────────── */
@@ -1028,9 +1041,13 @@ function downloadJSON() {
    API-Route, die dann mit dem Token bei GitHub schreibt. So muss der
    Token nirgends im Browser/Gerät gespeichert werden. */
 async function publish() {
+  if (isPublishing) return;
+  isPublishing = true;
   const btn = document.getElementById('btnPublish');
+  document.getElementById('btnAdd').disabled = true;
   btn.disabled = true;
   btn.textContent = 'Wird veröffentlicht …';
+  renderCat();
   setStatus('Veröffentliche …', 'warn');
 
   try {
@@ -1045,7 +1062,7 @@ async function publish() {
     const merged = {};
     for (const cat of Object.keys(CAT_LABELS)) {
       let items = (serverProducts[cat] || []).filter(
-        p => !pendingDeletions.some(d => d.cat === cat && d.id === p.id)
+        p => !isPendingDeletion(cat, p)
       );
       const knownIds = new Set(items.map(p => p.id));
       const localOnly = (products[cat] || []).filter(p => !knownIds.has(p.id));
@@ -1081,7 +1098,10 @@ async function publish() {
     setStatus(`Fehler: ${e.message}`, 'error');
     toast(`Fehler: ${e.message}`, 'err');
   } finally {
+    isPublishing = false;
+    document.getElementById('btnAdd').disabled = false;
     btn.textContent = 'Veröffentlichen';
+    renderCat();
     updatePublishBtn();
   }
 }
