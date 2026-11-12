@@ -61,12 +61,6 @@
       "desc": "Ca. 1760"
     },
     {
-      "id": "5810c02e",
-      "img": null,
-      "name": "Klassiker Birke",
-      "desc": "Norddeutsch"
-    },
-    {
       "id": "7525c1cc",
       "img": "images/products/8AA98183-9ABD-4543-A08E-C679EC50F4A7-3a73a6c9b6fc.jpg",
       "name": "Große Kommode",
@@ -79,16 +73,16 @@
       "desc": "Frankreich, ca. 1810"
     },
     {
-      "id": "b0751ade",
-      "img": null,
-      "name": "Empire Kommode",
-      "desc": "Ebonisiert"
-    },
-    {
       "id": "3d6dc688",
       "img": "images/products/9CA5F981-31DE-4B68-B5A2-32CE4696CEC5-d94ffc588348.jpg",
       "name": "Empire Kommode",
       "desc": "Mahagoni, 80 cm Breite"
+    },
+    {
+      "id": "555845b7",
+      "img": null,
+      "name": "Kleine Kommode Mahagoni",
+      "desc": "Klassizismus, um 1800"
     },
     {
       "id": "f40345da",
