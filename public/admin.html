@@ -711,22 +711,20 @@ let isPublishing = false;
 let pendingFileData  = null; // { path, base64 } für das aktuell im Formular gewählte Foto
 let pendingUploads   = JSON.parse(localStorage.getItem('sa_pending_uploads') || '{}'); // { path: base64 } noch nicht veröffentlichte Fotos
 let pendingDeletions = JSON.parse(localStorage.getItem('sa_pending_deletions') || '[]'); // [{cat, id}] noch nicht veröffentlichte Löschungen
+let pendingAdditions = JSON.parse(localStorage.getItem('sa_pending_additions') || '[]'); // [{cat, product}] noch nicht veröffentlichte Produkte
 
 function isPendingDeletion(cat, product) {
   return pendingDeletions.some(deletion => deletion.cat === cat && deletion.id === product.id);
 }
 
+function savePendingAdditions() {
+  try { localStorage.setItem('sa_pending_additions', JSON.stringify(pendingAdditions)); }
+  catch (e) { toast('Entwurf konnte nicht lokal gespeichert werden.', 'err'); }
+}
+
 function savePendingDeletions() {
   try { localStorage.setItem('sa_pending_deletions', JSON.stringify(pendingDeletions)); }
   catch (e) {}
-}
-
-async function fetchServerProducts() {
-  try {
-    const r = await fetch('products.json?' + Date.now());
-    if (r.ok) return await r.json();
-  } catch (_) {}
-  return null;
 }
 
 function savePendingUploads() {
@@ -857,6 +855,15 @@ async function loadProducts() {
   const draft = localStorage.getItem('sa_draft');
   let mergedInSomething = false;
 
+  for (const addition of pendingAdditions) {
+    if (!serverProducts[addition.cat]) serverProducts[addition.cat] = [];
+    const knownIds = new Set(serverProducts[addition.cat].map(p => p.id));
+    if (!knownIds.has(addition.product.id) && !isPendingDeletion(addition.cat, addition.product)) {
+      serverProducts[addition.cat].unshift(addition.product);
+      mergedInSomething = true;
+    }
+  }
+
   if (draft) {
     const draftProducts = JSON.parse(draft);
     for (const cat of Object.keys(draftProducts)) {
@@ -865,6 +872,7 @@ async function loadProducts() {
       for (const p of draftProducts[cat] || []) {
         if (!knownIds.has(p.id) && !isPendingDeletion(cat, p)) {
           serverProducts[cat].unshift(p);
+          knownIds.add(p.id);
           mergedInSomething = true;
         }
       }
@@ -872,14 +880,15 @@ async function loadProducts() {
   }
 
   products = serverProducts;
-  finishLoad(mergedInSomething || pendingDeletions.length > 0);
+  const hasPendingChanges = pendingDeletions.length > 0 || pendingAdditions.length > 0;
+  finishLoad(mergedInSomething || hasPendingChanges);
   setStatus(
-    pendingDeletions.length > 0
-      ? 'Ausstehende Löschungen geladen — bitte erneut veröffentlichen.'
+    hasPendingChanges
+      ? 'Ausstehende Produktänderungen geladen — bitte erneut veröffentlichen.'
       : mergedInSomething
         ? 'Serverdaten geladen, unveröffentlichter lokaler Entwurf ergänzt.'
         : 'Produktdaten erfolgreich geladen.',
-    pendingDeletions.length > 0 ? 'warn' : 'ok'
+    hasPendingChanges ? 'warn' : 'ok'
   );
   if (draft && !mergedInSomething) {
     // Entwurf war bereits vollständig auf dem Server — aufräumen
@@ -952,7 +961,10 @@ async function addProduct() {
   if (!img) { errEl.textContent = 'Bitte ein Foto hochladen oder eine Bild-URL angeben.'; return; }
 
   if (!products[currentCat]) products[currentCat] = [];
-  products[currentCat].unshift({ id: uid(), img, name, desc });
+  const product = { id: uid(), img, name, desc };
+  products[currentCat].unshift(product);
+  pendingAdditions.push({ cat: currentCat, product });
+  savePendingAdditions();
 
   resetAddForm();
   updateBadge(currentCat);
@@ -995,7 +1007,11 @@ async function delProduct(i) {
     delete pendingUploads[p.img];
     savePendingUploads();
   }
-  pendingDeletions.push({ cat: currentCat, id: p.id });
+  pendingAdditions = pendingAdditions.filter(addition => addition.cat !== currentCat || addition.product.id !== p.id);
+  savePendingAdditions();
+  if (!pendingDeletions.some(deletion => deletion.cat === currentCat && deletion.id === p.id)) {
+    pendingDeletions.push({ cat: currentCat, id: p.id });
+  }
   savePendingDeletions();
   products[currentCat].splice(i, 1);
   updateBadge(currentCat);
@@ -1054,21 +1070,6 @@ async function publish() {
     const passwordHash = sessionStorage.getItem('sa_session_hash');
     if (!passwordHash) throw new Error('Sitzung abgelaufen — bitte neu einloggen.');
 
-    /* Nie den möglicherweise veralteten lokalen Stand blind überschreiben:
-       frische Serverdaten holen, eigene Löschungen abziehen, eigene noch
-       nicht veröffentlichte Hinzufügungen ergänzen. So überschreibt ein
-       Gerät nie, was ein anderes Gerät in der Zwischenzeit hinzugefügt hat. */
-    const serverProducts = (await fetchServerProducts()) || {};
-    const merged = {};
-    for (const cat of Object.keys(CAT_LABELS)) {
-      let items = (serverProducts[cat] || []).filter(
-        p => !isPendingDeletion(cat, p)
-      );
-      const knownIds = new Set(items.map(p => p.id));
-      const localOnly = (products[cat] || []).filter(p => !knownIds.has(p.id));
-      merged[cat] = [...localOnly, ...items];
-    }
-
     // Bildpfade sind relativ zur ausgelieferten Seite (images/products/...);
     // im Repository liegen sie aber unter public/, das hängen wir hier an.
     const images = Object.entries(pendingUploads).map(([path, content]) => ({ path: `public/${path}`, content }));
@@ -1076,24 +1077,29 @@ async function publish() {
     const r = await fetch(`${API_BASE}/api/admin/publish`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ passwordHash, products: merged, images }),
+      body: JSON.stringify({ passwordHash, additions: pendingAdditions, deletions: pendingDeletions, images }),
     });
     const result = await r.json();
 
-    if (r.ok && result.success) {
-      products = merged;
-      pendingUploads = {};
-      pendingDeletions = [];
-      savePendingUploads();
-      savePendingDeletions();
-      clearDirty();
-      renderCat();
-      Object.keys(CAT_LABELS).forEach(updateBadge);
-      setStatus('Erfolgreich veröffentlicht! GitHub Pages aktualisiert sich in ~1 Minute.', 'ok');
-      toast('Erfolgreich veröffentlicht!', 'ok');
-    } else {
+    if (!r.ok || !result.success) {
       throw new Error(result.error || `HTTP ${r.status}`);
     }
+    if (!result.products || typeof result.products !== 'object' || Array.isArray(result.products)) {
+      throw new Error('Unerwartete Antwort beim Veröffentlichen.');
+    }
+
+    products = result.products;
+    pendingUploads = {};
+    pendingAdditions = [];
+    pendingDeletions = [];
+    savePendingUploads();
+    savePendingAdditions();
+    savePendingDeletions();
+    clearDirty();
+    renderCat();
+    Object.keys(CAT_LABELS).forEach(updateBadge);
+    setStatus('Erfolgreich veröffentlicht! GitHub Pages aktualisiert sich in ~1 Minute.', 'ok');
+    toast('Erfolgreich veröffentlicht!', 'ok');
   } catch (e) {
     setStatus(`Fehler: ${e.message}`, 'error');
     toast(`Fehler: ${e.message}`, 'err');
